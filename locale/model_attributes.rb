@@ -91,6 +91,8 @@ _('ComputeResource|Attrs')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('ComputeResource|Description')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('ComputeResource|Email')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('ComputeResource|Name')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('ComputeResource|Password')
@@ -187,15 +189,11 @@ _('Host::Base|Image file')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Installed at')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
-_('Host::Base|Ip')
-# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Last compile')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Last freshcheck')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Last report')
-# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
-_('Host::Base|Mac')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Managed')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -204,8 +202,6 @@ _('Host::Base|Name')
 _('Host::Base|Otp')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Owner type')
-# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
-_('Host::Base|Primary interface')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Host::Base|Provision method')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -287,6 +283,8 @@ _('LookupKey|Path')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('LookupKey|Required')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('LookupKey|Use puppet default')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('LookupKey|Validator rule')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('LookupKey|Validator type')
@@ -295,7 +293,25 @@ _('Lookup value')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('LookupValue|Match')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('LookupValue|Use puppet default')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('LookupValue|Value')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Mail notification')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Default interval')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Description')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Mailer')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Method')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Name')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Subscriptable')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('MailNotification|Subscription type')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Medium')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -337,6 +353,8 @@ _('Nic::Base|Attrs')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Bond options')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Nic::Base|Compute attributes')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Identifier')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Ip')
@@ -353,7 +371,11 @@ _('Nic::Base|Name')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Password')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Nic::Base|Primary')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Provider')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Nic::Base|Provision')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Nic::Base|Tag')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -413,11 +435,11 @@ _('Puppetclass|Global class params count')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Puppetclass|Hostgroups count')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
-_('Puppetclass|Hosts count')
-# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Puppetclass|Lookup keys count')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Puppetclass|Name')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Puppetclass|Total hosts')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Realm')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -505,7 +527,15 @@ _('Taxonomy')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Taxonomy|Ancestry')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Taxonomy|Default info')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Taxonomy|Description')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Taxonomy|Ignore types')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Taxonomy|Katello default')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Taxonomy|Label')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('Taxonomy|Name')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -535,13 +565,21 @@ _('Trend counter')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('TrendCounter|Count')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('TrendCounter|Interval end')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('TrendCounter|Interval start')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Admin')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Avatar hash')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Disabled')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Firstname')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Helptips enabled')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Last login on')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -555,9 +593,23 @@ _('User|Lower login')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Mail')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Mail enabled')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Page size')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Password hash')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User|Password salt')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Preferences')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User|Timezone')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('User mail notification')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('UserMailNotification|Interval')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('UserMailNotification|Last sent')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('User role')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
@@ -572,3 +624,21 @@ _('Usergroup|Name')
 _('Usergroup member')
 # TRANSLATORS: "Table name" or "Table name|Column name" for error messages
 _('UsergroupMember|Member type')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Col')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Data')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Hide')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Name')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Row')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Sizex')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Sizey')
+# TRANSLATORS: "Table name" or "Table name|Column name" for error messages
+_('Widget|Template')

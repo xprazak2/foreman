@@ -30,7 +30,7 @@ namespace :locale do
   task :find_code => ["gettext:find"]
 
   desc 'Extract strings from model and from codebase'
-  find_dependencies = [:find_model, :find_code]
+  find_dependencies = [:find_model, :find_settings, :find_code]
   find_dependencies.shift if ENV['SKIP_MODEL']
   task :find => find_dependencies do
     # do not commit PO string merge into git (we are using transifex.com)
@@ -42,6 +42,20 @@ namespace :locale do
       errors.each {|e| puts "MALFORMED: #{e}"}
       puts "Malformed strings found: #{errors.count}"
       puts "Please read http://projects.theforeman.org/projects/foreman/wiki/Translating"
+    end
+  end
+
+  task :find_settings => :environment do
+    filename = "locale/setting_names"
+    settings = Setting.where("category = ? OR category = ? OR category = ? OR category = ?",
+     "Setting::General",
+     "Setting::Auth",
+     "Setting::Provisioning",
+     "Setting::Puppet")
+    File.open("#{filename}.rb", "w") do |output|
+      settings.each do |s|
+        output.puts "N_(\"#{s.name}\")"
+      end
     end
   end
 
