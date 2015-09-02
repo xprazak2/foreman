@@ -4,6 +4,7 @@ class Report < ActiveRecord::Base
   MAX = (1 << BIT_NUM) -1 # maximum value per metric
   LOG_LEVELS = %w[debug info notice warning err alert emerg crit]
 
+  include Foreman::STI
   include Authorizable
   include ConfigurationStatusScopedSearch
 
@@ -93,7 +94,8 @@ class Report < ActiveRecord::Base
   end
 
   def self.import(report, proxy_id = nil)
-    ReportImporter.import(report, proxy_id)
+    Foreman::Deprecation.deprecation_warning('1.12', "Report model has turned to be STI, please use child classes")
+    ConfigReportImporter.import(report, proxy_id)
   end
 
   # returns a hash of hosts and their recent reports metric counts which have values
@@ -133,8 +135,8 @@ class Report < ActiveRecord::Base
     Log.joins(:report).where(:report_id => Report.where(cond)).delete_all
     Message.where("id not IN (#{Log.unscoped.select('DISTINCT message_id').to_sql})").delete_all
     Source.where("id not IN (#{Log.unscoped.select('DISTINCT source_id').to_sql})").delete_all
-    count = Report.where(cond).delete_all
-    logger.info Time.now.to_s + ": Expired #{count} Reports"
+    count = where(cond).delete_all
+    logger.info Time.now.to_s + ": Expired #{count} #{to_s.underscore.humanize.pluralize}"
     count
   end
 
