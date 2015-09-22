@@ -1,6 +1,6 @@
 class ConfigReportImporter < ReportImporter
   def self.authorized_smart_proxy_features
-    ['Puppet']
+    @authorized_smart_proxy_features ||= super + ['Puppet']
   end
 
   def report_name_class

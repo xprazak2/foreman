@@ -23,7 +23,7 @@ class ConfigReportsController < ApplicationController
   def destroy
     @config_report = resource_base.find(params[:id])
     if @config_report.destroy
-      process_success(:success_msg => _("Successfully deleted report."), :success_redirect => reports_path)
+      process_success(:success_msg => _("Successfully deleted report."), :success_redirect => config_reports_path)
     else
       process_error
     end

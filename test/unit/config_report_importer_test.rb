@@ -5,6 +5,26 @@ class ConfigReportImporterTest < ActiveSupport::TestCase
     ActionMailer::Base.deliveries = []
   end
 
+  test "additional features can be registered if it's uniq" do
+    original = ReportImporter.authorized_smart_proxy_features
+    ReportImporter.register_smart_proxy_feature('Chef')
+    new = ReportImporter.authorized_smart_proxy_features
+    added = new - original
+    assert_include(added, 'Chef')
+    assert_equal 1, added.size
+
+    ReportImporter.register_smart_proxy_feature('Chef')
+    new = ReportImporter.authorized_smart_proxy_features
+    added = new - original
+    assert_include(added, 'Chef')
+    assert_equal 1, added.size
+
+    ReportImporter.unregister_smart_proxy_feature('Chef')
+    new = ReportImporter.authorized_smart_proxy_features
+    added = new - original
+    assert_equal 0, added.size
+  end
+
   context 'with user owner' do
     setup do
       @owner = as_admin { FactoryGirl.create(:user, :admin, :with_mail) }

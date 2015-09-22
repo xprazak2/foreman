@@ -2,10 +2,17 @@ class ReportImporter
   delegate :logger, :to => :Rails
   attr_reader :report
 
+  # When writing your own Report importer, provide feature(s) of authorized Smart Proxies
   def self.authorized_smart_proxy_features
-    # When writing your own Report importer, provide feature(s) of authorized Smart Proxies
-    Rails.logger.debug("Importer #{self} does not implement authorized_smart_proxy_features.")
-    []
+    @authorized_smart_proxy_features ||= []
+  end
+
+  def self.register_smart_proxy_feature(feature)
+    @authorized_smart_proxy_features = (authorized_smart_proxy_features + [ feature ]).uniq
+  end
+
+  def self.unregister_smart_proxy_feature(feature)
+    @authorized_smart_proxy_features -= [ feature ]
   end
 
   def self.import(raw, proxy_id = nil)
@@ -30,8 +37,10 @@ class ReportImporter
     logger.info "processing report for #{name}"
     logger.debug { "Report: #{raw.inspect}" }
     create_report_and_logs
-    logger.info("Imported report for #{name} in #{(Time.now - start_time).round(2)} seconds")
-    host.refresh_statuses
+    if report.persisted?
+      logger.info("Imported report for #{name} in #{(Time.now - start_time).round(2)} seconds")
+      host.refresh_statuses
+    end
   end
 
   private
@@ -75,7 +84,7 @@ class ReportImporter
   end
 
   def report_status
-    ReportStatusCalculator.new(:counters => raw['status']).calculate
+    ConfigReportStatusCalculator.new(:counters => raw['status']).calculate
   end
 
   def notify_on_report_error(mail_error_state)

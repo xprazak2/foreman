@@ -1,7 +1,6 @@
 class RemoveChefProxy < ActiveRecord::Migration
   def up
-    chef_feature = Feature.find_by_name("Chef Proxy")
-    chef_feature.destroy if chef_feature
+    Feature.delete_all("name = 'Chef Proxy'")
   end
 
   def down
