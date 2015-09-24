@@ -10,10 +10,6 @@ Foreman::Application.routes.draw do
   #ENC requests goes here
   get "node/:name" => 'hosts#externalNodes', :constraints => { :name => /[^\.][\w\.-]+/ }
 
-  # Redirect reports with deprecation warning
-  get "/reports", :to => redirect { |params, request| DeprecationRedirect.new("config_reports", params, request.query_string, '1.12', 'Reports are renamed to Config Reports').redirect_url }
-  get "/reports/:id", :to => redirect { |params, request| DeprecationRedirect.new("config_reports", params, request.query_string, '1.12', 'Reports are renamed to Config Reports').redirect_url }
-
   resources :config_reports, :only => [:index, :show, :destroy] do
     collection do
       get 'auto_complete_search'
