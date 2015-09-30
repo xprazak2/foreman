@@ -71,7 +71,7 @@ class ReportImporter
       level = log['log']['level']
       msg   = log['log']['messages']['message']
       src   = log['log']['sources']['source']
-
+      cat   = log['log']['category']
       message = Message.find_or_create msg
       source  = Source.find_or_create src
 
@@ -79,7 +79,8 @@ class ReportImporter
       # and expected log level. Log objects can't be created without one, so raise if not
       raise(::Foreman::Exception.new(N_("Invalid log level: %s", level))) unless Report::LOG_LEVELS.include?(level)
 
-      Log.create(:message_id => message.id, :source_id => source.id, :report => report, :level => level.to_sym)
+      #category has to be set before level
+      Log.create(:category => cat, :message_id => message.id, :source_id => source.id, :report => report, :level => level.to_sym)
     end
   end
 
