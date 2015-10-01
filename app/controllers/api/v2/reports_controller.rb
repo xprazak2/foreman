@@ -71,7 +71,7 @@ module Api
       end
 
       def resource_scope(options = {})
-        resource_class.authorized(:view_config_reports).my_reports
+        super(options.merge(:permission => :view_config_reports)).my_reports
       end
 
       def action_permission
