@@ -6,17 +6,17 @@ class Log < ActiveRecord::Base
 
   default_scope -> { order('logs.id') }
 
-  LEVELS = [:debug, :info, :notice, :warning, :err, :alert, :emerg, :crit]
+  LEVELS = { :core => [:debug, :info, :notice, :warning, :err, :alert, :emerg, :crit] }.with_indifferent_access
 
   def to_s
     "#{source} #{message}"
   end
 
   def level=(l)
-    write_attribute(:level_id, LEVELS.index(l))
+    write_attribute(:level_id, LEVELS[category].index(l))
   end
 
   def level
-    LEVELS[level_id]
+    LEVELS[category][level_id]
   end
 end

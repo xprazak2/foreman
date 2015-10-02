@@ -275,5 +275,11 @@ module Foreman #:nodoc:
     def register_custom_status(klass)
       HostStatus.status_registry.add(klass)
     end
+
+    def register_report_log_category(name, levels_array)
+     raise ::Foreman::Exception.new(N_('The log category is already registered, choose different name')) if ::Log::LEVELS.has_key?(name)
+     raise ArgumentError.new(N_('Second argument should be an array')) unless levels_array.is_a?(Array)
+     ::Log::LEVELS[name] = levels_array
+     end
   end
 end

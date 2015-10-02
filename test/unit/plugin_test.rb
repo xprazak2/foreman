@@ -260,4 +260,29 @@ class PluginTest < ActiveSupport::TestCase
     assert_include HostStatus.status_registry, status
     HostStatus.status_registry.delete status
   end
+
+  def test_register_report_log_category
+    Foreman::Plugin.register :foo do
+      register_report_log_category :test_category, [:good, :bad, :ugly]
+    end
+    assert Log::LEVELS[:test_category].is_a?(Array)
+    assert_equal 3, Log::LEVELS[:test_category].length
+  end
+
+  def test_register_report_log_category_twice
+    assert_raises(::Foreman::Exception) {
+      Foreman::Plugin.register :foo do
+        register_report_log_category :test_category, [:good, :better, :best]
+        register_report_log_category :test_category, [:bad]
+      end
+    }
+  end
+
+  def test_register_report_log_category_w_o_categories
+    assert_raises(ArgumentError) {
+      Foreman::Plugin.register :foo do
+        register_report_log_category :test_category, "random_string"
+      end
+    }
+  end
 end
