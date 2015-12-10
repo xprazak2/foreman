@@ -59,11 +59,15 @@ class SmartProxyTest < ActiveSupport::TestCase
   end
 
   context "#version" do
+    def setup
+      Rails.cache.clear
+    end
+
     test "should succeed" do
       proxy = smart_proxies(:one)
       fake_version = {:version => '1.11'}
       ProxyAPI::Version.any_instance.expects(:get).returns(fake_response(fake_version))
-      assert_equal(fake_version[:version], proxy.version[:message])
+      assert_equal(fake_version[:version], proxy.version)
     end
 
     test "should raise error" do
@@ -71,6 +75,34 @@ class SmartProxyTest < ActiveSupport::TestCase
       ProxyAPI::Version.any_instance.expects(:get).raises(Errno::ECONNRESET)
       assert_raises(ProxyAPI::ProxyException) do
         proxy.version
+      end
+    end
+  end
+
+  context "#plugin_version" do
+    def setup
+      Rails.cache.clear
+    end
+
+    test "should succeed" do
+      proxy = smart_proxies(:one)
+      faked_response = {:version => '1.11', :modules => {:dns => '1.11'} }
+      ProxyAPI::Version.any_instance.expects(:get).returns(fake_response(faked_response))
+      assert_equal(faked_response[:modules][:dns], proxy.plugin_version('dns'))
+    end
+
+    test "should fail if proxy disconnected" do
+      proxy = smart_proxies(:one)
+      ProxyAPI::Version.any_instance.expects(:get).raises(Errno::ECONNRESET)
+      assert_raises(ProxyAPI::ProxyException) do
+        proxy.plugin_version('dhcp')
+      end
+    end
+
+    test "should rails an error if parameter blank" do
+      proxy = smart_proxies(:one)
+      assert_raises(Foreman::Exception) do
+        proxy.plugin_version(nil)
       end
     end
   end

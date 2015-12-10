@@ -190,11 +190,13 @@ Foreman::Application.routes.draw do
     end
   end
 
-  resources :smart_proxies, :except => [:show] do
+  resources :smart_proxies do
     member do
-      post 'ping'
+      get 'ping'
       put 'refresh'
       get 'version'
+      get 'plugin_version'
+      get 'tftp_server'
     end
     constraints(:id => /[^\/]+/) do
       resources :puppetca, :only => [:index, :update, :destroy]
@@ -343,7 +345,7 @@ Foreman::Application.routes.draw do
           post 'template_selected'
           post 'cluster_selected'
           get 'resource_pools'
-          post 'ping'
+          get 'ping'
           put 'associate'
         end
         constraints(:id => /[^\/]+/) do

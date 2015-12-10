@@ -89,20 +89,35 @@ class SmartProxy < ActiveRecord::Base
   end
 
   def version
-    result = {}
-    begin
-      Timeout::timeout(20) do
-        version = ProxyAPI::Version.new(:url => url).version
-        result[:success] = true
-        result[:message] = version
-      end
-    rescue *HTTP_ERRORS => exception
-      raise ::Foreman::WrappedException.new exception, N_("Unable to connect to smart proxy")
+    fetch_proxy_data do
+      ProxyAPI::Version.new(:url => url).version
     end
-    result
+  end
+
+  def plugin_version(plugin_name)
+    raise ::Foreman::Exception.new(N_('Plugin name cannot be blank')) if plugin_name.blank?
+    fetch_proxy_data do
+      version = ProxyAPI::Version.new(:url => url).plugin_versions
+      version[plugin_name]
+    end
+  end
+
+  def tftp_server
+    raise ::Foreman::Exception.new(N_('TFTP is not enabled for proxy: %s') % to_label) unless has_feature?('TFTP')
+    fetch_proxy_data do
+      ProxyAPI::TFTP.new(:url => url).bootServer
+    end
   end
 
   private
+
+  def fetch_proxy_data &block
+    begin
+      yield
+    rescue *HTTP_ERRORS => exception
+      raise ::Foreman::WrappedException.new exception, N_("Unable to connect to smart proxy")
+    end
+  end
 
   def sanitize_url
     self.url.chomp!('/') unless url.empty?

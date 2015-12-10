@@ -11,6 +11,10 @@ module ProxyAPI
       raise ProxyException.new(url, e, N_("Unable to detect version"))
     end
 
+    def plugin_versions
+      proxy_versions["modules"]
+    end
+
     def version
       proxy_versions["version"]
     end

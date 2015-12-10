@@ -1,0 +1,76 @@
+<% title(_('Smart Proxy: %s') % @smart_proxy.to_label) %>
+<%= smart_proxy_title_actions(@smart_proxy, authorizer) %>
+<div id="proxy-show" class="row">
+  <ul id="proxy-tab" class="nav nav-tabs">
+    <li class="active"><a href="#properties" data-toggle="tab"><%= _('Overview') %></a></li>
+    <li><a href="#services" data-toggle="tab"><%= _('Services') %></a></li>
+  </ul>
+  <div id="proxy-tab-content" class="proxy-content tab-content">
+    <div class="tab-pane active in" id="properties">
+      <div class="col-md-6">
+        <div class="row">
+          <h4><%= _('Details') %></h4>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <%= _('Communication status') %>
+          </div>
+          <div class="col-md-8">
+            <span class="proxy-show-status" data-url="<%= ping_smart_proxy_path(@smart_proxy) %>">
+              <%= image_tag '/assets/spinner.gif' %>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <%= _('URL') %>
+          </div>
+          <div class="col-md-8">
+            <%= @smart_proxy.url %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <%= _('Version') %>
+          </div>
+          <div class="col-md-8">
+            <span class="proxy-version" data-url="<%= version_smart_proxy_path(@smart_proxy) %>">
+              <%= image_tag '/assets/spinner.gif' %>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <%= _('Features') %>
+            <%= refresh_proxy_icon(@smart_proxy, authorizer) %>
+          </div>
+          <div class="col-md-8">
+            <%= @smart_proxy.features.to_sentence %>
+          </div>
+        </div>
+        <% if SETTINGS[:locations_enabled] %>
+          <div class="row">
+            <h4><%= _('Locations') %></h4>
+            <% @smart_proxy.locations.each do |location| %>
+                <div class="col-md-8">
+                  <b><%= link_to(location.name, location_path(location)) %></b><br />
+                  <span class="big"><%= location.hosts.count %></span> <%= _('Total hosts') %>
+                </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <!--place holder for Capsule sync-->
+      </div>
+    </div>
+    <div class="tab-pane" id="services">
+      <div class="col-md-6">
+        <% @smart_proxy.features.pluck('LOWER(name)').uniq.each do |feature| %>
+          <% feature_erb = "smart_proxies/plugins/#{feature}" %>
+          <%= render :partial => feature_erb, :locals => {:feature => feature} if lookup_context.template_exists?(feature_erb, [], true) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
 //= require topbar
 //= require two-pane
 //= require vendor
-//= require about
+//= require statuses
 //= require jquery.extentions
 //= require jquery.multi-select
 //= require settings
