@@ -175,6 +175,41 @@ module Foreman #:nodoc:
       Menu::Manager.map(menu).delete(item)
     end
 
+    # Registeres a new page that can be extended. Usage:
+    #
+    # add_extensible_page({ :controller => :controller_name, :action => :action_name }) do |page|
+    #       # Add a widget
+    #       page.add_widget :name => "My widg", :partial => "path/to/partial"
+    #       # Add tab with widgets and its own content
+    #       page.add_tab :name => "My tab", :widgets => [{ :name => "Widget name", :partial => "path/to/partial"}], :priority => 5, :partial => "path"
+    #       # Add custom view that determines how elements on page are arranged. If no view is supplied, the default view is used.
+    #       # see `render_extensible` method in ApplicationController for details
+    #       page.view = "path/to/view"
+    # end
+    def add_extensible_page(url_hash, view, &block)
+      Pages::Manager.add_page(url_hash, view, &block)
+    end
+
+    # Extends an already registered extensible page. Usage:
+    #
+    # extend_page({ :controller => :controller_name, :action => :action_name },
+    #             { :tabs => [{ :name => "Tab name", :partial => "arf_reports/fake_scap", :widgets => [{...}], :priority => 0 }],
+    #               :widgets => [{...}] })
+    #
+    def extend_page(url_hash, opts = {})
+      Pages::Manager.extend_page(url_hash, opts)
+    end
+
+    # Extends already registered tab on extensible page. Usage:
+    #
+    # extend_tab({ :controller => :controller_name, :action => :action_name },
+    #            "Tab name",
+    #            { :widgets => [{ :name => "widget name", :partial => "path/to/partial" }] })
+    #
+    def extend_tab(url_hash, tab_name, opts = {})
+      Pages::Manager.extend_tab(url_hash, tab_name, opts)
+    end
+
     def tests_to_skip(hash)
       Rails.logger.warn "Minitest 5 deprecated the runner API and plugin tests \
 can't be skipped right now. Future versions of Foreman might bring back this \
