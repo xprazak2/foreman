@@ -16,7 +16,7 @@
     <% for proxy in @smart_proxies %>
       <tr>
         <td class="display-two-pane ellipsis"><%= link_to_if_authorized proxy.name, hash_for_edit_smart_proxy_path(:id => proxy).merge(:auth_object => proxy, :authorizer => authorizer) %></td>
-        <td class="ellipsis"><%= proxy.url %></td>
+        <td class="ellipsis"><%= display_link_if_authorized(proxy.url, hash_for_smart_proxy_path(:id => proxy.id)) %></td>
         <td class="ellipsis"><%= proxy.features.to_sentence %></td>
         <td><%= action_buttons(*proxy_actions(proxy, authorizer)) %></td>
       </tr>

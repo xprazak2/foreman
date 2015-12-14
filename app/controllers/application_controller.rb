@@ -220,6 +220,12 @@ class ApplicationController < ActionController::Base
     render_403
   end
 
+  def render_extensible(page_view = action_name)
+    @page = ::Pages::Manager.find_page(controller_name, action_name)
+    @resource_name = resource_name
+    @page.view ? render(@page.view) : fail("page #{@page.name} has no view assigned")
+  end
+
   def process_success(hash = {})
     hash[:object]                 ||= instance_variable_get("@#{controller_name.singularize}")
     hash[:object_name]            ||= hash[:object].to_s

@@ -1,0 +1,25 @@
+<% title resource.to_label %>
+
+<% if @page.tabbed? %>
+  <% @page.tabify "Main" unless @page.tabified? %>
+
+  <ul class="nav nav-tabs">
+    <% @page.sorted_tabs.each_with_index do |(name, tab), index| %>
+      <li class="<%= 'active' if index == 0 %>">
+        <a href="#<%= tab.snake_name %>" data-toggle="tab"><%= name %></a>
+      </li>
+    <% end %>
+
+  </ul>
+
+  <div class="tab-content">
+    <% @page.sorted_tabs.each_with_index do |(name, tab), index| %>
+    <div class="tab-pane <%= 'active' if index == 0 %>" id="<%= tab.snake_name %>">
+      <%= render tab.partial if tab.partial.present? %>
+      <%= render "common/extensible/pane", :item => tab %>
+    </div>
+    <% end %>
+  </div>
+<% else %>
+  <%= render "common/extensible/pane", :item => @page %>
+<% end %>

@@ -188,7 +188,7 @@ Foreman::Application.routes.draw do
     end
   end
 
-  resources :smart_proxies, :except => [:show] do
+  resources :smart_proxies do
     member do
       post 'ping'
       put 'refresh'

@@ -1,6 +1,6 @@
 class SmartProxiesController < ApplicationController
   include Foreman::Controller::AutoCompleteSearch
-  before_filter :find_resource, :only => [:edit, :update, :refresh, :ping, :version, :destroy]
+  before_filter :find_resource, :only => [:edit, :update, :refresh, :ping, :version, :destroy, :show]
 
   def index
     @smart_proxies = resource_base.includes(:features).search_for(params[:search], :order => params[:order]).paginate(:page => params[:page])
@@ -21,6 +21,10 @@ class SmartProxiesController < ApplicationController
 
   def edit
     @proxy = @smart_proxy
+  end
+
+  def show
+    render_extensible
   end
 
   def ping
