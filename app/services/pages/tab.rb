@@ -1,12 +1,11 @@
 module Pages
-  class Tab
-    attr_reader :widgets, :name, :priority, :partial
+  class Tab < ViewItem
+    attr_reader :name, :priority
 
-    def initialize(opts)
-      @name = opts[:name]
-      @widgets = opts[:widgets]
-      @priority = opts[:priority]
-      @partial = opts[:partial]
+    def initialize(name, priority, columns_count)
+      @name = name
+      @priority = priority
+      super columns_count
     end
 
     def snake_name
@@ -14,7 +13,7 @@ module Pages
     end
 
     def add_widget(widget)
-      @widgets << widget
+      @widgets << Pages::Widget.new(widget)
     end
   end
 end

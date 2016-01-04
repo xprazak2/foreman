@@ -1,3 +1,5 @@
-<% item.widgets.each do |widget| %>
+<% item.columns.each do |column| %>
+  <% column.widgets.each do |widget|%>
    <%= render widget.partial %>
+   <% end %>
 <% end %>

@@ -27,9 +27,9 @@ class SmartProxiesController < ApplicationController
     @proxy = @smart_proxy
   end
 
-  def show
-    render_extensible
-  end
+  # def show
+  #   render_extensible
+  # end
 
   def ping
     @proxy = @smart_proxy

@@ -196,8 +196,8 @@ module Foreman #:nodoc:
     #             { :tabs => [{ :name => "Tab name", :partial => "arf_reports/fake_scap", :widgets => [{...}], :priority => 0 }],
     #               :widgets => [{...}] })
     #
-    def extend_page(url_hash, opts = {})
-      Pages::Manager.extend_page(url_hash, opts)
+    def extend_page(url_hash, &block)
+      Pages::Manager.extend_page(url_hash, &block)
     end
 
     # Extends already registered tab on extensible page. Usage:
@@ -206,8 +206,8 @@ module Foreman #:nodoc:
     #            "Tab name",
     #            { :widgets => [{ :name => "widget name", :partial => "path/to/partial" }] })
     #
-    def extend_tab(url_hash, tab_name, opts = {})
-      Pages::Manager.extend_tab(url_hash, tab_name, opts)
+    def extend_tab(url_hash, tab_name, &block)
+      Pages::Manager.extend_tab(url_hash, tab_name, &block)
     end
 
     def tests_to_skip(hash)
