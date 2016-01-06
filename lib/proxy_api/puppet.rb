@@ -17,6 +17,12 @@ module ProxyAPI
       raise ProxyException.new(url, e, N_("Unable to get environment from Puppet"))
     end
 
+    def status
+      parse(get "status")
+    rescue => e
+      raise ProxyException.new(url, e, N_("Unable to get Puppet status"))
+    end
+
     def classes(env)
       return if env.blank?
       pcs = parse(get "environments/#{env}/classes")

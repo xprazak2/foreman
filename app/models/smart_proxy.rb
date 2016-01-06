@@ -30,7 +30,9 @@ class SmartProxy < ActiveRecord::Base
   scoped_search :on => :url, :complete_value => :true
   scoped_search :in => :features, :on => :name, :rename => :feature, :complete_value => :true
 
-  delegate :version, :tftp_server, :to => :proxy_status
+  delegate :version,  :to => :proxy_status
+  delegate :tftp_server, :to => :proxy_tftp_status
+  delegate :puppet_status, :to => :proxy_puppet_status
 
   # with proc support, default_scope can no longer be chained
   # include all default scoping here
@@ -91,7 +93,15 @@ class SmartProxy < ActiveRecord::Base
   private
 
   def proxy_status
-    @proxy_status ||= ProxyStatus.new(self)
+    @proxy_status ||= ProxyStatus::Version.new(self)
+  end
+
+  def proxy_tftp_status
+    @proxy_tftp_status ||= ProxyStatus::Tftp.new(self)
+  end
+
+  def proxy_puppet_status
+    @proxy_puppet_status ||= ProxyStatus::Puppet.new(self)
   end
 
   def sanitize_url
