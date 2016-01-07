@@ -32,7 +32,7 @@ class SmartProxy < ActiveRecord::Base
 
   delegate :version,  :to => :proxy_status
   delegate :tftp_server, :to => :proxy_tftp_status
-  delegate :puppet_status, :to => :proxy_puppet_status
+  delegate :puppet_status, :last_puppet_report, :to => :proxy_puppet_status
 
   # with proc support, default_scope can no longer be chained
   # include all default scoping here

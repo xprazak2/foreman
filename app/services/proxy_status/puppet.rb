@@ -12,5 +12,9 @@ module ProxyStatus
         end
       end
     end
+
+    def last_puppet_report
+      ConfigReport.where(:host_id => Host.where(:puppet_proxy_id => proxy.id)).order(:reported_at => :desc).limit(1).first
+    end
   end
 end

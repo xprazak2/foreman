@@ -8,7 +8,7 @@ module ProxyStatus
     def api_versions
       Rails.cache.fetch(versions_cache_key, :expires_in => cache_duration) do
         fetch_proxy_data do
-          api.proxy_versions
+          @api.proxy_versions
         end
       end
     end

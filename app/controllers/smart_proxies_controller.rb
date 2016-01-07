@@ -45,6 +45,10 @@ class SmartProxiesController < ApplicationController
     requested_data(:tftp_server)
   end
 
+  def puppet_status
+    requested_data(:puppet_status)
+  end
+
   def update
     if @smart_proxy.update_attributes(params[:smart_proxy])
       process_success :object => @smart_proxy

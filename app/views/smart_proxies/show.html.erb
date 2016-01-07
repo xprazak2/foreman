@@ -7,7 +7,9 @@
     <% if service_features.any? %>
       <li><a href="#services" data-toggle="tab"><%= _('Services') %></a></li>
     <% end %>
-    <li><a href="#puppet" data-toggle="tab">Puppet</a></li>
+    <% if @smart_proxy.features.include? "puppet" %>
+      <li><a href="#puppet" data-toggle="tab">Puppet</a></li>
+    <% end %>
   </ul>
   <div id="proxy-tab-content" class="proxy-content tab-content">
     <div class="tab-pane active in" id="properties">
@@ -70,11 +72,86 @@
         </div>
       </div>
     <% end %>
+
+    <% if @smart_proxy.features.include? "puppet" %>
       <div class="tab-pane" id="puppet">
-        <div class="col-md-6">
-          hello
+        <div class="col-md-8">
+
+          <div class="row">
+            <h3><%= _('Puppet Details') %></h3>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <%= _('Puppet Status') %>
+            </div>
+            <div class="col-md-8">
+              <span class="proxy-version" data-url="">
+                <%#= spinner %>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <%= _('Puppet Environment') %>
+            </div>
+            <div class="col-md-8">
+              <span class="proxy-version" data-url="">
+                <%#= spinner %>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <%= _('Puppet CA') %>
+            </div>
+            <div class="col-md-8">
+              <span class="proxy-version" data-url="">
+                <%#= spinner %>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <%= _('Puppet Master') %>
+            </div>
+            <div class="col-md-8">
+              <span class="proxy-version" data-url="">
+                <%#= spinner %>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <h3><%= _('Puppet Activity') %></h3>
+          </div>
+
+          <% if last_report = @smart_proxy.last_puppet_report %>
+            <div class="row">
+              <div class="col-md-4">
+                <%= _('Last report') %>
+              </div>
+              <div class="col-md-8">
+                <span class="proxy-version" data-url="">
+                  <a href="<%= config_report_path(last_report.id) %>"><%= last_report.reported_at %></a>
+                  for host <a href="<%= host_path(last_report.host_id) %>"><%= last_report.host.name %></a>
+                </span>
+              </div>
+            </div>
+          <% else %>
+            <div class="row">
+              <div class="alert alert-info">
+                <%= _("No Puppet activity found") %>
+              </div>
+            </div>
+          <% end %>
+
         </div>
       </div>
+    <% end %>
 
   </div>
 </div>
