@@ -86,18 +86,7 @@
               <%= _('Puppet Status') %>
             </div>
             <div class="col-md-8">
-              <span class="proxy-version" data-url="">
-                <%#= spinner %>
-              </span>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <%= _('Puppet Environment') %>
-            </div>
-            <div class="col-md-8">
-              <span class="proxy-version" data-url="">
+              <span class="proxy-version" data-url="<%= puppet_status_smart_proxy_path(@smart_proxy) %>">
                 <%#= spinner %>
               </span>
             </div>
@@ -106,17 +95,6 @@
           <div class="row">
             <div class="col-md-4">
               <%= _('Puppet CA') %>
-            </div>
-            <div class="col-md-8">
-              <span class="proxy-version" data-url="">
-                <%#= spinner %>
-              </span>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <%= _('Puppet Master') %>
             </div>
             <div class="col-md-8">
               <span class="proxy-version" data-url="">
