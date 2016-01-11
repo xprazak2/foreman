@@ -1,5 +1,7 @@
 module Pagelets
   class Manager
+    @pagelets = {}
+
     def initialize(page_name)
       @page_name = page_name
     end
@@ -9,6 +11,7 @@ module Pagelets
     end
 
     class << self
+      attr_reader :pagelets
       def add_pagelet(page_name, mountpoint, opts)
         handle_empty_keys_for page_name, mountpoint
         raise ::Foreman::Exception.new(N_("Cannot add pagelet to page %s without partial", page_name)) unless opts[:partial]
@@ -35,7 +38,7 @@ module Pagelets
       private
 
       def handle_empty_keys_for(page_name, mountpoint)
-        @pagelets ||= {}.with_indifferent_access
+        # @pagelets ||= {}.with_indifferent_access
         @pagelets[page_name] ||= {}
         @pagelets[page_name][mountpoint] ||= []
       end
