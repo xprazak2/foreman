@@ -6,11 +6,11 @@ module ProxyStatus
     end
 
     def puppet_status
-      Rails.cache.fetch(versions_cache_key, :expires_in => cache_duration) do
+      # Rails.cache.fetch(versions_cache_key, :expires_in => cache_duration) do
         fetch_proxy_data do
           @api.status
         end
-      end
+      # end
     end
 
     def last_puppet_report
