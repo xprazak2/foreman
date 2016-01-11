@@ -1,6 +1,7 @@
 $(document).on('ContentLoad', function() {
   showProxies();
   loadTFTP();
+  loadPuppet();
 });
 
 function setItemStatus(item, response) {
@@ -58,6 +59,25 @@ function loadTFTP(){
       },
       error: function (response) {
         generateItem(item, false, response.message);
+      }
+    });
+  });
+}
+
+function loadPuppet(){
+  $('.proxy-puppet').each(function (index, item) {
+    var item = $(item);
+    var url = item.data('url');
+    console.log(item);
+    console.log(url);
+    $.ajax({
+      type: 'get',
+      url: url,
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (response) {
+        console.log(response);
       }
     });
   });

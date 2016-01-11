@@ -7,7 +7,7 @@
     <% if service_features.any? %>
       <li><a href="#services" data-toggle="tab"><%= _('Services') %></a></li>
     <% end %>
-    <% if @smart_proxy.features.include? "puppet" %>
+    <% if @smart_proxy.has_feature? "Puppet" %>
       <li><a href="#puppet" data-toggle="tab">Puppet</a></li>
     <% end %>
   </ul>
@@ -73,7 +73,7 @@
       </div>
     <% end %>
 
-    <% if @smart_proxy.features.include? "puppet" %>
+    <% if @smart_proxy.has_feature? "Puppet" %>
       <div class="tab-pane" id="puppet">
         <div class="col-md-8">
 
@@ -86,7 +86,7 @@
               <%= _('Puppet Status') %>
             </div>
             <div class="col-md-8">
-              <span class="proxy-version" data-url="<%= puppet_status_smart_proxy_path(@smart_proxy) %>">
+              <span class="proxy-puppet" data-url="<%= puppet_status_smart_proxy_path(@smart_proxy) %>">
                 <%#= spinner %>
               </span>
             </div>
@@ -107,25 +107,25 @@
             <h3><%= _('Puppet Activity') %></h3>
           </div>
 
-          <% if last_report = @smart_proxy.last_puppet_report %>
-            <div class="row">
+          <%# if last_report = @smart_proxy.last_puppet_report %>
+          <!--   <div class="row">
               <div class="col-md-4">
-                <%= _('Last report') %>
+                <%#= _('Last report') %>
               </div>
               <div class="col-md-8">
                 <span class="proxy-version" data-url="">
-                  <a href="<%= config_report_path(last_report.id) %>"><%= last_report.reported_at %></a>
-                  for host <a href="<%= host_path(last_report.host_id) %>"><%= last_report.host.name %></a>
+                  <a href="<%#= config_report_path(last_report.id) %>"><%#= last_report.reported_at %></a>
+                  for host <a href="<%#= host_path(last_report.host_id) %>"><%#= last_report.host.name %></a>
                 </span>
               </div>
             </div>
-          <% else %>
+          <%# else %>
             <div class="row">
               <div class="alert alert-info">
-                <%= _("No Puppet activity found") %>
+                <%#= _("No Puppet activity found") %>
               </div>
             </div>
-          <% end %>
+           --><%# end %>
 
         </div>
       </div>

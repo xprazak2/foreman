@@ -78,7 +78,7 @@ class SmartProxiesController < ApplicationController
     case params[:action]
       when 'refresh'
         :edit
-      when 'ping', 'tftp_server'
+      when 'ping', 'tftp_server', 'puppet_status'
         :view
       else
         super

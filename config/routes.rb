@@ -197,6 +197,7 @@ Foreman::Application.routes.draw do
       get 'version'
       get 'plugin_version'
       get 'tftp_server'
+      get 'puppet_status'
     end
     constraints(:id => /[^\/]+/) do
       resources :puppetca, :only => [:index, :update, :destroy]
