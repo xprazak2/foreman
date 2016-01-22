@@ -2,6 +2,8 @@ class Feature < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
   has_and_belongs_to_many :smart_proxies
+  has_many :feature_histories
+  has_many :smart_proxies, :through => :feature_histories
   validates_lengths_from_database
   validates :name, :presence => true
 

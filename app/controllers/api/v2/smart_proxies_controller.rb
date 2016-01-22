@@ -4,7 +4,11 @@ module Api
       include Api::Version2
       include Api::TaxonomyScope
       include Api::ImportPuppetclassesCommonController
-      before_filter :find_resource, :only => %w{show update destroy refresh version}
+      include Foreman::Controller::SmartProxyAuth
+
+      add_smart_proxy_filters :startup_refresh
+
+      before_filter :find_resource, :only => %w{show update destroy refresh version startup_refresh}
 
       api :GET, "/smart_proxies/", N_("List all smart proxies")
       param_group :taxonomy_scope, ::Api::V2::BaseController
@@ -55,7 +59,13 @@ module Api
       param :id, String, :required => true
 
       def refresh
-        process_response @smart_proxy.refresh.blank? && @smart_proxy.save
+        process_response @smart_proxy.refresh
+      end
+
+      api :POST, "/smart_proxies/startup_refresh", N_("Refresh smart proxy features on proxy startup")
+      def startup_refresh
+        binding.pry
+        process_response @smart_proxy.startup_refresh
       end
 
       def version
@@ -75,6 +85,18 @@ module Api
           :edit
         when 'version'
           :view
+        else
+          super
+        end
+      end
+
+      #proxy has no clue about its id
+      def find_resource
+        if params[:startup_refresh]
+          @proxy_hosts.each do |hostname|
+            @smart_proxy = SmartProxy.find_by_name hostname
+            break if @smart_proxy
+          end
         else
           super
         end

@@ -12,6 +12,8 @@ class SmartProxy < ActiveRecord::Base
   #TODO check if there is a way to look into the tftp_id too
   # maybe with a predefined sql
   has_and_belongs_to_many :features
+  has_many :feature_histories, :dependent => :destroy
+  has_many :old_features, :through => :feature_histories, :source => :feature
   has_many :subnets,                                          :foreign_key => 'dhcp_id'
   has_many :domains,                                          :foreign_key => 'dns_id'
   has_many_hosts                                              :foreign_key => 'puppet_proxy_id'
@@ -66,8 +68,7 @@ class SmartProxy < ActiveRecord::Base
 
   def refresh
     statuses.values.each { |status| status.revoke_cache! }
-    associate_features
-    errors
+    save
   end
 
   def taxonomy_foreign_conditions
@@ -105,6 +106,10 @@ class SmartProxy < ActiveRecord::Base
 
   def sanitize_url
     self.url.chomp!('/') unless url.empty?
+  end
+
+  def compare_features
+    #TODO
   end
 
   def associate_features

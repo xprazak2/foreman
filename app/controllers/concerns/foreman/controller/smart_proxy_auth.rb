@@ -4,6 +4,10 @@ require 'uri'
 module Foreman::Controller::SmartProxyAuth
   extend ActiveSupport::Concern
 
+  included do
+    @proxy_hosts = nil
+  end
+
   module ClassMethods
     def add_smart_proxy_filters(actions, options = {})
       skip_before_filter :require_login, :only => actions
@@ -89,6 +93,7 @@ module Foreman::Controller::SmartProxyAuth
     else
       request_hosts = Resolv.new.getnames(request.ip)
     end
+    @proxy_hosts = request_hosts
     return false unless request_hosts
 
     hosts = Hash[proxies.map { |p| [URI.parse(p.url).host, p] }]
