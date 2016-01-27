@@ -249,6 +249,8 @@ Foreman::Application.routes.draw do
     collection do
       get 'auto_complete_search'
     end
+    resources :proxy_subnets, :only => [:index, :show, :destroy] do
+    end
   end
 
   resources :http_proxies, :controller => 'http_proxies' do

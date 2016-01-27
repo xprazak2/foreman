@@ -35,4 +35,8 @@ window.tfm = Object.assign(window.tfm || {}, {
   editor: require('./foreman_editor'),
   nav: require('./foreman_navigation'),
   medium: require('./foreman_medium'),
+    proxyStatus: {
+    dhcp: require('./proxy_status/dhcp'),
+    common: require('./proxy_status/common')
+  }
 });
