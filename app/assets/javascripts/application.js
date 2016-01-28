@@ -123,7 +123,6 @@ function onContentLoad(){
       if ($(this).data('on-complete')){
         window[$(this).data('on-complete')].call(null, this, status);
       }
-      $(document).trigger('ContentLoad');
     });
   });
 

@@ -9,7 +9,7 @@
   <tbody>
     <% reservations.each do |record| %>
       <tr>
-        <td class="ellipsis"><%= record['hostname'] %></td>
+        <td class="ellipsis"><%= link_to_host record['hostname'] %></td>
         <td><%=record['ip'] %></td>
         <td><%= record['mac'] %></td>
       </tr>

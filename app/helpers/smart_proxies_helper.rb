@@ -74,4 +74,9 @@ module SmartProxiesHelper
       subnet.network
     end
   end
+
+  def link_to_host(hostname)
+    host = Host.find_by_name hostname
+    host.present? ? link_to(hostname, host) : hostname
+  end
 end

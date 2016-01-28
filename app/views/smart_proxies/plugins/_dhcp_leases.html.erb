@@ -1,4 +1,4 @@
-<table class='<%= table_css_classes %> table-fixed' data-table="inline">
+<table id="<%= id %>_leases" class='<%= table_css_classes %> table-fixed' data-table="inline">
   <thead>
     <tr>
       <th class="col-md-5"><%= _("Hostname") %></th>
@@ -12,7 +12,7 @@
   <tbody>
     <% leases.each do |record| %>
       <tr>
-        <td class="ellipsis"><%= record['hostname'] %></td>
+        <td class="ellipsis"><%= link_to_host record['hostname'] %></td>
         <td><%=record['ip'] %></td>
         <td><%= record['mac'] %></td>
         <td><%= _(record['state']) %></td>
