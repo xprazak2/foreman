@@ -1,4 +1,4 @@
-function activateDhcpTables(state) {
+function activateDhcpTables() {
     showProxies();
     activateDatatables();
 }
