@@ -61,7 +61,7 @@ function two_pane_open(item){
     headers: {"X-Foreman-Layout": "two-pane"},
     success: function(response){
       foreman.tools.hideSpinner();
-      right_pane_content(response);
+      right_pane_content(response, item);
     },
     error: function(response){
       foreman.tools.hideSpinner();
@@ -140,9 +140,9 @@ function hide_columns(){
 }
 
 // place the content into the right pane
-function right_pane_content(response){
+function right_pane_content(response, item){
   if (handle_redirect(response)) return; //session expired redirect to login
-
+  position_content(response, item);
   if (!$("#content", response).length){
     $('.two-pane-right').html(response);
     $('.two-pane-right form').prepend("<div class='fr close-button'><a class='two-pane-close' href='#'>&times;</a></div>");
@@ -152,7 +152,23 @@ function right_pane_content(response){
     // response is not a form use the entire page
     $('#content').replaceWith($("#content", response));
   }
+  debugger;
   $(document.body).trigger('ContentLoad');
+}
+
+function position_content(response, item){
+  var current = null,
+      count = 0,
+      row_height = $('tr').height(),
+      table_items = $('td > a[data-id^="aid_provisioning_templates"]');
+  $.each(table_items, function (index, link) {
+    count++;
+    if ($(item).text() === $(link).text()) {
+      return false;
+    }
+  });
+  // debugger;
+
 }
 
 function fix_multi_checkbox(){
