@@ -501,6 +501,17 @@ class PluginTest < ActiveSupport::TestCase
     assert_equal ['api/v2/hosts/expiration'], templates
   end
 
+  def test_add_smart_proxy_reference
+    refs = SmartProxyReference.smart_proxy_references
+    SmartProxyReference.references = nil
+    Foreman::Plugin.register :test_add_smart_proxy_reference do
+      smart_proxy_reference :hosts => [:test]
+    end
+    assert_equal [:test], SmartProxyReference.proxy_references_from_plugins[:hosts]
+  ensure
+    SmartProxyReference.references = refs
+  end
+
   context "adding permissions" do
     teardown do
       permission = Foreman::AccessControl.permission(:test_permission)
