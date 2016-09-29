@@ -130,7 +130,7 @@ module Api
       param :id, :identifier_dottable, :required => true
 
       def enc
-        render :json => { :data => @host.info }.to_json if @host
+        render :json => { :data => @host.info }
       end
 
       api :GET, "/hosts/:id/status", N_("Get configuration status of host")
