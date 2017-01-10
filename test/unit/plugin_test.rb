@@ -24,6 +24,11 @@ module Awesome
 end
 module Awesome; class FakeFacet; end; end
 
+module Test
+  class Resource
+  end
+end
+
 class PluginTest < ActiveSupport::TestCase
   module MyMod
     def my_helper
@@ -414,6 +419,25 @@ class PluginTest < ActiveSupport::TestCase
     assert_equal 2, scopes.count
   end
 
+  def test_add_resource_permissions_to_defalut_roles
+    Foreman::Plugin.register :test_plugin do
+      add_resource_permissions_to_default_roles ["Test::Resource"], :except => [:create_test]
+    end
+    manager = Role.find_by :name => "Manager"
+    viewer = Role.find_by :name => "Viewer"
+    assert_equal 2, manager.permissions.where(:resource_type => "Test::Resource").count
+    assert_equal 1, viewer.permissions.where(:resource_type => "Test::Resource").count
+  end
+
+  def test_add_permissions_to_default_roles
+    viewer = Role.find_by :name => "Viewer"
+    refute viewer.permissions.find_by :name => "misc_test"
+    Foreman::Plugin.register :test_plugin do
+      add_permissions_to_default_roles "Viewer" => [:misc_test]
+    end
+    assert viewer.permissions.find_by :name => "misc_test"
+  end
+
   context "adding permissions" do
     teardown do
       permission = Foreman::AccessControl.permission(:test_permission)
@@ -427,7 +451,7 @@ class PluginTest < ActiveSupport::TestCase
           permission :test_permission, {:controller_name => [:test]}
         end
       end
-      assert_includes Foreman::Plugin.find(:test_permission).permissions.keys, :test_permission
+      assert_includes Foreman::Plugin.find(:test_permission).permission_names, :test_permission
       ac_permission = Foreman::AccessControl.permission(:test_permission)
       assert ac_permission, ":test_permission is not registered in Foreman::AccessControl"
       assert_equal ['controller_name/test'], ac_permission.actions
