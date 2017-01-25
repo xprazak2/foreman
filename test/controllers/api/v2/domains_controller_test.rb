@@ -131,4 +131,13 @@ class Api::V2::DomainsControllerTest < ActionController::TestCase
       assert_equal 'bar', show_response['parameters'].first['value']
     end
   end
+
+  test "should update existing domain parameters" do
+    domain = FactoryGirl.create(:domain)
+    param_params = { :name => "foo", :value => "bar" }
+    domain.domain_parameters.create!(param_params)
+    put :update, { :id => domain.id, :domain => { :domain_parameters_attributes => [{ :name => param_params[:name], :value => "new_value" }] } }
+    assert_response :success
+    assert param_params[:name], domain.parameters.first.name
+  end
 end

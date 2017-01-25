@@ -140,6 +140,15 @@ class Api::V2::OperatingsystemsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should update existing operatingsystem parameters" do
+    operatingsystem = FactoryGirl.create(:operatingsystem)
+    param_params = { :name => "foo", :value => "bar" }
+    operatingsystem.os_parameters.create!(param_params)
+    put :update, { :id => operatingsystem.id, :operatingsystem => { :os_parameters_attributes => [{ :name => param_params[:name], :value => "new_value" }] } }
+    assert_response :success
+    assert param_params[:name], operatingsystem.parameters.first.name
+  end
+
   private
 
   def os_params

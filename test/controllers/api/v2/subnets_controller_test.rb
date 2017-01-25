@@ -153,4 +153,13 @@ class Api::V2::SubnetsControllerTest < ActionController::TestCase
       assert_equal 'bar', show_response['parameters'].first['value']
     end
   end
+
+  test "should update existing subnet parameters" do
+    subnet = FactoryGirl.create(:subnet)
+    param_params = { :name => "foo", :value => "bar" }
+    subnet.domain_parameters.create!(param_params)
+    put :update, { :id => subnet.id, :subnet => { :domain_parameters_attributes => [{ :name => param_params[:name], :value => "new_value" }] } }
+    assert_response :success
+    assert param_params[:name], subnet.parameters.first.name
+  end
 end
