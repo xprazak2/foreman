@@ -6,7 +6,7 @@ class TidyCurrentRoles < ActiveRecord::Migration
     return if Role.count == 0
     Filter.reset_column_information
     Role.without_auditing do
-      ::RolesList.roles.each do |name, permission_names|
+      ::RolesList.seeded_roles.each do |name, permission_names|
         role = Role.find_by :name => name
         if role
           process_existing name, role, permission_names
@@ -15,6 +15,7 @@ class TidyCurrentRoles < ActiveRecord::Migration
         end
       end
     end
+    process_default_role
   end
 
   def process_existing(original_name, role, permission_names)
@@ -49,7 +50,10 @@ class TidyCurrentRoles < ActiveRecord::Migration
   end
 
   def create_from_seeds(name, permission_names)
-    builtin = name == "Default role" ? 2 : 0
-    SeedHelper.create_role name, permission_names, builtin, false
+    SeedHelper.create_role name, permission_names, 0, false
+  end
+
+  def process_default_role
+    Role.default.update_attribute :origin, "foreman"
   end
 end

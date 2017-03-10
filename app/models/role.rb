@@ -117,7 +117,6 @@ class Role < ActiveRecord::Base
     default_role = find_by_builtin(BUILTIN_DEFAULT_ROLE)
     if default_role.nil?
       opts = { :name => 'Default role', :builtin => BUILTIN_DEFAULT_ROLE }
-      opts[:modify_locked] = true if respond_to? :modify_locked
       default_role = create! opts
       raise ::Foreman::Exception.new(N_("Unable to create the default role.")) if default_role.new_record?
     end
@@ -169,7 +168,7 @@ class Role < ActiveRecord::Base
 
   def locked?
     return false unless respond_to? :origin
-    origin.present?
+    origin.present? && builtin != BUILTIN_DEFAULT_ROLE
   end
 
   def ignore_locking(&block)
