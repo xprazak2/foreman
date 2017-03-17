@@ -32,7 +32,7 @@ gem 'safemode', '~> 1.3', '>= 1.3.2'
 gem 'fast_gettext', '~> 1.4'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'rails-i18n', (SETTINGS[:rails] == '4.2' ? '~> 4.0.0' : '~> 5.0.0')
-gem 'turbolinks', '~> 2.5'
+gem 'turbolinks', '~> 2.5', :git => 'https://github.com/dobtco/turbolinks-classic.git', branch: 'fix-deprecations' # PR 671
 gem 'logging', '>= 1.8.0', '< 3.0.0'
 gem 'fog-core', '1.45.0'
 gem 'net-scp'
@@ -42,6 +42,7 @@ gem 'net-ping', :require => false
 gem 'activerecord-session_store', '>= 1.1.0', '< 2'
 gem 'sprockets', '~> 3'
 gem 'sprockets-rails', '~> 3.0'
+gem 'record_tag_helper', '~> 1.0'
 gem 'responders', '~> 2.0'
 gem 'roadie-rails', '~> 1.1'
 gem 'x-editable-rails', '~> 1.5.5'
