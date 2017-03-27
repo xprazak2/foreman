@@ -284,6 +284,15 @@ class RoleTest < ActiveSupport::TestCase
       assert_equal 2, role.permissions.count
       assert_equal 2, role.filters.count
     end
+
+    it "should not duplicate existing filterings" do
+      role = roles(:create_hosts)
+      permissions = [:view_architectures]
+      role.add_permissions!(permissions)
+      filterings = Filtering.where(:filter_id => Filter.where(:role_id => role.id))
+      role.add_permissions!(permissions)
+      assert_equal filterings.count, Filtering.where(:filter_id => Filter.where(:role_id => role.id)).count
+    end
   end
 
   context 'having role with filters' do

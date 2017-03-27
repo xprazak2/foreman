@@ -152,6 +152,7 @@ class Role < ApplicationRecord
       filter = find_filter resource_type, current_filters, search
 
       grouped_permissions.each do |permission|
+        next if filter.permissions.include?(permission)
         filtering = filter.filterings.build
         filtering.filter = filter
         filtering.permission = permission

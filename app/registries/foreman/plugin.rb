@@ -244,11 +244,7 @@ module Foreman #:nodoc:
     def role(name, permissions)
       default_roles[name] = permissions
       return false if pending_migrations || Rails.env.test?
-      Role.transaction do
-        role = Role.where(:name => name).first_or_create
-        role.add_permissions!(permissions) if role.permissions.empty?
-        rbac_registry.role_ids << role.id
-      end
+      Plugin::RoleLock.new(self.id).register_role name, permissions, rbac_registry
     rescue PermissionMissingException => e
       Rails.logger.warn(_("Could not create role '%{name}': %{message}") % {:name => name, :message => e.message})
       return false if Foreman.in_rake?
