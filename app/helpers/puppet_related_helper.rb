@@ -22,9 +22,7 @@ module PuppetRelatedHelper
   end
 
   def hostgroup_puppet_environment_field(form, select_options = {}, html_options = {})
-    select_options = {
-      :include_blank => blank_or_inherit_f(form, :environment)
-    }.deep_merge(select_options)
+    select_options = hostgroup_select_options(:environment_id).deep_merge(select_options)
 
     html_options = {
       :data => {
@@ -43,7 +41,7 @@ module PuppetRelatedHelper
       :onchange => "update_puppetclasses(this)",
       :help_inline => :indicator}.deep_merge(html_options)
 
-    select_f(
+    select_hostgroup_field(
       form,
       :environment_id,
       environments_choice,

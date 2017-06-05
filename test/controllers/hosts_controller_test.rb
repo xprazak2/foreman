@@ -1366,7 +1366,7 @@ class HostsControllerTest < ActionController::TestCase
       host.compute_profile = compute_profiles(:one)
       host.set_compute_attributes
 
-      group2 = FactoryGirl.create(:hostgroup, :compute_profile => compute_profiles(:two))
+      group2 = FactoryGirl.create(:hostgroup, :compute_profile => compute_profiles(:two), :compute_resource => compute_resources(:one))
 
       attrs = host_attributes(host)
       attrs['hostgroup_id'] = group2.id
@@ -1389,7 +1389,7 @@ class HostsControllerTest < ActionController::TestCase
       host.compute_profile = compute_profiles(:one)
       host.set_compute_attributes
 
-      group2 = FactoryGirl.create(:hostgroup, :compute_profile => compute_profiles(:two))
+      group2 = FactoryGirl.create(:hostgroup, :compute_profile => compute_profiles(:two), :compute_resource => compute_resources(:one))
 
       attrs = host_attributes(host)
       attrs['hostgroup_id'] = group2.id

@@ -161,7 +161,7 @@ class HostgroupsController < ApplicationController
 
   def inherit_parent_attributes
     return unless @parent.present?
-
+    @hostgroup.compute_resource   ||= @parent.compute_resource
     @hostgroup.architecture       ||= @parent.architecture
     @hostgroup.operatingsystem    ||= @parent.operatingsystem
     @hostgroup.domain             ||= @parent.domain
