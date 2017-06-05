@@ -445,7 +445,7 @@ function exit_fullscreen(){
   $(window).scrollTop(element.data('position'));
 }
 
-function disableButtonToggle(item, explicit) {
+function disableButtonToggle(item, explicit, callback, attribute, method) {
   if (explicit === undefined) {
     explicit = true;
   }
@@ -460,6 +460,9 @@ function disableButtonToggle(item, explicit) {
       $(item).attr('data-no-blank', true);
       $(formControl).append("<option value='' />");
     }
+    if (callback) {
+      callback.call(this, item, attribute, method);
+    }
   } else {
     var blankAttr = item.attr('data-no-blank');
     if (blankAttr == 'true') {
@@ -473,6 +476,40 @@ function disableButtonToggle(item, explicit) {
   }
 
   $(item).blur();
+}
+
+function setParentAttr(inheritButton, attribute, method) {
+  var parentId = inheritButton.closest('form').find('#hostgroup_parent_id option:selected').val(),
+      model = null;
+
+  if (parentId) {
+    tfm.tools.showSpinner();
+    model = modelNameFromAttribute(attribute);
+    $.ajax({
+      type: 'get',
+      url: foreman_url('/hostgroups/' + parentId + '/inherit'),
+      data: { attribute: model },
+      success: function(response) {
+        var attrSelect = inheritButton.closest('.input-group').find('select');
+        var attrNameSplit = attrSelect.attr('id').split('_');
+        var attrName = attrNameSplit.slice(1 - attrNameSplit.length).join('_');
+        var attrValue = response[model]['id'];
+        attrSelect.val(attrValue);
+        attrSelect.trigger('change');
+        tfm.tools.hideSpinner();
+      }
+    });
+  }
+}
+
+function modelNameFromAttribute(attribute) {
+  var atr = attribute,
+      atrSplit = null;
+  if (_.endsWith(attribute, '_id')) {
+    atrSplit = atr.split('_');
+    atr = atrSplit.slice(0, atrSplit.length - 1).join('_');
+  }
+  return atr;
 }
 
 function activate_select2(container, allowClear) {

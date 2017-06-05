@@ -4,9 +4,9 @@ class HostgroupsController < ApplicationController
   include Foreman::Controller::Parameters::Hostgroup
   include Foreman::Controller::CsvResponder
 
-  before_action :find_resource,  :only => [:nest, :clone, :edit, :update, :destroy]
-  before_action :ajax_request,   :only => [:process_hostgroup, :puppetclass_parameters]
-  before_action :taxonomy_scope, :only => [:new, :edit, :process_hostgroup]
+  before_action :find_resource,  :only => [:nest, :clone, :edit, :update, :destroy, :inherit]
+  before_action :ajax_request,   :only => [:process_hostgroup, :puppetclass_parameters, :inherit]
+  before_action :taxonomy_scope, :only => [:new, :edit, :process_hostgroup, :inherit]
 
   def index
     @hostgroups = resource_base_search_and_page
@@ -112,6 +112,11 @@ class HostgroupsController < ApplicationController
     render :partial => "form"
   end
 
+  def inherit
+    res = @hostgroup.inherited_resource(params['attribute'])
+    render :json => res.to_json
+  end
+
   def csv_columns
     [:title, :hosts_count, :children_hosts_count]
   end
@@ -137,7 +142,7 @@ class HostgroupsController < ApplicationController
 
   def action_permission
     case params[:action]
-      when 'nest', 'clone'
+      when 'nest', 'clone', 'inherit'
         'view'
       else
         super
@@ -161,7 +166,7 @@ class HostgroupsController < ApplicationController
 
   def inherit_parent_attributes
     return unless @parent.present?
-
+    @hostgroup.compute_resource   ||= @parent.compute_resource
     @hostgroup.architecture       ||= @parent.architecture
     @hostgroup.operatingsystem    ||= @parent.operatingsystem
     @hostgroup.domain             ||= @parent.domain

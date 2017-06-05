@@ -108,6 +108,7 @@ module FormHelper
     disable_button = select_options.delete(:disable_button)
     include_blank = select_options.delete(:include_blank)
     disable_button_enabled = select_options.delete(:disable_button_enabled)
+    callback = select_options.delete(:disable_button_callback) || false
     user_set = !!select_options.delete(:user_set)
 
     if include_blank
@@ -134,7 +135,7 @@ module FormHelper
             content_tag :span, class: 'input-group-btn' do
               content_tag(:button, disable_button, :type => 'button', :href => '#',
                           :name => 'is_overridden_btn',
-                          :onclick => "disableButtonToggle(this)",
+                          :onclick => "disableButtonToggle(this, true, #{callback}, '#{attr.to_s}', '#{method.to_s}')",
                           :class => 'btn btn-default btn-can-disable' + (disable_button_enabled ? ' active' : ''),
                           :data => { :toggle => 'button', :explicit => user_set })
             end

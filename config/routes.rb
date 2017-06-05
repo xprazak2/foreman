@@ -184,6 +184,7 @@ Foreman::Application.routes.draw do
     member do
       get 'nest'
       get 'clone'
+      get 'inherit'
     end
     collection do
       get 'auto_complete_search'

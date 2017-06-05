@@ -40,7 +40,7 @@ class Hostgroup < ApplicationRecord
   alias_attribute :os, :operatingsystem
   has_many :trends, :as => :trendable, :class_name => "ForemanTrend"
 
-  nested_attribute_for :compute_profile_id, :environment_id, :domain_id, :puppet_proxy_id, :puppet_ca_proxy_id,
+  nested_attribute_for :compute_profile_id, :environment_id, :domain_id, :puppet_proxy_id, :puppet_ca_proxy_id, :compute_resource_id,
                        :operatingsystem_id, :architecture_id, :medium_id, :ptable_id, :subnet_id, :subnet6_id, :realm_id, :pxe_loader
 
   # with proc support, default_scope can no longer be chained
@@ -227,6 +227,11 @@ class Hostgroup < ApplicationRecord
       result[host.name] = host.recreate_config(only)
     end
     result
+  end
+
+  def inherited_resource(attribute)
+    atr = attribute.end_with?('_id') ? attribute.split('_')[0..-2].join('_') : attribute
+    self.public_send(atr)
   end
 
   protected

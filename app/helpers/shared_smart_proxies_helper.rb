@@ -14,23 +14,36 @@ module SharedSmartProxiesHelper
     hidden = options[:if].present? && !options[:if].call(f.object)
     can_override = options.fetch(:can_override, false)
     override = options.fetch(:override, false)
-    blank = options.fetch(:blank, blank_or_inherit_f(f, resource))
 
     proxies = accessible_smart_proxies(f.object, resource, options[:feature])
     return if !required && proxies.blank?
 
-    select_options = {
+    if f.object.is_a? Hostgroup
+      select_options = hostgroup_proxy_select_options(resource)
+      select_method = :select_hostgroup_field
+    else
+      select_options = host_proxy_select_options(resource, override, can_override)
+      select_method = :select_f
+    end
+
+    public_send select_method, f, :"#{resource}_id", proxies, :id, :name,
+      select_options,
+      { :label => _(options[:label]),
+        :help_inline => _(options[:description]),
+        :wrapper_class => "form-group #{'hide' if hidden}"
+      }
+  end
+
+  def host_proxy_select_options(resource, override, can_override)
+    {
       :disable_button => can_override ? _(INHERIT_TEXT) : nil,
       :disable_button_enabled => override && !explicit_value?(:"#{resource}_id"),
       :user_set => user_set?(:"#{resource}_id")
     }
-    select_options[:include_blank] = blank unless required
+  end
 
-    select_f f, :"#{resource}_id", proxies, :id, :name,
-      select_options,
-      :label => _(options[:label]),
-      :help_inline => _(options[:description]),
-      :wrapper_class => "form-group #{'hide' if hidden}"
+  def hostgroup_proxy_select_options(resource)
+    hostgroup_select_options(:"#{resource}_id")
   end
 
   def accessible_smart_proxies(obj, resource, feature)
