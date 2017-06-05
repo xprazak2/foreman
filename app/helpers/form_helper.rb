@@ -108,6 +108,7 @@ module FormHelper
     disable_button = select_options.delete(:disable_button)
     include_blank = select_options.delete(:include_blank)
     disable_button_enabled = select_options.delete(:disable_button_enabled)
+    callback = select_options.delete(:disable_button_callback) || false
     user_set = !!select_options.delete(:user_set)
 
     if include_blank
@@ -332,11 +333,11 @@ module FormHelper
     return ' *'.html_safe if required.nil? ? is_required?(f, attr) : required
   end
 
-  def blank_or_inherit_f(f, attr)
+  def blank_or_inherit_f(f, attr, blank_value = _("no value"))
     return true unless f.object.respond_to?(:parent_id) && f.object.parent_id
     inherited_value   = f.object.send(attr)
     inherited_value   = inherited_value.name_method if inherited_value.present? && inherited_value.respond_to?(:name_method)
-    inherited_value ||= _("no value")
+    inherited_value ||= blank_value
     _("Inherit parent (%s)") % inherited_value
   end
 
