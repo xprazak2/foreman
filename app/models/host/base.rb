@@ -260,6 +260,11 @@ module Host
       self.interfaces.is_managed.where(:identifier => identifiers).all
     end
 
+    def interfaces_attached_to(bond)
+      return [] unless bond.identifier
+      interfaces.is_managed.where(:attached_to => bond.identifier)
+    end
+
     def reload(*args)
       drop_primary_interface_cache
       drop_provision_interface_cache
