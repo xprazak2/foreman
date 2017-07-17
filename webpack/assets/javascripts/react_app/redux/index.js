@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import reducer from './reducers';
+import { createRootReducer } from './reducers';
 
 let middleware = [thunk];
 
@@ -9,12 +9,24 @@ if (process.env.NODE_ENV !== 'production' && !global.__testing__) {
   middleware = [...middleware, createLogger()];
 }
 
-const _getStore = () => createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(...middleware)
-);
+const _getStore = () => {
+  const store = createStore(
+                  createRootReducer(),
+                  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+                  applyMiddleware(...middleware)
+                );
 
-export default _getStore();
+  store.pluginReducers = {};
+  return store;
+};
+
+const store = _getStore();
+
+export const injectReducer = (key, reducer) => {
+  store.pluginReducers[key] = reducer;
+  store.replaceReducer(createRootReducer(store.pluginReducers));
+};
+
+export default store;
 
 export const getStore = _getStore;

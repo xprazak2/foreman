@@ -9,7 +9,9 @@ export function mount(component, selector, data) {
     ReactDOM.unmountComponentAtNode(reactNode);
     ReactDOM.render(componentRegistry.markup(component, data, store), reactNode);
   } else {
+    const componentName = componentRegistry(component).type.name;
+
     // eslint-disable-next-line no-console
-    console.log(`Cannot find \'${selector}\' element for mounting the \'${component}\'`);
+    console.log(`Cannot find \'${selector}\' element for mounting the \'${componentName}\'`);
   }
 }

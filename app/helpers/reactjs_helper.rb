@@ -19,6 +19,7 @@ module ReactjsHelper
     plugin_names.select { |plugin_name| webpacked_plugin_ids.include?(plugin_name) }
   end
 
+
   def all_webpacked_plugins
     Foreman::Plugin.registered_plugins.values.select do |plugin|
       File.exist? File.join(plugin.path, 'webpack/index.js')
