@@ -30,18 +30,18 @@ class ConfigReportsControllerTest < ActionController::TestCase
     host = FactoryBot.create(:host)
     FactoryBot.create(:config_report, :host => host)
 
-    # "any context"
-    get :index, params: {format: :csv}, session: set_session_user
+    get :index, params: {format: :csv}, session: set_session_user.merge(location_id: FactoryBot.create(:location).id)
     assert_response :success
-    assert_equal 2, response.body.lines.size
+    assert_equal 1, response.body.lines.size
 
     get :index, params: {format: :csv}, session: set_session_user.merge(location_id: host.location_id)
     assert_response :success
     assert_equal 2, response.body.lines.size
 
-    get :index, params: {format: :csv}, session: set_session_user.merge(location_id: FactoryBot.create(:location).id)
+    # "any context"
+    get :index, params: {format: :csv}, session: set_session_user
     assert_response :success
-    assert_equal 1, response.body.lines.size
+    assert_equal 2, response.body.lines.size
   end
 
   def test_show

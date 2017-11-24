@@ -18,7 +18,7 @@ module Foreman::Controller::Parameters::KeepParam
     filtered = yield
     old_params.each do |key,val|
       # Restore the deleted (kept) keys to the filtered hash of params from the block
-      filtered[key] = val
+      filtered[key] = val.to_h
       # Restore the deleted (kept) keys to the original params hash so it remains unchanged
       params[top_level_hash][key] = val
     end
