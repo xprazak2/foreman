@@ -4,10 +4,11 @@ import { Field } from 'redux-form';
 import { FormControl, InputGroup, Button } from 'patternfly-react';
 import { first } from 'lodash';
 
+
 import CommonForm from './CommonForm';
 
 const TextButtonField = ({
-  item, label, name, className = '', inputClassName = 'col-md-6', blank = { "": "Choose one..." },
+  item, label, name, className = '', inputClassName = 'col-md-6', blank = { label: "Choose one...", value: "" },
 }) =>
 (
   <CommonForm label={label} className={className} inputClassName={inputClassName}>
@@ -28,15 +29,14 @@ const InputField = ({ input, item }) =>
 const SelectField = ({ input, blank, item }) =>
   <FormControl { ...input } componentClass="select">
     { addBlankOption(blank) }
-    { Object.entries(item.selection).map(([key, value]) => <option value={key}>{value}</option>) }
+    { item.selection.map((opt) => <option value={opt.value}>{opt.label}</option>) }
   </FormControl>
 
 const addBlankOption = (blank) => {
   if (Object.keys(blank).length === 0) {
     return;
   } else {
-    const key = first(Object.keys(blank))
-    return <option value={key}>{blank[key]}</option>;
+    return <option value={blank.value}>{blank.label}</option>;
   }
 }
 
