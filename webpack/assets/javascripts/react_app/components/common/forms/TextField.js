@@ -1,7 +1,20 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import { FormControl } from 'patternfly-react';
+
 import CommonForm from './CommonForm';
 import '../../../common/reduxFormI18n';
+
+const selectFieldType = (type, input, ...opts) => {
+  switch(type) {
+    case "checkbox":
+      return <Checkbox inline { ...input }></Checkbox>
+    default:
+      return textDefault(input, type);
+  }
+}
+
+const textDefault = (input, type) => <FormControl { ...input } type={type}></FormControl>;
 
 const renderField = ({
   input,
@@ -20,11 +33,7 @@ const renderField = ({
     required={required}
     error={error}
   >
-    {type === 'textarea' ? (
-      <textarea {...input} className="form-control" />
-    ) : (
-      <input {...input} type={type} className={type === 'checkbox' ? '' : 'form-control'} />
-    )}
+    { selectFieldType(type, input) }
   </CommonForm>
 );
 

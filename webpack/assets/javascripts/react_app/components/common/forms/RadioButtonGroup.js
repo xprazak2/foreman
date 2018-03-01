@@ -15,7 +15,7 @@ const RadioButtonGroup = ({
   </CommonForm>;
 
 const Button = ({ input, item }) =>
-    <Radio { ...input } inline="true" title={item.label} checked={item.checked} value={item.value}>{item.label}</Radio>;
+    <Radio { ...input } inline={true} title={item.label} checked={item.checked} value={item.value}>{item.label}</Radio>;
 
 RadioButtonGroup.propTypes = {
   controlLabel: PropTypes.string.isRequired,
