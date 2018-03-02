@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { FormControl } from 'patternfly-react';
+import { FormControl, Checkbox } from 'patternfly-react';
 
 import CommonForm from './CommonForm';
 import '../../../common/reduxFormI18n';
@@ -8,7 +8,7 @@ import '../../../common/reduxFormI18n';
 const selectFieldType = (type, input, ...opts) => {
   switch(type) {
     case "checkbox":
-      return <Checkbox inline { ...input }></Checkbox>
+      return <Checkbox { ...input }></Checkbox>
     default:
       return textDefault(input, type);
   }
