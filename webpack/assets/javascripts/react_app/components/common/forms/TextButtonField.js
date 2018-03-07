@@ -16,13 +16,14 @@ const TextButtonField = ({
   inputClassName = 'col-md-6',
   blank = { label: "Choose one...", value: "" },
   buttonAttrs: { buttonText = "Action", buttonAction },
-  fieldSelector
+  fieldSelector,
+  disabled = false
 }) => (
   <CommonForm label={label} className={className} inputClassName={inputClassName}>
     <InputGroup>
-      <Field name={name} type={fieldSelector(item)} component={fieldType(item, fieldSelector)} blank={blank} item={item}></Field>
+      <Field name={name} type={fieldSelector(item)} component={fieldType(item, fieldSelector)} blank={blank} item={item} disabled={disabled}></Field>
       <InputGroup.Button>
-        <Button onClick={buttonAction}>{ buttonText }</Button>
+        <Button onClick={buttonAction} disabled={disabled}>{ buttonText }</Button>
       </InputGroup.Button>
     </InputGroup>
   </CommonForm>
@@ -45,18 +46,18 @@ const fieldType = (item, fieldSelector) => {
   }
 }
 
-const InputField = ({ input }) =>
-  <FormControl { ...input } type="text"></FormControl>
+const InputField = ({ input, disabled }) =>
+  <FormControl { ...input } type="text" disabled={disabled}></FormControl>
 
-const SelectField = ({ input, blank, item }) =>
-  <FormControl { ...input } componentClass="select">
+const SelectField = ({ input, blank, item, disabled }) =>
+  <FormControl { ...input } componentClass="select" disabled={disabled}>
     { addBlankOption(blank) }
     { item.selection.map((opt) => <option value={opt.value}>{opt.label}</option>) }
   </FormControl>
 
-const CheckboxField = ({ input, item }) => {
+const CheckboxField = ({ input, item, disabled }) => {
   console.log(item)
-  return <Checkbox { ...input }></Checkbox>
+  return <Checkbox { ...input } disabled={disabled}></Checkbox>
 }
 
 const addBlankOption = (blank) => {
