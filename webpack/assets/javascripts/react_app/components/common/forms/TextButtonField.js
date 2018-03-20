@@ -52,7 +52,7 @@ const InputField = ({ input, disabled }) =>
 const SelectField = ({ input, blank, item, disabled }) =>
   <FormControl { ...input } componentClass="select" disabled={disabled}>
     { addBlankOption(blank) }
-    { item.selection.map((opt) => <option value={opt.value}>{opt.label}</option>) }
+    { item.selection.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>) }
   </FormControl>
 
 const CheckboxField = ({ input, item, disabled }) => {
