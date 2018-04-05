@@ -1,54 +1,27 @@
 class ConvertReportMetricsToHash < ActiveRecord::Migration[5.1]
   def up
-    eval_report_classes
     transform ActionController::Parameters, :to_h
   end
 
   def down
-    eval_report_classes
     transform Hash, :to_params
   end
 
-  def report_types
-    execute("SELECT DISTINCT type FROM reports;").values.flatten
-  end
-
-  def report_classes
-    res = report_types.map do |type|
-      begin
-        type.constantize
-      rescue
-        say "Cannot turn #{type} into a class"
-        next
-      end
-    end
-    res.compact
-  end
-
-  def eval_report_classes
-    report_classes.map do |report_class|
-      report_class.class_eval do
-        define_method :fetch_metrics do
-          self[:metrics]
-        end
-      end
-    end
-  end
-
   def transform(from, transform_method)
-    report_classes.each do |report_class|
-      report_class.unscoped.all.in_batches do |batch|
-        batch.each do |report|
-          metrics = report.fetch_metrics
+    # report_classes.each do |report_class|
+      # report_class.unscoped.all.in_batches do |batch|
+        # batch.each do |report|
+          report = FakeReport.find 887
+          metrics = report.metrics
           new_metrics = YAML.load(send(transform_method, metrics))
           new_metrics.to_unsafe_h if new_metrics.respond_to? :to_unsafe_h
           if report.metrics != new_metrics
-            report.metrics = new_metrics
+            report.metrics = YAML.dump new_metrics
             report.save!
           end
-        end
-      end
-    end
+    #     end
+    #   end
+    # end
   end
 
   def to_h(attr)
@@ -69,5 +42,10 @@ class ConvertReportMetricsToHash < ActiveRecord::Migration[5.1]
 
   def yml_params_obj
     '!ruby/object:ActionController::Parameters'
+  end
+
+  class FakeReport < ApplicationRecord
+    self.table_name = 'reports'
+    self.inheritance_column = nil
   end
 end
