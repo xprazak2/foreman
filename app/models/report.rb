@@ -49,7 +49,7 @@ class Report < ApplicationRecord
   # extracts serialized metrics and keep them as a hash_with_indifferent_access
   def metrics
     return {} if read_attribute(:metrics).nil?
-    YAML.load(read_attribute(:metrics)).with_indifferent_access
+    YAML.load(read_metrics).with_indifferent_access
   end
 
   # serialize metrics as YAML
@@ -89,5 +89,18 @@ class Report < ApplicationRecord
 
   def self.origins
     Foreman::Plugin.report_origin_registry.all_origins
+  end
+
+  private
+
+  def read_metrics
+    yml_hash = '!ruby/hash:ActiveSupport::HashWithIndifferentAccess'
+    yml_params_hash = '!ruby/hash:ActionController::Parameters'
+    yml_params_obj = '!ruby/object:ActionController::Parameters'
+    yml_params_ivars = '!ruby/hash-with-ivars:ActionController::Parameters'
+
+    read_attribute(:metrics).gsub!(yml_params_hash, yml_hash)
+                            .gsub!(yml_params_obj, yml_hash)
+                            .gsub!(yml_params_ivars, yml_hash)
   end
 end
