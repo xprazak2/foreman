@@ -1,39 +1,40 @@
 class ConvertVmAttrsToHash < ActiveRecord::Migration[5.1]
   def up
-    transform ActionController::Parameters, :to_h
+    transform :to_h
   end
 
   def down
-    transform ActiveSupport::HashWithIndifferentAccess, :to_params
+    transform :to_params
   end
 
-  def transform(from, transform_method)
+  def transform(transform_method)
     say "Starting serialized attributes conversion, this can take long time based on data amount"
-    say "Converting Compute Nics"
-    transform_batch_columns(FakeNic, from, ['attrs', 'compute_attributes'], transform_method)
+    say "Converting Nics"
+    transform_batch_columns(FakeNic, ['attrs', 'compute_attributes'], transform_method)
     say "Converting Compute Attributes"
-    transform_batch_columns(FakeComputeAttribute, from, ['vm_attrs'], transform_method)
+    transform_batch_columns(FakeComputeAttribute, ['vm_attrs'], transform_method)
     say "Converting Compute Resources"
-    transform_batch_columns(FakeComputeResource, from, ['attrs'], transform_method)
-    say "Converting Compute Reports"
-    transform_batch_columns(FakeReport, from, ['metrics'], transform_method)
-    say "Converting Compute Taxonomies"
-    transform_batch_columns(FakeTaxonomy, from, ['ignore_types'], transform_method)
-    say "Converting Compute Lookup Keys"
-    transform_batch_columns(FakeLookupKey, from, ['default_value'], transform_method)
-    say "Converting Compute Lookup Values"
-    transform_batch_columns(FakeLookupValue, from, ['value'], transform_method)
+    transform_batch_columns(FakeComputeResource, ['attrs'], transform_method)
+    say "Converting Reports"
+    transform_batch_columns(FakeReport, ['metrics'], transform_method)
+    say "Converting Taxonomies"
+    transform_batch_columns(FakeTaxonomy, ['ignore_types'], transform_method)
+    say "Converting Lookup Keys"
+    transform_batch_columns(FakeLookupKey, ['default_value'], transform_method)
+    say "Converting Lookup Values"
+    transform_batch_columns(FakeLookupValue, ['value'], transform_method)
     say "All conversions finished"
   end
 
-  def transform_batch_columns(base, from, serialized_columns, transform_method)
+  def transform_batch_columns(base, serialized_columns, transform_method)
     base.unscoped.all.in_batches do |batch|
       batch.each do |object|
         serialized_columns.each do |column|
-          attributes = object.send column
+          attributes = object.send :[], column.to_sym
           next if attributes.nil?
-          if YAML.load(attributes).is_a? from
-            object.send("#{column}=", send(transform_method, attributes))
+          new_attributes = send(transform_method, attributes)
+          if new_attributes != attributes
+            object.send(:[]=, column, new_attributes)
             object.save!
           end
         end
@@ -46,7 +47,7 @@ class ConvertVmAttrsToHash < ActiveRecord::Migration[5.1]
   end
 
   def to_params(attr)
-    attr.gsub(yml_hash, yml_params_obj)
+    attr.gsub(yml_hash, yml_params_hash)
   end
 
   def yml_hash
