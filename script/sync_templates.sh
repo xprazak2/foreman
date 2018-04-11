@@ -32,6 +32,7 @@ rsync -r \
   --exclude test \
   --exclude Rakefile \
   --exclude 'job_templates/' \
+  --exclude Gemfile \
   $REPO/ct/ ./
 
 cd -
