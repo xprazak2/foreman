@@ -9,6 +9,7 @@ import StorageContainer from './hosts/storage/vmware/';
 import BookmarkContainer from './bookmarks';
 import PasswordStrength from './user/passwordStrength/';
 import BreadcrumbBar from './BreadcrumbBar';
+import DhcpSubnets from './DhcpSubnets';
 
 const componentRegistry = {
   registry: {},
@@ -66,6 +67,7 @@ const coreComponets = [
   { name: 'StorageContainer', type: StorageContainer },
   { name: 'PasswordStrength', type: PasswordStrength },
   { name: 'BreadcrumbBar', type: BreadcrumbBar },
+  { name: 'DhcpSubnets', type: DhcpSubnets },
 ];
 
 componentRegistry.registerMultiple(coreComponets);
