@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
+
 class DhcpSubnets extends React.Component {
   constructor(props) {
     super(props)
@@ -8,7 +10,11 @@ class DhcpSubnets extends React.Component {
   render() {
     return (
       <div>
-        I am dhcp subnets component!
+        <ul className={"nav nav-tabs nav-tabs-pf nav-stacked col-md-3"}>
+          <li className={"active stacked-header"}>
+          </li>
+
+        </ul>
       </div>
     )
   }

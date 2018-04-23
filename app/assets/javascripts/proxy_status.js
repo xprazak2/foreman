@@ -3,9 +3,9 @@
 
 $(document).on('ContentLoad', function() {
   $('.nav-tabs a').on('shown.bs.tab', refreshCharts);
-  // $('a[data-toggle="tab"]').on('click', function(e) {
-  //   history.pushState(null, null, $(this).attr('href'));
-  // });
+  $('a[data-toggle="tab"]').on('click', function(e) {
+    history.pushState(null, null, document.location.pathname + $(this).attr('href'));
+  });
   tfm.proxyStatus.common.showProxies();
   loadTFTP();
   tfm.proxyStatus.common.setTab();
