@@ -2,18 +2,19 @@ import {
   DHCP_SUBNETS_REQUEST,
   DHCP_SUBNETS_SUCCESS,
   DHCP_SUBNETS_FAILURE
-} from '../consts';
+} from '../../consts';
 
 const dhcpSubnets = (state = {}, action) => {
   const { payload } = action;
+  console.log(action)
 
   switch(action.type) {
     case DHCP_SUBNETS_REQUEST:
-      return { ...state, ...{ loadingDhcpSubnets: true } };
+      return { ...state, ...{ loading: true } };
     case DHCP_SUBNETS_SUCCESS:
-      return { ...state, ...{ loadingDhcpSubnets: false }};
+      return { ...state, ...{ loading: false, subnets: payload.subnets || [] }};
     case DHCP_SUBNETS_FAILURE:
-      return { ...state, ...{ loadingDhcpSubnets: false, error: payload.error } };
+      return { ...state, ...{ loading: false, error: payload.error } };
     default:
       return state;
   }

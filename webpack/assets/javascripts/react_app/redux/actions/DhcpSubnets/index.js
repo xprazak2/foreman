@@ -11,5 +11,7 @@ export const getDhcpSubnets = url => dispatch =>
     dispatch,
     requestAction: DHCP_SUBNETS_REQUEST,
     successAction: DHCP_SUBNETS_SUCCESS,
-    failureAction: DHCP_SUBNETS_FAILURE
+    failureAction: DHCP_SUBNETS_FAILURE,
+    url,
+    item: {}
   });

@@ -11,8 +11,8 @@ class DhcpSubnets extends React.Component {
 
   componentDidMount(){
     console.log(this.props);
-    const { getDhcpSubnets } = this.props
-    // getDhcpSubnets()
+    const { getDhcpSubnets, data: { proxyId, proxySubnetsUrl } } = this.props;
+    getDhcpSubnets(proxySubnetsUrl)
   }
 
   render() {
@@ -33,6 +33,6 @@ class DhcpSubnets extends React.Component {
   }
 }
 
-const mapStateToProps = ({ dhcpSubnets }, ownProps) => dhcpSubnets;
+const mapStateToProps = ({ proxyDhcpSubnets }, ownProps) => proxyDhcpSubnets;
 
 export default connect(mapStateToProps, DhcpSubnetsActions)(DhcpSubnets);
