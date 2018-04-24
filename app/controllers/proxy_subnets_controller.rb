@@ -3,9 +3,12 @@ class ProxySubnetsController < ApplicationController
 
   def index
     @subnets = dhcp_status.subnets
-    render :partial => 'smart_proxies/plugins/dhcp_subnets', :locals => { :subnets => @subnets }
+    # binding.pry
+    # render :partial => 'smart_proxies/plugins/dhcp_subnets', :locals => { :subnets => @subnets }
+    render :json => { :subnets => @subnets }.to_json
   rescue Foreman::Exception => e
-    process_ajax_error e
+    render :json => { :message => e.message }
+    # process_ajax_error e
   end
 
   def show

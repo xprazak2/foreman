@@ -9,4 +9,5 @@
 
 </div>
 
-<%= mount_react_component('DhcpSubnets', '#dhcp_subnets', {}.to_json) %>
+<%= mount_react_component('DhcpSubnets', '#dhcp_subnets', { :proxyId => @smart_proxy.id,
+                                                            :proxySubnetsUrl => smart_proxy_proxy_subnets_path(@smart_proxy) }.to_json) %>

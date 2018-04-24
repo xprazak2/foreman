@@ -1,23 +1,25 @@
 import React from 'react';
-import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
+import { connect } from 'react-redux';
+import { TabContainer, Nav, NavItem, TabContent, TabPane, Spinner } from 'patternfly-react';
+
+import * as DhcpSubnetsActions from '../../redux/actions/DhcpSubnets';
 
 class DhcpSubnets extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  componentDidMount(){
+    console.log(this.props);
+    const { getDhcpSubnets } = this.props
+    // getDhcpSubnets()
+  }
+
   render() {
     return (
-      // <div>
-      //   <ul className={"nav nav-tabs nav-tabs-pf nav-stacked col-md-3"}>
-      //     <li className={"active stacked-header"}>
-      //     </li>
-
-      //   </ul>
-      // </div>
       <TabContainer id='dhcp-subnets-tab-container' defaultActiveKey={0}>
-        <div>
-          <Nav bsClass='nav nav-tabs nav-tabs-pf nav-stacked col-md3'>
+        <div className='col-md-12'>
+          <Nav className='col-md-3 nav nav-tabs nav-tabs-pf nav-stacked'>
             <NavItem className='stacked-header' eventKey={0}>General</NavItem>
             <NavItem className='stacked-header' eventKey={1}>Dummy</NavItem>
           </Nav>
@@ -31,4 +33,6 @@ class DhcpSubnets extends React.Component {
   }
 }
 
-export default DhcpSubnets;
+const mapStateToProps = ({ dhcpSubnets }, ownProps) => dhcpSubnets;
+
+export default connect(mapStateToProps, DhcpSubnetsActions)(DhcpSubnets);
