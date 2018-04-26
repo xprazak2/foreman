@@ -33,7 +33,7 @@ class DhcpSubnets extends React.Component {
 }
 
 const DhcpSubnetsTable = ({ subnets, columns }) =>
-  <Table rows={subnets} columns={columns} rowKey={'label'}/>
+  <Table rows={subnets} columns={columns} rowKey={'name'}/>
 
 // const TabNavs = ({ subnets }) =>
 //   (

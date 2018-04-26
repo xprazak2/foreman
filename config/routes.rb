@@ -234,6 +234,10 @@ Foreman::Application.routes.draw do
       post 'expire_logs'
     end
     constraints(:id => /[^\/]+/) do
+
+      match 'dhcp' => 'smart_proxies#show', :via => [:get]
+      match 'dhcp/*page' => 'smart_proxies#show', :via => [:get]
+
       resources :puppetca, :only => [:index, :update, :destroy] do
         member do
           get 'counts'

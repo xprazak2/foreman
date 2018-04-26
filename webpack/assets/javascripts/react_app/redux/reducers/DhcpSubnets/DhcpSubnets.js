@@ -12,7 +12,7 @@ const dhcpSubnets = (state = {}, action) => {
     case DHCP_SUBNETS_REQUEST:
       return { ...state, ...{ loading: true } };
     case DHCP_SUBNETS_SUCCESS:
-      return { ...state, ...{ loading: false, subnets: payload || [] }};
+      return { ...state, ...{ loading: false, subnets: payload.subnets || [] }};
     case DHCP_SUBNETS_FAILURE:
       return { ...state, ...{ loading: false, error: payload.error } };
     default:

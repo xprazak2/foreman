@@ -5,7 +5,8 @@ class ProxySubnetsController < ApplicationController
     subnets = dhcp_status.subnets
     # binding.pry
     # render :partial => 'smart_proxies/plugins/dhcp_subnets', :locals => { :subnets => @subnets }
-    @subnets = subnets.map { |subnet| Subnet.find_by(:network => subnet.network, :mask => subnet.netmask, :dhcp_id => @smart_proxy.id) }.compact
+    @subnets = Subnet.all
+    # @subnets = subnets.map { |subnet| Subnet.find_by(:network => subnet.network, :mask => subnet.netmask, :dhcp_id => @smart_proxy.id) }.compact
     # render :json => { :subnets => foreman_subnets }.to_json
   rescue Foreman::Exception => e
     render :json => { :error => e.message }.to_json
