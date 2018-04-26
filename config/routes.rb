@@ -234,10 +234,6 @@ Foreman::Application.routes.draw do
       post 'expire_logs'
     end
     constraints(:id => /[^\/]+/) do
-
-      match 'dhcp' => 'smart_proxies#show', :via => [:get]
-      match 'dhcp/*page' => 'smart_proxies#show', :via => [:get]
-
       resources :puppetca, :only => [:index, :update, :destroy] do
         member do
           get 'counts'
@@ -256,6 +252,9 @@ Foreman::Application.routes.draw do
     resources :proxy_subnets, :only => [:index, :show, :destroy] do
     end
   end
+
+  match 'smart_proxies/:id/dhcp' => 'smart_proxies#show', :via => [:get]
+  match 'smart_proxies/:id/dhcp/*page' => 'smart_proxies#show', :via => [:get]
 
   resources :http_proxies, :controller => 'http_proxies' do
     collection do

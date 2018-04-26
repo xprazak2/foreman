@@ -4,23 +4,13 @@ import { Link } from 'react-router-dom';
 
 const headerFormat = value => <PfTable.Heading>{value}</PfTable.Heading>;
 const cellFormat = value => <PfTable.Cell>{value}</PfTable.Cell>;
-const actionsFormat = value =>
-  <PfTable.Cell>{value}</PfTable.Cell>
+const actionsFormat = value => {
+  return <PfTable.Cell>{value}</PfTable.Cell>
+}
 
-// (
-//   <PfTable.Cell>
-//     <DropdownButton {...props} title='Actions'>
-//         <MenuItem eventKey="1">Action</MenuItem>
-//         <MenuItem eventKey="2">Another action</MenuItem>
-//         <MenuItem eventKey="3" active>
-//           Active Item
-//         </MenuItem>
-//         <MenuItem divider />
-//         <MenuItem eventKey="4">Separated link</MenuItem>
-//       </DropdownButton>
-//   </PfTable.Cell>
-// )
 
+const labelFormat = value =>
+<PfTable.Cell>{value}</PfTable.Cell>
 
 const columns = [
   {
@@ -29,9 +19,9 @@ const columns = [
       formatters: [headerFormat]
     },
     cell: {
-      formatters: [cellFormat]
+      formatters: [labelFormat]
     },
-    property: 'to_label'
+    property: 'detailsAction'
   },
   {
     header: {
@@ -52,16 +42,6 @@ const columns = [
       formatters: [cellFormat]
     },
     property: 'mask'
-  },
-  {
-    header: {
-      label: 'Actions',
-      formatters: [headerFormat]
-    },
-    cell: {
-      formatters: [actionsFormat]
-    },
-    property: 'tableActions'
   }
 ];
 

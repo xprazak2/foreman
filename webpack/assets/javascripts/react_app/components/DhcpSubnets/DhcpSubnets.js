@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TabContainer, Nav, NavItem, TabContent, TabPane, Spinner } from 'patternfly-react';
+import { TabContainer, Nav, NavItem, TabContent, TabPane, Spinner, DropdownButton, MenuItem, Button } from 'patternfly-react';
+import { Link } from 'react-router-dom';
+import { every } from 'lodash';
 
 import Table from '../common/Table';
 import * as DhcpSubnetsActions from '../../redux/actions/DhcpSubnets';
@@ -12,19 +14,19 @@ class DhcpSubnets extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props);
     const { getDhcpSubnets, data: { proxyId, proxySubnetsUrl } } = this.props;
     getDhcpSubnets(proxySubnetsUrl)
   }
 
   render() {
     console.log(this.props)
-    const { dhcpSubnets: { loading, subnets } } = this.props;
+    const { dhcpSubnets: { loading, subnets }, history, location } = this.props;
+
     return (
-      <Spinner loading={loading === undefined || loading}>
+      <Spinner loading={isLoading(loading)}>
         <TabContainer id='dhcp-subnets-tab-container' defaultActiveKey={0}>
           <div className='col-md-12'>
-            <DhcpSubnetsTable subnets={subnets} columns={columns} />
+            <DhcpSubnetsTable subnets={subnets} columns={columns} location={location} history={history}/>
           </div>
         </TabContainer>
       </Spinner>
@@ -32,9 +34,41 @@ class DhcpSubnets extends React.Component {
   }
 }
 
-const DhcpSubnetsTable = ({ subnets, columns }) =>
-  <Table rows={subnets} columns={columns} rowKey={'name'}/>
+const isLoading = (loading) => loading === undefined || loading;
 
+const propsPresent = (ary) => every(ary, (item) => !!item)
+
+const DhcpSubnetsTable = ({ subnets, columns, location, history }) =>
+      <Table rows={addLinkToDetails(location)(history)(subnets)} columns={columns} rowKey={'name'}/>
+
+
+// const addActionsDropdown = (subnets) =>
+//   subnets.map((subnet) => {
+//     subnet.actions = (<SubnetActionsDropdown id={subnet.parameterized}/>)
+//     return subnet;
+//   })
+const addLinkToDetails = location => history => subnets => {
+  return subnets.map((subnet) => {
+    let path = { pathname: `${location.pathname}/${subnet.id}`}
+    console.log(path)
+
+    subnet.detailsAction = (
+          <a href='#' onClick={(event) => {
+            console.log(event);
+            history.push(path)
+            console.log(event)
+          }} >{subnet.label}</a>
+      )
+    return subnet;
+  })
+};
+
+const ViewDetailsButton = (props) =>
+(
+  <Button onClick={redirect(location)(history)}>
+    Details
+  </Button>
+)
 // const TabNavs = ({ subnets }) =>
 //   (
 //     <Nav className='col-md-3 nav nav-tabs nav-tabs-pf nav-stacked'>

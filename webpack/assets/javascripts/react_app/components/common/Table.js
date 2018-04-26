@@ -2,6 +2,7 @@ import React from 'react';
 import { Table as PfTable } from 'patternfly-react';
 
 const Table = ({ columns, rows, rowKey }) => {
+  console.log(rows)
   return(
     <PfTable.PfProvider striped bordered hover columns={columns}>
       <PfTable.Header />
