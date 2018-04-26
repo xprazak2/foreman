@@ -6,13 +6,13 @@ import {
 
 const dhcpSubnets = (state = {}, action) => {
   const { payload } = action;
-  console.log(action)
+  console.log(payload);
 
   switch(action.type) {
     case DHCP_SUBNETS_REQUEST:
       return { ...state, ...{ loading: true } };
     case DHCP_SUBNETS_SUCCESS:
-      return { ...state, ...{ loading: false, subnets: payload.subnets || [] }};
+      return { ...state, ...{ loading: false, subnets: payload || [] }};
     case DHCP_SUBNETS_FAILURE:
       return { ...state, ...{ loading: false, error: payload.error } };
     default:

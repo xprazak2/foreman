@@ -2,11 +2,11 @@ class ProxySubnetsController < ApplicationController
   before_action :find_proxy, :only => [:index, :show, :destroy]
 
   def index
-    @subnets = dhcp_status.subnets
+    subnets = dhcp_status.subnets
     # binding.pry
     # render :partial => 'smart_proxies/plugins/dhcp_subnets', :locals => { :subnets => @subnets }
-    foreman_subnets = @subnets.map { |net| Subnet.find_by(:network => subnet.network, :mask => subnet.netmask, :dhcp_id => @smart_proxy.id) }.compact
-    render :json => { :subnets => foreman_subnets }.to_json
+    @subnets = subnets.map { |subnet| Subnet.find_by(:network => subnet.network, :mask => subnet.netmask, :dhcp_id => @smart_proxy.id) }.compact
+    # render :json => { :subnets => foreman_subnets }.to_json
   rescue Foreman::Exception => e
     render :json => { :error => e.message }.to_json
     # process_ajax_error e

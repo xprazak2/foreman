@@ -1,6 +1,7 @@
 require 'ipaddr'
 
 class Subnet < ApplicationRecord
+  self.include_root_in_json = false
   audited
   IP_FIELDS = [:network, :mask, :gateway, :dns_primary, :dns_secondary, :from, :to]
   REQUIRED_IP_FIELDS = [:network, :mask]
