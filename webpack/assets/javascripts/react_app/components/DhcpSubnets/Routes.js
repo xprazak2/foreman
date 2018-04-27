@@ -18,7 +18,7 @@ const links = [
   },
   {
     title: 'Dhcp Subnet',
-    path: 'smart_proxies/:id/dhcp/:subnet_id',
+    path: 'smart_proxies/:id/dhcp/:subnetId',
     Component: DhcpSubnet
   }
 ]

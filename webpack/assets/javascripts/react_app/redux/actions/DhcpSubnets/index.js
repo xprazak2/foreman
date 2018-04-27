@@ -26,5 +26,6 @@ export const getDhcpSubnet = url => dispatch =>
     successAction: DHCP_SUBNET_SUCCESS,
     failureAction: DHCP_SUBNET_FAILURE,
     url,
-    item: {}
+    item: {},
+    params: { dhcp_subnet: { network: 'ble', subnet: 'bla'}}
   })

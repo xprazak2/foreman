@@ -14,7 +14,7 @@ class ProxySubnetsController < ApplicationController
   end
 
   def show
-    @details = dhcp_status.subnet params[:dhcp_subnet]
+    @details = dhcp_status.subnet params[:dhcp_subnet].to_unsafe_h
     binding.pry
     # render :partial => 'smart_proxies/plugins/dhcp_subnet_show'
     render :json => { :mesage => 'I am here' }.to_json

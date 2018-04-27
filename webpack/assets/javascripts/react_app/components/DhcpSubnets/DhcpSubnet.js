@@ -11,8 +11,9 @@ class DhcpSubnet extends React.Component {
   }
 
   componentDidMount() {
-    const { getDhcpSubnet } = this.props;
-    getDhcpSubnet('smart_proxies/2/proxy_subnets/4')
+    const { getDhcpSubnet, data: { proxyId }, match: { params: { subnetId } } } = this.props;
+    console.log(this.props)
+    getDhcpSubnet(`smart_proxies/${proxyId}/proxy_subnets/${subnetId}`)
   }
 
   render() {
