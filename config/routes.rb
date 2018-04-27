@@ -218,6 +218,9 @@ Foreman::Application.routes.draw do
     end
   end
 
+  match 'smart_proxies/:id/dhcp' => 'smart_proxies#show', :via => [:get]
+  # match 'smart_proxies/:id/dhcp/*page' => 'smart_proxies#show', :via => [:get]
+
   resources :smart_proxies do
     member do
       get 'ping'
@@ -250,11 +253,11 @@ Foreman::Application.routes.draw do
       get 'auto_complete_search'
     end
     resources :proxy_subnets, :only => [:index, :show, :destroy] do
+      # member do
+      #   get 'details'
+      # end
     end
   end
-
-  match 'smart_proxies/:id/dhcp' => 'smart_proxies#show', :via => [:get]
-  match 'smart_proxies/:id/dhcp/*page' => 'smart_proxies#show', :via => [:get]
 
   resources :http_proxies, :controller => 'http_proxies' do
     collection do

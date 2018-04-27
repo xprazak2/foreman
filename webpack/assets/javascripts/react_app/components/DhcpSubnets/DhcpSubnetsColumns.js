@@ -21,7 +21,7 @@ const columns = [
     cell: {
       formatters: [labelFormat]
     },
-    property: 'detailsAction'
+    property: 'label'
   },
   {
     header: {
@@ -42,7 +42,17 @@ const columns = [
       formatters: [cellFormat]
     },
     property: 'mask'
-  }
+  },
+  {
+    header: {
+      label: 'Actions',
+      formatters: [headerFormat]
+    },
+    cell: {
+      formatters: [cellFormat]
+    },
+    property: 'detailsAction'
+  },
 ];
 
 export default columns;

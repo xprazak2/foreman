@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TabContainer, Nav, NavItem, TabContent, TabPane, Spinner, DropdownButton, MenuItem, Button } from 'patternfly-react';
-import { Link } from 'react-router-dom';
-import { every } from 'lodash';
 
 import Table from '../common/Table';
-import * as DhcpSubnetsActions from '../../redux/actions/DhcpSubnets';
+import { getDhcpSubnets } from '../../redux/actions/DhcpSubnets';
 import columns from './DhcpSubnetsColumns';
 
 class DhcpSubnets extends React.Component {
@@ -36,39 +34,23 @@ class DhcpSubnets extends React.Component {
 
 const isLoading = (loading) => loading === undefined || loading;
 
-const propsPresent = (ary) => every(ary, (item) => !!item)
-
 const DhcpSubnetsTable = ({ subnets, columns, location, history }) =>
       <Table rows={addLinkToDetails(location)(history)(subnets)} columns={columns} rowKey={'name'}/>
 
 
-// const addActionsDropdown = (subnets) =>
-//   subnets.map((subnet) => {
-//     subnet.actions = (<SubnetActionsDropdown id={subnet.parameterized}/>)
-//     return subnet;
-//   })
 const addLinkToDetails = location => history => subnets => {
   return subnets.map((subnet) => {
     let path = { pathname: `${location.pathname}/${subnet.id}`}
     console.log(path)
 
     subnet.detailsAction = (
-          <a href='#' onClick={(event) => {
-            console.log(event);
-            history.push(path)
-            console.log(event)
-          }} >{subnet.label}</a>
+          <Button onClick={() => history.push(path)}>
+            Details
+          </Button>
       )
     return subnet;
   })
 };
-
-const ViewDetailsButton = (props) =>
-(
-  <Button onClick={redirect(location)(history)}>
-    Details
-  </Button>
-)
 // const TabNavs = ({ subnets }) =>
 //   (
 //     <Nav className='col-md-3 nav nav-tabs nav-tabs-pf nav-stacked'>
@@ -87,4 +69,4 @@ const ViewDetailsButton = (props) =>
 
 const mapStateToProps = ({ proxyDhcpSubnets: { dhcpSubnets } }, ownProps) => ({ dhcpSubnets });
 
-export default connect(mapStateToProps, DhcpSubnetsActions)(DhcpSubnets);
+export default connect(mapStateToProps, { getDhcpSubnets })(DhcpSubnets);

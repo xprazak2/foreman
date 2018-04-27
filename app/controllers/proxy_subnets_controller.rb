@@ -15,7 +15,9 @@ class ProxySubnetsController < ApplicationController
 
   def show
     @details = dhcp_status.subnet params[:dhcp_subnet]
-    render :partial => 'smart_proxies/plugins/dhcp_subnet_show'
+    binding.pry
+    # render :partial => 'smart_proxies/plugins/dhcp_subnet_show'
+    render :json => { :mesage => 'I am here' }.to_json
   rescue Foreman::Exception => e
     process_ajax_error e
   end
@@ -45,4 +47,13 @@ class ProxySubnetsController < ApplicationController
   def dhcp_status
     @smart_proxy.statuses[:dhcp]
   end
+
+  # def action_permission
+  #   case params[:action]
+  #   when 'details'
+  #     :view
+  #   else
+  #     super
+  #   end
+  # end
 end

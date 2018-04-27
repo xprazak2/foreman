@@ -1,3 +1,3 @@
 collection @subnets => :subnets
 
-extends "proxy_subnets/show"
+extends "proxy_subnets/subnet"
