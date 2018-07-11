@@ -4,10 +4,13 @@ class RolesList
   class << self
     def seeded_roles
       {
-        Role::MANAGER => { :permissions => base_manage_permissions + view_permissions + manage_organizations_permissions,
+        Role::MANAGER => { :permissions => base_manage_permissions + view_permissions + manage_organizations_permissions + settings_permissions,
                            :description => 'Role granting all available permissions. With this role, user is able to do everything that admin can except for changing settings.' },
         Role::ORG_ADMIN => { :permissions => base_manage_permissions + view_permissions,
                              :description => 'Role granting all permissions except for managing organizations. It can be used to delegate administration of specific organization to a user. In order to create such role, clone this role and assign desired organizations' },
+        Role::CANNED_ADMIN => { :permissions => settings_permissions + manage_organizations_permissions + [:view_organizations],
+                                :description => 'Role granting permissions for managing organizations and settings.' },
+
         'Edit partition tables' => { :permissions => [:view_ptables, :create_ptables, :edit_ptables, :destroy_ptables], :description => 'Role granting permissions required for managing partition tables' },
         'View hosts' => { :permissions => [:view_hosts],
                           :description => 'Role granting permission only to view hosts' },
@@ -51,7 +54,8 @@ class RolesList
     end
 
     def base_manage_permissions
-      PermissionsList.permissions.reject { |resource, name| name.start_with?('view_') }.map { |p| p.last.to_sym } - manage_organizations_permissions - role_managements_permissions
+      PermissionsList.permissions.reject { |resource, name| name.start_with?('view_') }
+        .map { |p| p.last.to_sym } - manage_organizations_permissions - role_managements_permissions - settings_permissions
     end
 
     def manage_organizations_permissions
@@ -68,7 +72,11 @@ class RolesList
     end
 
     def view_permissions
-      PermissionsList.permissions.select { |resource, name| name.start_with?('view_') }.map { |p| p.last.to_sym }
+      PermissionsList.permissions.select { |resource, name| name.start_with?('view_') && name != 'view_settings' }.map { |p| p.last.to_sym }
+    end
+
+    def settings_permissions
+      [:view_settings, :edit_settings]
     end
   end
 end

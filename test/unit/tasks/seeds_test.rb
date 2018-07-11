@@ -188,9 +188,9 @@ class SeedsTest < ActiveSupport::TestCase
     assert_equal [], seeded_permissions - access_permissions
   end
 
-  test "viewer role contains all view permissions" do
+  test "viewer role contains all view permissions except for settings" do
     seed
-    view_permissions = Permission.all.select { |permission| permission.name.match(/view/) }
+    view_permissions = Permission.all.select { |permission| permission.name.match(/view/) && permission.name != 'view_settings' }
     assert_equal [], view_permissions - Role.unscoped.find_by_name('Viewer').permissions
   end
 end

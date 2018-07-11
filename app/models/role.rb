@@ -28,6 +28,7 @@ class Role < ApplicationRecord
   MANAGER = 'Manager'
   ORG_ADMIN = 'Organization admin'
   VIEWER = 'Viewer'
+  CANNED_ADMIN = 'Canned admin'
 
   has_associated_audits
   scope :givable, -> { where(:builtin => 0).order(:name) }
@@ -203,7 +204,7 @@ class Role < ApplicationRecord
   end
 
   def add_permissions!(*args)
-    add_permissions(*args)
+    add_permissions(*args, :save! => true)
     save!
   end
 
@@ -330,7 +331,14 @@ class Role < ApplicationRecord
   def permission_records(permissions)
     perms = permissions.flatten
     collection = Permission.where(:name => perms).all
-    raise ::Foreman::PermissionMissingException.new(N_('some permissions were not found')) if collection.size != perms.size
+    if collection.size != perms.size
+      raise ::Foreman::PermissionMissingException.new(N_("some permissions were not found: %s"),
+                                                      not_found_permissions(collection.pluck(:name), perms))
+    end
     collection
+  end
+
+  def not_found_permissions(first, second)
+    first - second | second - first
   end
 end
