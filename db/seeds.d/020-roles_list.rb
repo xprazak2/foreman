@@ -8,8 +8,8 @@ class RolesList
                            :description => 'Role granting all available permissions. With this role, user is able to do everything that admin can except for changing settings.' },
         Role::ORG_ADMIN => { :permissions => base_manage_permissions + view_permissions,
                              :description => 'Role granting all permissions except for managing organizations. It can be used to delegate administration of specific organization to a user. In order to create such role, clone this role and assign desired organizations' },
-        Role::CANNED_ADMIN => { :permissions => settings_permissions + manage_organizations_permissions + [:view_organizations],
-                                :description => 'Role granting permissions for managing organizations and settings.' },
+        Role::CANNED_ADMIN => { :permissions => (settings_permissions + manage_organizations_permissions + canned_admin_extra_permissions),
+                                :description => 'Role granting permissions for managing organizations, users and settings.' },
 
         'Edit partition tables' => { :permissions => [:view_ptables, :create_ptables, :edit_ptables, :destroy_ptables], :description => 'Role granting permissions required for managing partition tables' },
         'View hosts' => { :permissions => [:view_hosts],
@@ -61,6 +61,15 @@ class RolesList
     def manage_organizations_permissions
       [
         :create_organizations, :destroy_organizations
+      ]
+    end
+
+    def canned_admin_extra_permissions
+      [
+        :view_organizations, :edit_organizations, :assign_organizations,
+        :view_users, :create_users,
+        :view_roles, :escalate_roles,
+        :create_filters
       ]
     end
 

@@ -30,9 +30,14 @@ class Role < ApplicationRecord
   VIEWER = 'Viewer'
   CANNED_ADMIN = 'Canned admin'
 
+  def self.for_current_auth(find_all)
+    find_all ? where('0 = 0') : where(:id => User.current.role_ids)
+  end
+
   has_associated_audits
   scope :givable, -> { where(:builtin => 0).order(:name) }
-  scope :for_current_user, -> { User.current.admin? ? where('0 = 0') : where(:id => User.current.role_ids) }
+  scope :for_current_user, -> (user) { Role.for_current_auth User.current.can_escalate_for_user?(user) }
+  scope :for_current_usergroup, -> (group) { Role.for_current_auth User.current.can_escalate_for_usergroup?(group) }
   scope :builtin, lambda { |*args|
     compare = 'not' if args.first
     where("#{compare} builtin = 0")

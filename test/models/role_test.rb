@@ -202,7 +202,7 @@ class RoleTest < ActiveSupport::TestCase
         User.current = users(:one)
       end
 
-      subject { Role.for_current_user.to_a }
+      subject { Role.for_current_user(User.current).to_a }
       it { subject.must_include(first) }
       it { subject.wont_include(second) }
     end
@@ -214,8 +214,55 @@ class RoleTest < ActiveSupport::TestCase
 
       test "Admin user should query Role model with no restrictions" do
         Role.expects(:where).with('0 = 0')
-        Role.for_current_user
+        Role.for_current_user(User.current)
       end
+    end
+
+    context "when current user is not admin" do
+      test "should not allow to escalate when missing escalation permission" do
+        role = Role.create(:name => 'Not owned')
+        User.current = users(:view_hosts)
+
+        user = users(:two)
+        refute_includes Role.for_current_user(user), role
+      end
+
+      test "should allow to escalate for canned admin" do
+        role = Role.create(:name => 'Not owned by canned admin')
+        User.current = users(:canned_admin)
+
+        refute_includes Role.for_current_user(users(:two)), role
+      end
+
+      test "should not allow to escalate own roles" do
+        User.current = users(:canned_admin)
+        refute_includes Role.for_current_user(users(:two)), roles(:destroy_hosts)
+      end
+    end
+  end
+
+  describe ".for_current_usergroup" do
+    test "should not allow to escalate when missing escalation permision" do
+      role = Role.create(:name => 'Not owned')
+      User.current = users(:view_hosts)
+
+      refute_includes Role.for_current_usergroup(FactoryBot.create(:usergroup)), role
+    end
+
+    test "should allow to escalate for canned admin" do
+      role = Role.create(:name => 'Not owned by canned admin')
+      User.current = users(:canned_admin)
+
+      refute_includes Role.for_current_usergroup(FactoryBot.create(:usergroup)), role
+    end
+
+    test "should not allow to escalate own for usergroup current user is member of" do
+      group = FactoryBot.create(:usergroup)
+      canned_admin = users(:canned_admin)
+      group.users << canned_admin
+      assert group.save
+      User.current = canned_admin
+      refute_includes Role.for_current_usergroup(group), roles(:destroy_hosts)
     end
   end
 

@@ -143,6 +143,7 @@ class PermissionsList
         ['Role', 'create_roles'],
         ['Role', 'edit_roles'],
         ['Role', 'destroy_roles'],
+        ['Role', 'escalate_roles'],
         ['Setting', 'view_settings'],
         ['Setting', 'edit_settings'],
         ['SmartProxy', 'view_smart_proxies'],

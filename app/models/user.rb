@@ -379,8 +379,22 @@ class User < ApplicationRecord
   end
 
   # user must be assigned all given roles in order to delegate them
-  def can_assign?(roles)
-    can_change_admin_flag? || roles.all? { |r| self.role_ids_was.include?(r) }
+  # or have :escalate_roles permission
+  # but cannot escalate roles for self
+  def can_assign?(role_ids, target_user)
+    can_escalate_for_user?(target_user) || role_ids.all? { |r| self.role_ids_was.include?(r) }
+  end
+
+  def can_escalate_for_user?(target_user)
+    self.admin? || (self.can?(:escalate_roles) && self != target_user)
+  end
+
+  def can_escalate_for_usergroup?(target_group)
+    self.admin? ||
+    (self.can?(:escalate_roles) &&
+      !User.find(self.id)
+           .joins(:usergroup_member)
+           .where(:usergroup_member => { :member_type => 'User', :usergroup_id => target_group.id } ))
   end
 
   # only admin can change admin flag
@@ -643,7 +657,7 @@ class User < ApplicationRecord
 
   def ensure_roles_not_escalated
     roles_check = self.new_record? ? self.role_ids.present? : self.role_ids_changed?
-    if roles_check && !User.current.can_assign?(self.role_ids)
+    if roles_check && !User.current.can_assign?(self.role_ids, self)
       errors.add :role_ids, _("you can't assign some of roles you selected")
     end
   end
