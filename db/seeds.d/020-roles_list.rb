@@ -67,6 +67,7 @@ class RolesList
     def canned_admin_extra_permissions
       [
         :view_organizations, :edit_organizations, :assign_organizations,
+        :view_locations, :edit_locations, :assign_locations, :create_locations, :destroy_locations,
         :view_users, :create_users,
         :view_roles, :escalate_roles,
         :create_filters
