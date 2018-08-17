@@ -1,19 +1,19 @@
 import React from 'react';
 import { EmptyState as PfEmptyState } from 'patternfly-react';
 import { emptyStatePatternPropTypes } from './EmptyStatePropTypes';
+import PrimaryActionButton from './EmptyStatePrimaryActionButton';
+import SecondaryActionButtons from './EmptyStateSecondaryActionButtons';
 
 const EmptyStatePattern = (props) => {
   const { documentation, action, secondaryActions } = props;
   return (
     <PfEmptyState>
-      <PfEmptyState.Icon type="pf" name={props.icon} />
+      <PfEmptyState.Icon type={props.iconType} name={props.icon} />
       <PfEmptyState.Title>{props.header}</PfEmptyState.Title>
       <PfEmptyState.Info>{props.description}</PfEmptyState.Info>
       {documentation && <PfEmptyState.Help>{documentation}</PfEmptyState.Help>}
-      {action && <PfEmptyState.Action>{action}</PfEmptyState.Action>}
-      {secondaryActions && (
-        <PfEmptyState.Action secondary>{secondaryActions}</PfEmptyState.Action>
-      )}
+      {action && <PrimaryActionButton action={action} />}
+      {secondaryActions && <SecondaryActionButtons actions={secondaryActions} />}
     </PfEmptyState>
   );
 };

@@ -3,24 +3,17 @@
 exports[`Default Empty State icon, header, description and main action are mandatory 1`] = `
 <EmptyStatePattern
   action={
-    <PrimaryActionButton
-      action={
-        Object {
-          "title": "action-title",
-          "url": "action-url",
-        }
-      }
-    />
+    Object {
+      "title": "action-title",
+      "url": "action-url",
+    }
   }
   description="description1"
   documentation={null}
   header="header1"
   icon="add-circle-o"
-  secondaryActions={
-    <SecondaryActionButtons
-      actions={Array []}
-    />
-  }
+  iconType="pf"
+  secondaryActions={Array []}
 />
 `;
 
@@ -64,56 +57,46 @@ exports[`Default Empty State should render documentation when given a url 1`] = 
   <div
     className="blank-slate-pf-main-action"
   >
-    <button
+    <a
       className="btn btn-lg btn-primary"
-      disabled={false}
-      type="button"
-      url="action-url"
+      href="action-url"
+      onClick={[Function]}
+      onKeyDown={[Function]}
     >
       action-title
-    </button>
+    </a>
   </div>
-  <div
-    className="blank-slate-pf-secondary-action"
-  />
 </div>
 `;
 
 exports[`Default Empty State should render secondary actions 1`] = `
 <EmptyStatePattern
   action={
-    <PrimaryActionButton
-      action={
-        Object {
-          "title": "action-1-title",
-          "url": "action-1-url",
-        }
-      }
-    />
+    Object {
+      "title": "action-1-title",
+      "url": "action-1-url",
+    }
   }
   description="Printers print a file from the computer"
   documentation={null}
   header="Printers"
   icon="add-circle-o"
+  iconType="pf"
   secondaryActions={
-    <SecondaryActionButtons
-      actions={
-        Array [
-          Object {
-            "title": "action-2-title",
-            "url": "action-2-url",
-          },
-          Object {
-            "title": "action-3-title",
-            "url": "action-3-url",
-          },
-          Object {
-            "title": "action-4-title",
-            "url": "action-4-url",
-          },
-        ]
-      }
-    />
+    Array [
+      Object {
+        "title": "action-2-title",
+        "url": "action-2-url",
+      },
+      Object {
+        "title": "action-3-title",
+        "url": "action-3-url",
+      },
+      Object {
+        "title": "action-4-title",
+        "url": "action-4-url",
+      },
+    ]
   }
 />
 `;
@@ -200,7 +183,37 @@ exports[`Empty State Pattern should render description when given one as a text 
 </EmptyState>
 `;
 
-exports[`Empty State Pattern should render main action when given one 1`] = `
+exports[`Empty State Pattern should render main action when given title and onClick 1`] = `
+<EmptyState
+  className=""
+>
+  <EmptyStateIcon
+    className=""
+    name="printers"
+    type="pf"
+  />
+  <EmptyStateTitle
+    className=""
+  >
+    printers
+  </EmptyStateTitle>
+  <EmptyStateInfo
+    className=""
+  >
+    printers print a file from the computer
+  </EmptyStateInfo>
+  <PrimaryActionButton
+    action={
+      Object {
+        "onClick": [Function],
+        "title": "test-action-on-click",
+      }
+    }
+  />
+</EmptyState>
+`;
+
+exports[`Empty State Pattern should render main action when given title and url 1`] = `
 <EmptyState
   className=""
 >
@@ -219,14 +232,14 @@ exports[`Empty State Pattern should render main action when given one 1`] = `
   >
     printers print a file from the computer
   </EmptyStateInfo>
-  <EmptyStateAction
-    className=""
-    secondary={false}
-  >
-    <button>
-      action-title
-    </button>
-  </EmptyStateAction>
+  <PrimaryActionButton
+    action={
+      Object {
+        "title": "primary-test-action",
+        "url": "primary-url",
+      }
+    }
+  />
 </EmptyState>
 `;
 
@@ -249,20 +262,19 @@ exports[`Empty State Pattern should render secondary action when given one 1`] =
   >
     printers print a file from the computer
   </EmptyStateInfo>
-  <EmptyStateAction
-    className=""
-    secondary={true}
-  >
-    <button
-      key="y"
-    >
-      action-y
-    </button>
-    <button
-      key="x"
-    >
-      action-x
-    </button>
-  </EmptyStateAction>
+  <SecondaryActionButtons
+    actions={
+      Array [
+        Object {
+          "title": "x",
+          "url": "some-url",
+        },
+        Object {
+          "title": "y",
+          "url": "random-url",
+        },
+      ]
+    }
+  />
 </EmptyState>
 `;

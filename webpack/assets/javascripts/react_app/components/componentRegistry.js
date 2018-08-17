@@ -10,6 +10,7 @@ import BookmarkContainer from './bookmarks';
 import PasswordStrength from './PasswordStrength';
 import BreadcrumbBar from './BreadcrumbBar';
 import FactChart from './factCharts';
+import EmptyState from './common/EmptyState';
 
 const componentRegistry = {
   registry: {},
@@ -40,7 +41,7 @@ const componentRegistry = {
     return Object.keys(this.registry).join(', ');
   },
 
-  markup(name, data, store) {
+  markup(name, data, store, flattenData) {
     const currentComponent = this.getComponent(name);
 
     if (!currentComponent) {
@@ -48,6 +49,14 @@ const componentRegistry = {
     }
     const ComponentName = currentComponent.type;
 
+    if (flattenData) {
+      return (
+        <ComponentName
+          store={currentComponent.store ? store : undefined}
+          { ...data }
+        />
+      );
+    }
     return (
       <ComponentName
         data={currentComponent.data ? data : undefined}
@@ -68,6 +77,7 @@ const coreComponets = [
   { name: 'PasswordStrength', type: PasswordStrength },
   { name: 'BreadcrumbBar', type: BreadcrumbBar },
   { name: 'FactChart', type: FactChart },
+  { name: 'EmptyState', type: EmptyState },
 ];
 
 componentRegistry.registerMultiple(coreComponets);

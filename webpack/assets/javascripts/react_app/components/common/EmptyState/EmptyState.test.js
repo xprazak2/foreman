@@ -62,19 +62,25 @@ const emptyStatePatternFixtures = {
       </div>
     ),
   },
-  'should render main action when given one': {
+  'should render main action when given title and url': {
     icon: 'printer',
     header: 'printers',
     description: 'printers print a file from the computer',
-    action: <button>action-title</button>,
+    action: { title: 'primary-test-action', url: 'primary-url' },
+  },
+  'should render main action when given title and onClick': {
+    icon: 'printers',
+    header: 'printers',
+    description: 'printers print a file from the computer',
+    action: { title: 'test-action-on-click', onClick: () => 'printed!' },
   },
   'should render secondary action when given one': {
     icon: 'printer',
     header: 'printers',
     description: 'printers print a file from the computer',
     secondaryActions: [
-      <button key="y">action-y</button>,
-      <button key="x">action-x</button>,
+      { title: 'x', url: 'some-url' },
+      { title: 'y', url: 'random-url' },
     ],
   },
 };

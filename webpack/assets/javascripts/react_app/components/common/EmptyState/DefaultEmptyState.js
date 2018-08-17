@@ -1,7 +1,5 @@
 import React from 'react';
 import EmptyStatePattern from './EmptyStatePattern';
-import PrimaryActionButton from './EmptyStatePrimaryActionButton';
-import SecondaryActionButtons from './EmptyStateSecondaryActionButtons';
 import { defaultEmptyStatePropTypes } from './EmptyStatePropTypes';
 import { DocumentLinkContent } from '../DocumentationLink';
 
@@ -22,6 +20,7 @@ const documentationBlock = ({
 const DefaultEmptyState = (props) => {
   const {
     icon,
+    iconType,
     header,
     description,
     documentation,
@@ -32,11 +31,12 @@ const DefaultEmptyState = (props) => {
   return (
     <EmptyStatePattern
       icon={icon}
+      iconType={iconType || 'pf'}
       header={header}
       description={description}
       documentation={documentation ? documentationBlock(documentation) : null}
-      action={<PrimaryActionButton action={action} />}
-      secondaryActions={<SecondaryActionButtons actions={secondaryActions} />}
+      action={action}
+      secondaryActions={secondaryActions}
     />
   );
 };
