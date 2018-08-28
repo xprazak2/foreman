@@ -11,8 +11,8 @@ export const emptyStatePatternPropTypes = {
   header: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   documentation: PropTypes.node,
-  action: PropTypes.object,
-  secondaryActions: PropTypes.array,
+  action: PropTypes.node,
+  secondaryActions: PropTypes.node,
 };
 
 export const defaultEmptyStatePropTypes = {
