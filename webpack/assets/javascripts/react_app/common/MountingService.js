@@ -1,7 +1,4 @@
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import React from 'react';
-
 import store from '../redux';
 import componentRegistry from '../components/componentRegistry';
 
@@ -27,14 +24,11 @@ export function mount(component, selector, data, flattenData = false) {
   if (reactNode) {
     ReactDOM.unmountComponentAtNode(reactNode);
     ReactDOM.render(
-      <Provider store={store}>
-        {componentRegistry.markup(
-          component,
-          data,
-          store,
-          flattenData,
-        )}
-      </Provider>,
+      componentRegistry.markup(component, {
+        data,
+        store,
+        flattenData,
+      }),
       reactNode,
     );
 
