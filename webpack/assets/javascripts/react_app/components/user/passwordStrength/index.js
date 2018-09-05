@@ -22,14 +22,15 @@ class PasswordStrength extends React.Component {
   render() {
     const {
       data: {
-        className, id, name, verify, error, userInputIds,
+        className, id, name, verify, error, userInputIds, required,
       },
       matchMessage,
+      passwordPresent,
     } = this.props;
 
     return (
       <div>
-        <CommonForm label={__('Password')} touched={true} error={error}>
+        <CommonForm label={__('Password')} touched={true} error={!passwordPresent && error} required={required}>
           <ReactPasswordStrength
             changeCallback={({ password }) => this.props.updatePassword(password)}
             minLength={6}
@@ -58,6 +59,7 @@ class PasswordStrength extends React.Component {
           <CommonForm
             label={__('Verify')}
             touched={true}
+            required={required}
             error={matchMessage ? verify.error : __('Password do not match')}
           >
             <input
@@ -76,6 +78,7 @@ class PasswordStrength extends React.Component {
 const mapStateToProps = state => ({
   password: state.passwordStrength.password.value,
   matchMessage: state.passwordStrength.password.match,
+  passwordPresent: !!state.passwordStrength.password.value,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(
