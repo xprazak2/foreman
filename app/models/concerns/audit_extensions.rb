@@ -29,6 +29,10 @@ module AuditExtensions
     def ensure_taxonomies_not_escalated
       true
     end
+
+    def set_current_taxonomy
+      super if auditable.respond_to? :organization
+    end
   end
 
   private
