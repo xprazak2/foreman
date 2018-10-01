@@ -3,6 +3,7 @@ module Api
     class FiltersController < V2::BaseController
       include Api::Version2
       include Foreman::Controller::Parameters::Filter
+      include Foreman::Controller::FilterAuth
 
       before_action :find_optional_nested_object
       before_action :find_resource, :only => %w{show update destroy}

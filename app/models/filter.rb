@@ -38,6 +38,10 @@ class Filter < ApplicationRecord
     end
   end
 
+  def self.allows_taxonomy_filtering?
+    false
+  end
+
   belongs_to :role
   has_many :filterings, :autosave => true, :dependent => :destroy
   has_many :permissions, :through => :filterings
@@ -121,7 +125,7 @@ class Filter < ApplicationRecord
   # we can define exceptions for resources with more complex hierarchy (e.g. Host is proxy module)
   def granular?
     @granular ||= begin
-      return false if resource_class.nil?
+      return false if resource_class.nil? || resource_class == self.class
       return true if resource_type == 'Host'
       resource_class.included_modules.include?(Authorizable) && resource_class.respond_to?(:search_for)
     end
@@ -165,6 +169,10 @@ class Filter < ApplicationRecord
     self.organization_ids = self.role.organization_ids if self.allows_organization_filtering?
     self.location_ids = self.role.location_ids if self.allows_location_filtering?
     build_taxonomy_search
+  end
+
+  def self.can_change_parent_role?
+    User.current.can? :edit_roles
   end
 
   private

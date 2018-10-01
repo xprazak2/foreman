@@ -64,4 +64,47 @@ class Api::V2::FiltersControllerTest < ActionController::TestCase
       refute assigns(:filter).organizations.include? @org
     end
   end
+
+  test "should not create filter when user does not have permission to edit role" do
+    role_permissions = [:view_roles, :destroy_roles, :create_roles].map { |item| send(:permissions, item) }
+    filter_permissions = [:view_filters, :destroy_filters, :create_filters, :edit_filters].map { |item| send(:permissions, item) }
+
+    user = create_user_with_filters([role_permissions, filter_permissions])
+
+    as_user(user) do
+      valid_attrs = { :role_id => roles(:destroy_hosts).id, :permission_ids => [permissions(:create_hosts).id] }
+      put :update, params: { :id => filters(:destroy_hosts_1).to_param, :filter => valid_attrs }
+    end
+
+    res = JSON.parse(@response.body)
+    assert_equal "Missing one of the required permissions: edit_roles", res['error']['details']
+    assert_response :forbidden
+  end
+
+  test "should create filter when user has permission to edit role" do
+    role_permissions = [:view_roles, :destroy_roles, :edit_roles, :create_roles].map { |item| send(:permissions, item) }
+    filter_permissions = [:view_filters, :destroy_filters, :create_filters, :edit_filters].map { |item| send(:permissions, item) }
+
+    user = create_user_with_filters([role_permissions, filter_permissions])
+
+    as_user(user) do
+      valid_attrs = { :role_id => roles(:destroy_hosts).id, :permission_ids => [permissions(:create_hosts).id] }
+      put :update, params: { :id => filters(:destroy_hosts_1).to_param, :filter => valid_attrs }
+    end
+
+    assert_response :success
+  end
+
+  private
+
+  def create_user_with_filters(filter_permissions)
+    user = FactoryBot.create(:user, :admin => false)
+    role = FactoryBot.create(:role)
+
+    FactoryBot.create(:user_role, :owner => user, :role => role)
+    filter_permissions.each do |permissions|
+      FactoryBot.create(:filter, :role => role, :permissions => permissions)
+    end
+    user
+  end
 end

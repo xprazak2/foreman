@@ -789,6 +789,42 @@ create_report_templates:
   resource_type: ReportTemplate
   created_at: "2014-01-07 15:09:32.783442"
   updated_at: "2014-01-07 15:09:32.783442"
+create_roles:
+  name: create_roles
+  resource_type: Role
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+destroy_roles:
+  name: destroy_roles
+  resource_type: Role
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+edit_roles:
+  name: edit_roles
+  resource_type: Role
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+view_filters:
+  name: view_filters
+  resource_type: Filter
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+create_filters:
+  name: create_filters
+  resource_type: Filter
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+edit_filters:
+  name: edit_filters
+  resource_type: Filter
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+destroy_filters:
+  name: destroy_filters
+  resource_type: Filter
+  created_at: "2014-01-07 15:09:32.783442"
+  updated_at: "2014-01-07 15:09:32.783442"
+
 <% Foreman::Plugin.all.map(&:permissions).inject({}, :merge).each do |permission,attrs| %>
 <%= permission %>:
   name: <%= permission %>

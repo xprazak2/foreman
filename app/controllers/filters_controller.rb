@@ -1,6 +1,7 @@
 class FiltersController < ApplicationController
   include Foreman::Controller::AutoCompleteSearch
   include Foreman::Controller::Parameters::Filter
+  include Foreman::Controller::FilterAuth
 
   before_action :find_role
   before_action :setup_search_options, :only => :index

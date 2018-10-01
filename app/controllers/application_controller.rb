@@ -74,8 +74,8 @@ class ApplicationController < ActionController::Base
     @authorizer ||= Authorizer.new(User.current, :collection => instance_variable_get("@#{controller_name}"))
   end
 
-  def deny_access
-    (User.current.logged? || request.xhr?) ? render_403 : require_login
+  def deny_access(msg = nil)
+    (User.current.logged? || request.xhr?) ? render_403(msg) : require_login
   end
 
   def require_ssl?
@@ -241,7 +241,7 @@ class ApplicationController < ActionController::Base
       @missing_permissions = Foreman::AccessControl.permissions_for_controller_action(path_to_authenticate)
       Foreman::Logging.logger('permissions').info "rendering 403 because of missing permission #{@missing_permissions.map(&:name).join(', ')}"
     else
-      @missing_permissions = []
+      @missing_permissions ||= []
       Foreman::Logging.logger('permissions').info msg
     end
 

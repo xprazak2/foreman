@@ -16,6 +16,19 @@ module FiltersHelper
     end
   end
 
+  def display_link_if_authorized_to_modify(name, options = {}, html_options = {})
+    display_if_authorized_to_modify(display_link_if_authorized(name, options, html_options))
+  end
+
+  def display_delete_if_authorized_to_modify(options, html_options)
+    display_if_authorized_to_modify(display_delete_if_authorized(options, html_options))
+  end
+
+  def display_if_authorized_to_modify(markup)
+    return unless Filter.can_change_parent_role?
+    markup
+  end
+
   def auto_complete_search_path
     '/auto_complete_search'
   end
