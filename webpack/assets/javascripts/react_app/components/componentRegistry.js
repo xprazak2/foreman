@@ -24,11 +24,16 @@ import ChartBox from './statistics/ChartBox';
 import ConfigReports from './ConfigReports/ConfigReports';
 import DiffModal from './ConfigReports/DiffModal';
 import { WrapperFactory } from './wrapperFactory';
+import HostParameters from './HostParameters';
+
+import includes from 'lodash/includes';
 
 const componentRegistry = {
   registry: {},
 
-  register({ name = null, type = null, store = true, data = true }) {
+  register({
+    name = null, type = null, store = true, data = true, tags = [], registryAccess = false,
+  }) {
     if (!name || !type) {
       throw new Error('Component name or type is missing');
     }
@@ -36,7 +41,7 @@ const componentRegistry = {
       throw new Error(`Component name already taken: ${name}`);
     }
 
-    this.registry[name] = { type, store, data };
+    this.registry[name] = { type, store, data, tags, registryAccess };
     return this.registry;
   },
 
@@ -62,6 +67,16 @@ const componentRegistry = {
     return Object.keys(this.registry).join(', ');
   },
 
+  namesByTag(tagName) {
+    return Object.entries(this.registry).reduce((memo, pair) => {
+      const [ name, component ] = pair;
+      if (includes(component.tags, tagName)) {
+        memo.push(name);
+      }
+      return memo;
+    }, []);
+  },
+
   defaultWrapper(component, data = null, store = null, flattenData = false) {
     const factory = this.wrapperFactory();
 
@@ -72,6 +87,9 @@ const componentRegistry = {
     }
     if (data && component.data) {
       factory.with('data', data, flattenData);
+    }
+    if (component.registryAccess) {
+      factory.with('componentRegistry', this);
     }
     return factory.wrapper;
   },
@@ -134,6 +152,11 @@ const coreComponets = [
     type: IsoDate,
     data: true,
     store: false,
+  },
+  {
+    name: 'HostParameters',
+    type: HostParameters,
+    registryAccess: true,
   },
 ];
 

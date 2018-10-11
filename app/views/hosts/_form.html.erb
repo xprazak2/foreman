@@ -1,4 +1,6 @@
 <%= javascript 'hosts', 'host_edit', 'host_edit_interfaces', 'class_edit', 'charts' %>
+<%= add_react_js_for :edit_host %>
+<%= add_react_css_for :edit_host %>
 <%= render "hosts/dhcp_lease_errors" if has_dhcp_lease_errors?(@host.errors) %>
 <%= render "hosts/conflicts" if (!has_dhcp_lease_errors?(@host.errors) && has_conflicts?(@host.errors)) %>
 <%= render "hosts/progress" %>
@@ -110,6 +112,10 @@
           <%= render "puppetclasses/classes_parameters", :obj => @host %>
         </fieldset>
         <br/>
+        <div id="host-parameters"></div>
+
+        <%= mount_react_component('HostParameters', '#host-parameters', { :lookupValues => @host.lookup_values }.to_json(:root => false)) %>
+
         <% if authorized_for(:controller => "host_editing", :action => "view_params") %>
           <fieldset>
             <h2><%= _('Global Parameters') %></h2>

@@ -33,6 +33,14 @@ const dataProviderWrapperFactory = (
   return DataProvider;
 };
 
+const componentRegistryWrapperFactory = (componentRegistry) => WrappedComponent => {
+  const ComponentRegistryProvider = props => {
+    return <WrappedComponent {...props} componentRegistry={componentRegistry} />
+  }
+  ComponentRegistryProvider.displayName = `ComponentRegistryProvider(${getDisplayName(WrappedComponent)})`;
+  return ComponentRegistryProvider;
+};
+
 const propDataMapperWrapperFactory = () => WrappedComponent => {
   const PropDataMapper = props => <WrappedComponent data={props} />;
   PropDataMapper.displayName = `PropDataMapper(${getDisplayName(
@@ -48,6 +56,7 @@ export const wrapperRegistry = {
     dataMapper: propDataMapperWrapperFactory,
     store: storeProviderWrapperFactory,
     i18n: i18nProviderWrapperFactory,
+    componentRegistry: componentRegistryWrapperFactory,
   },
   register(name, wrapper) {
     if (this.wrappers[name]) {

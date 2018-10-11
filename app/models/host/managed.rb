@@ -517,7 +517,6 @@ class Host::Managed < Host::Base
 
   def apply_inherited_attributes(attributes, initialized = true)
     return nil unless attributes
-
     attributes = hash_clone(attributes).with_indifferent_access
 
     new_hostgroup_id = attributes['hostgroup_id'] || attributes['hostgroup_name'] || attributes['hostgroup'].try(:id)

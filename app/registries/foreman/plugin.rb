@@ -119,7 +119,7 @@ module Foreman #:nodoc:
     def_field :name, :description, :url, :author, :author_url, :version, :path
     attr_reader :id, :logging, :provision_methods, :compute_resources, :to_prepare_callbacks,
                 :facets, :rbac_registry, :dashboard_widgets, :info_providers, :smart_proxy_references,
-                :renderer_variable_loaders
+                :renderer_variable_loaders, :react_js_page_extensions
 
     # Lists plugin's roles:
     # Foreman::Plugin.find('my_plugin').registered_roles
@@ -142,6 +142,7 @@ module Foreman #:nodoc:
       @rabl_template_extensions = {}
       @smart_proxy_references = []
       @renderer_variable_loaders = []
+      @react_js_page_extensions = []
     end
 
     def report_scanner_registry
@@ -325,6 +326,10 @@ module Foreman #:nodoc:
           Plugin::RbacSupport.new.add_all_permissions_to_default_roles(Permission.where(:name => @rbac_registry.permission_names))
         end
       end
+    end
+
+    def register_react_js_page_extensions(page_names)
+      @react_js_page_extensions = page_names
     end
 
     def pending_migrations

@@ -83,6 +83,10 @@ class LookupKey < ApplicationRecord
     key_type == 'array'
   end
 
+  def overridable?
+    true
+  end
+
   def to_param
     # to_param is used in views to create a link to the lookup_key.
     # If the key has whitespace in it the link will break so this replaced the whitespace.
