@@ -7,6 +7,7 @@ import ActionLinks from './ActionLinks';
 import ExpansiveView from './ExpansiveView';
 import UserDetails from './UserDetails';
 import { translate as __ } from '../../common/I18n';
+import ShortDateTime from '../common/dates/ShortDateTime';
 import './audit.scss';
 
 const isAuditLogin = (auditedChanges) => {
@@ -33,8 +34,11 @@ const renderAdditionalInfoItems = items =>
     </ListView.InfoItem>
   ));
 
-const renderTimestamp = ({ title, value: formattedTimeString }) =>
-  <span title={title} className='gray-text'>{formattedTimeString}</span>;
+const renderTimestamp = date => (
+  <span className='gray-text'>
+    <ShortDateTime data={{ date, defaultValue: __('N/A') }} />
+  </span>
+);
 
 const renderResourceLink = (auditTitle, auditTitleUrl, id) => {
   if (auditTitleUrl) {
@@ -50,7 +54,7 @@ const AuditsList = ({ data: { audits, isOrgEnabled, isLocEnabled } }) => (
   <ListView>
     {audits.map(({
         id,
-        creation_time: creationTime,
+        created_at: createdAt,
         audited_type_name: auditedTypeName,
         audit_title: auditTitle,
         audit_title_url: auditTitleUrl,
@@ -67,7 +71,7 @@ const AuditsList = ({ data: { audits, isOrgEnabled, isLocEnabled } }) => (
       }, index) => (
       <ListView.Item id={id} key={id}
         className={remoteAddress ? 'main-info-minimize-padding' : 'main-info-maximize-padding' }
-        actions={renderTimestamp(creationTime)}
+        actions={renderTimestamp(createdAt)}
         additionalInfo={
           renderAdditionalInfoItems([
             auditedTypeName.toUpperCase(),
