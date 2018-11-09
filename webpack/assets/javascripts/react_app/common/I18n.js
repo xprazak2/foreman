@@ -1,5 +1,39 @@
 import Jed from 'jed';
+import { addLocaleData } from 'react-intl';
 import { deprecateObjectProperty } from '../../foreman_tools';
+
+const runningInPhantomJS = () => (window._phantom !== undefined);
+
+class IntlLoader {
+  constructor(locale, timezone) {
+    this.fallbackIntl = !global.Intl || runningInPhantomJS();
+
+    [this.locale] = locale.split('-');
+    this.timezone = this.fallbackIntl ? 'UTC' : timezone;
+    this.loaded = false;
+    this.ready = this.init();
+  }
+
+  async init() {
+    await this.fetchIntl();
+    addLocaleData(await import(/* webpackChunkName: 'react-intl/locale/[request]' */`react-intl/locale-data/${this.locale}`));
+    this.loaded = true;
+  }
+
+  async fetchIntl() {
+    if (this.fallbackIntl) {
+      global.Intl = await import(/* webpackChunkName: "intl" */ 'intl');
+      await import(/* webpackChunkName: 'intl/locale/[request]' */ `intl/locale-data/jsonp/${this.locale}`);
+    }
+  }
+}
+
+const [htmlElemnt] = document.getElementsByTagName('html');
+const langAttr = htmlElemnt.getAttribute('lang') || 'en';
+const timezoneAttr = htmlElemnt.getAttribute('data-timezone') || 'UTC';
+
+export const intl = new IntlLoader(langAttr, timezoneAttr);
+
 
 const cheveronPrefix = () => (window.I18N_MARK ? '\u00BB' : '');
 const cheveronSuffix = () => (window.I18N_MARK ? '\u00AB' : '');
@@ -28,9 +62,10 @@ export const ngettext = (...args) => `${cheveronPrefix()}${jed.ngettext(...args)
 export const { sprintf } = jed;
 
 const i18n = {
-  translate, ngettext, jed, sprintf,
+  translate, ngettext, jed, sprintf, intl,
 };
 export default i18n;
+
 window.__ = translate;
 window.n__ = ngettext;
 window.Jed = jed;
