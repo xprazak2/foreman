@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, storiesOf } from '@storybook/react';
 import Markdown from './components/Markdown';
 
+import './index.scss';
 import gettingStarted from './docs/gettingStarted.md';
 import addingNewComponent from './docs/addingNewComponent.md';
 import addingDependencies from './docs/addingDependencies.md';
