@@ -1,3 +1,4 @@
+<% %>
 <%= fields_for "#{type}[compute_attributes]", @host ? @host.compute_object : compute_resource.new_vm(vm_attrs) do |compute| %>
   <% if compute.object %>
     <%= alert(:header => _('Notice'),
