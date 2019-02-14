@@ -14,11 +14,17 @@ const fieldErrors = ({ error }) => {
   return new SubmissionError(errors);
 };
 
-const onError = error => {
+const onError = errorFormatter => error => {
+  console.log('Submission Errors');
+  console.log(error.response)
   if (error.response.status === 422) {
     // Handle invalid form data
     throw fieldErrors(error.response.data);
   }
+  errorFormatter(error);
+};
+
+const defaultErrorFormatter = error => {
   throw new SubmissionError({
     _error: [
       `${__('Error submitting data:')} ${error.response.status} ${__(
@@ -26,7 +32,7 @@ const onError = error => {
       )}`,
     ],
   });
-};
+}
 
 const verifyProps = (item, values) => {
   if (!item) {
@@ -37,7 +43,7 @@ const verifyProps = (item, values) => {
   }
 };
 
-export const submitForm = ({ item, url, values, message, method = 'post' }) => {
+export const submitForm = ({ item, url, values, message, method = 'post', errorFormatter = defaultErrorFormatter }) => {
   verifyProps(item, values);
   return dispatch =>
     API[method](url, values)
@@ -55,5 +61,5 @@ export const submitForm = ({ item, url, values, message, method = 'post' }) => {
           })
         );
       })
-      .catch(onError);
+      .catch(onError(defaultErrorFormatter));
 };
