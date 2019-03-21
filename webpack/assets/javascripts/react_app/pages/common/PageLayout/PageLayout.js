@@ -33,7 +33,7 @@ const PageLayout = ({
           </div>
         )}
         {customBreadcrumbs
-          ? { customBreadcrumbs }
+          ? <React.Fragment>{ customBreadcrumbs }</React.Fragment>
           : breadcrumbOptions && <BreadcrumbBar data={breadcrumbOptions} />}
       </div>
       <Row>

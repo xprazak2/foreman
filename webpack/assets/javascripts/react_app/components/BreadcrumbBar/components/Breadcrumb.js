@@ -4,6 +4,7 @@ import { Breadcrumb as PfBreadcrumb } from 'patternfly-react';
 import 'patternfly-react/dist/sass/_breadcrumb.scss';
 import EllipsisWithTooltip from 'react-ellipsis-with-tooltip';
 import './Breadcrumbs.scss';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const Breadcrumb = ({
   items,
@@ -39,7 +40,7 @@ const Breadcrumb = ({
           itemTitle
         );
 
-        return (
+        const crumb = (
           <PfBreadcrumb.Item
             key={index}
             active={active}
@@ -52,6 +53,16 @@ const Breadcrumb = ({
             {inner}
           </PfBreadcrumb.Item>
         );
+
+        if (item.to) {
+          return (
+            <LinkContainer to={item.to} key={index}>
+              { crumb }
+            </LinkContainer>
+            )
+        }
+
+        return crumb;
       })}
       {children}
     </PfBreadcrumb>
