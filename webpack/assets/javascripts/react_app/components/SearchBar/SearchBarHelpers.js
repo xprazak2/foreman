@@ -1,8 +1,7 @@
-import URI from 'urijs';
+import { getURI, changeQuery } from '../Pagination/PaginationHelper';
 
 export const resolveSearchQuery = searchQuery => {
-  const uri = new URI(window.location.href);
+  const uri = getURI();
   const data = { ...uri.query(true), search: searchQuery.trim(), page: 1 };
-  uri.query(URI.buildQuery(data, true));
-  window.Turbolinks.visit(uri.toString());
+  changeQuery(uri, data);
 };

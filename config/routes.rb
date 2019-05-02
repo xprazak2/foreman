@@ -263,11 +263,10 @@ Foreman::Application.routes.draw do
     end
   end
 
-  resources :audits, :only => [:index] do
-    collection do
-      get 'auto_complete_search'
-    end
-  end
+  match '/audits/auto_complete_search' => 'audits#auto_complete_search', :via => [:get]
+  match '/audits/load' => 'audits#index', :via => [:get]
+  match '/audits' => 'react#index', :via => [:get]
+  match 'audits/*page' => 'react#index', :via => [:get]
 
   resources :usergroups, :except => [:show] do
     collection do

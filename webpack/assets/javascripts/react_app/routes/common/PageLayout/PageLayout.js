@@ -13,6 +13,7 @@ const PageLayout = ({
   searchProps,
   searchQuery,
   onSearch,
+  onBookmarkClick,
   customBreadcrumbs,
   breadcrumbOptions,
   toolbarButtons,
@@ -48,6 +49,7 @@ const PageLayout = ({
                   data={searchProps}
                   initialQuery={searchQuery}
                   onSearch={onSearch}
+                  onBookmarkClick={onBookmarkClick}
                 />
               }
             </div>
@@ -107,6 +109,7 @@ PageLayout.propTypes = {
   toolbarButtons: PropTypes.node,
   toastNotifications: PropTypes.string,
   onSearch: PropTypes.func,
+  onBookmarkClick: PropTypes.func,
   searchQuery: PropTypes.string,
 };
 
@@ -119,6 +122,7 @@ PageLayout.defaultProps = {
   toolbarButtons: null,
   breadcrumbOptions: null,
   onSearch: resolveSearchQuery,
+  onBookmarkClick: resolveSearchQuery,
 };
 
 export default PageLayout;

@@ -11,9 +11,13 @@ const SearchBar = ({
   searchQuery,
   onSearch,
   initialQuery,
+  onBookmarkClick,
 }) => {
   const bookmarksComponent = !isEmpty(bookmarks) ? (
-    <Bookmarks data={{ ...bookmarks, controller, searchQuery }} />
+    <Bookmarks
+      data={{ ...bookmarks, controller, searchQuery }}
+      onBookmarkClick={onBookmarkClick}
+    />
   ) : null;
   return (
     <div className="search-bar input-group">
@@ -37,6 +41,7 @@ SearchBar.propTypes = {
   searchQuery: PropTypes.string,
   initialQuery: PropTypes.string,
   onSearch: PropTypes.func,
+  onBookmarkClick: PropTypes.func,
   data: PropTypes.shape({
     autocomplete: PropTypes.shape({
       results: PropTypes.array,
@@ -54,6 +59,7 @@ SearchBar.defaultProps = {
   searchQuery: '',
   initialQuery: '',
   onSearch: resolveSearchQuery,
+  onBookmarkClick: resolveSearchQuery,
   data: {
     autocomplete: {
       results: [],
