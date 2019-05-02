@@ -13,3 +13,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ModelsTable);
+

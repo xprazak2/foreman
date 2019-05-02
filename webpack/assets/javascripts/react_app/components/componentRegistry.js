@@ -29,6 +29,8 @@ import ModelsTable from './ModelsTable';
 import TemplateGenerator from './TemplateGenerator';
 import TemplateInput from './Template/TemplateInput';
 
+// import Table from './common/table';
+
 // Pages
 import AuditsPage from '../pages/AuditsPage/AuditsPage';
 

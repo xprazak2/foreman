@@ -35,6 +35,7 @@ class ModelsTable extends React.Component {
           key="models-table"
           columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
           rows={results}
+          selectable
         />
       );
 
