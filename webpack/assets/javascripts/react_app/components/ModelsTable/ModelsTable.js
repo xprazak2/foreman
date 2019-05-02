@@ -48,7 +48,8 @@ const ModelsTable = ({
       <Table
         key="models-table"
         columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-        rows={results}/>
+        rows={results}
+        selectable/>
       <div id="pagination">
         <Pagination
           className="col-md-12"
