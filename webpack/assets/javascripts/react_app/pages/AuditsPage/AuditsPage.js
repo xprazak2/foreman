@@ -1,33 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon } from 'patternfly-react';
+import { Button, Icon, Dropdown, MenuItem } from 'patternfly-react';
 import { translate as __ } from '../../common/I18n';
 
 import PageLayout from '../common/PageLayout/PageLayout';
 import AuditsList from '../../components/AuditsList';
 import Pagination from '../../components/Pagination/Pagination';
 
+import { withBulkActions } from '../../components/BulkActions';
+
 const AuditsPage = ({
-  data: { searchProps, docURL, audits, pagination, searchable },
-}) => (
-  <PageLayout
-    header={__('Audits')}
-    searchable={searchable}
-    searchProps={searchProps}
-    toolbarButtons={
-      <Button href={docURL} className="btn-docs">
-        <Icon type="pf" name="help" />
-        {__(' Documentation')}
-      </Button>
-    }
-  >
-    <div id="audit-list">
-      <AuditsList data={audits} />
-    </div>
-    <div id="pagination">
-      <Pagination data={pagination} />
-    </div>
-  </PageLayout>
+  data: { searchProps, docURL, audits, pagination, searchable }, bulkActionsMenu
+}) => {
+  return (
+    <PageLayout
+      header={__('Audits')}
+      searchable={searchable}
+      searchProps={searchProps}
+      toolbarButtons={
+        <React.Fragment>
+          { bulkActionsMenu }
+          <Button href={docURL} className="btn-docs">
+            <Icon type="pf" name="help" />
+            {__(' Documentation')}
+          </Button>
+        </React.Fragment>
+      }
+    >
+      <div id="audit-list">
+        <AuditsList data={audits} />
+      </div>
+      <div id="pagination">
+        <Pagination data={pagination} />
+      </div>
+    </PageLayout>
+);
+}
+
+const WrappedAuditsPage = withBulkActions(
+  'bulk-actions-dropdown',
+  [{ label: 'fake', name: 'Fake Action'}, { label: 'noop', name: 'No op'}],
+  AuditsPage
 );
 
 AuditsPage.propTypes = {
@@ -59,4 +72,4 @@ AuditsPage.propTypes = {
   }).isRequired,
 };
 
-export default AuditsPage;
+export default WrappedAuditsPage;
