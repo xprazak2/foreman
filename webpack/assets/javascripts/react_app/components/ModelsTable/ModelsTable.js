@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner } from 'patternfly-react';
+import { Spinner, LoadingState } from 'patternfly-react';
 import PropTypes from 'prop-types';
 import { Table } from '../common/table';
 import { STATUS } from '../../constants';

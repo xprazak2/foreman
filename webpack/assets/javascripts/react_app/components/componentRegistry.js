@@ -31,6 +31,7 @@ import TemplateInput from './Template/TemplateInput';
 
 // Pages
 import AuditsPage from '../pages/AuditsPage/AuditsPage';
+import ModelsPage from '../pages/ModelsPage/ModelsPage';
 
 const componentRegistry = {
   registry: {},
@@ -149,6 +150,7 @@ const coreComponets = [
 
   // Pages
   { name: 'AuditsPage', type: AuditsPage },
+  { name: 'ModelsPage', type: ModelsPage },
 
   // Report templates
   { name: 'TemplateGenerator', type: TemplateGenerator },

@@ -1,0 +1,8 @@
+<div id="models_page"></div>
+
+<%= mount_react_component('ModelsPage', '#models_page', {
+    searchProps: get_search_props,
+    searchable: true
+  }.to_json,
+  :flatten_data => true )
+%>
