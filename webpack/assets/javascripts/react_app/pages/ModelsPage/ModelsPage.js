@@ -1,5 +1,6 @@
 import React from 'react';
 import PageLayout from '../common/PageLayout/PageLayout';
+import ModelsTable from '../../components/ModelsTable';
 
 const ModelsPage = props => {
   const { searchProps, pagination, searchable } = props;
@@ -13,7 +14,7 @@ const ModelsPage = props => {
         <div>Button!</div>
       }
     >
-      Tada!
+      <ModelsTable />
     </PageLayout>
   );
 }

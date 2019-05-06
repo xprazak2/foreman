@@ -3,4 +3,8 @@ class ReactModelsController < ReactController
 
   def index
   end
+
+  def model_of_controller
+    Model
+  end
 end

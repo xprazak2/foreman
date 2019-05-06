@@ -20,28 +20,33 @@ class ModelsTable extends React.Component {
       sortOrder,
       error,
       status,
-      results,
+      results
     } = this.props;
 
-    const renderTable =
-      status === STATUS.ERROR ? (
+    const messageBox = (
         <MessageBox
           key="models-table-error"
           icontype="error-circle-o"
           msg={__(`Could not receive data: ${error && error.message}`)}
         />
-      ) : (
-        <Table
-          key="models-table"
-          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-          rows={results}
-        />
+      )
+
+    const loader = <Spinner size="lg" loading />
+    const renderTable = (
+      <Table
+        key="models-table"
+        columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
+        rows={results}/>
       );
 
-    if (results.length > 0) {
-      return renderTable;
+    switch(status) {
+      case STATUS.PENDING:
+        return loader;
+      case STATUS.RESOLVED:
+        return renderTable;
+      default:
+        return messageBox;
     }
-    return <Spinner size="lg" loading />;
   }
 }
 
