@@ -6,7 +6,11 @@ import { STATUS } from '../../constants';
 import MessageBox from '../common/MessageBox';
 import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
-import { getURIQuery } from '../../common/helpers';
+import { getURIsearch, stringifyParams } from '../../common/urlHelpers';
+
+
+import { propsToSnakeCase } from '../../common/helpers';
+import Pagination from '../Pagination/PaginationWrapper';
 
 const ModelsTable = ({
   getTableItems,
@@ -15,6 +19,10 @@ const ModelsTable = ({
   error,
   status,
   results,
+  pagination,
+  itemCount,
+  location,
+  history,
 }) => {
   useEffect(() => {
     getTableItems(getURIQuery(window.location.href));
@@ -34,13 +42,33 @@ const ModelsTable = ({
     );
   }
 
+  const onPageChange = (history) => (paginationArgs) => {
+    const search = { searchQuery: getURIsearch(), ...paginationArgs };
+    history.push({
+      pathname: history.location.pathname,
+      search: stringifyParams(search)
+    })
+    getTableItems(search);
+  }
+
   return (
-    <Table
-      key="models-table"
-      columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-      rows={results}
-    />
-  );
+    <React.Fragment>
+      <Table
+        key="models-table"
+        columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
+        rows={results}/>
+      <div id="pagination">
+        <Pagination
+          className="col-md-12"
+          viewType="table"
+          itemCount={itemCount}
+          pagination={pagination}
+          onChange={onPageChange(history)}
+          dropdownButtonId='hw-models-dropdown'
+        />
+      </div>
+    </React.Fragment>
+  )
 };
 
 ModelsTable.propTypes = {

@@ -34,14 +34,16 @@ const PageLayout = ({
           </div>
         )}
         <div id="breadcrumb">
-          {!breadcrumbOptions && (
-            <div className="row form-group">
-              <h1 className="col-md-8">{header}</h1>
-            </div>
-          )}
-          {customBreadcrumbs
-            ? { customBreadcrumbs }
-            : breadcrumbOptions && <BreadcrumbBar data={breadcrumbOptions} />}
+          <div className="breadcrumb-bar">
+            {!breadcrumbOptions && (
+              <div className="form-group">
+                <h1>{header}</h1>
+              </div>
+            )}
+            {customBreadcrumbs
+              ? { customBreadcrumbs }
+              : breadcrumbOptions && <BreadcrumbBar data={breadcrumbOptions} />}
+          </div>
         </div>
         <Row>
           <Col className="title_filter" md={searchable ? 6 : 4}>
@@ -57,6 +59,7 @@ const PageLayout = ({
                 }
               </div>
             )}
+            &nbsp;
           </Col>
           <Col id="title_action" md={searchable ? 6 : 8}>
             <div className="btn-toolbar pull-right">{toolbarButtons}</div>

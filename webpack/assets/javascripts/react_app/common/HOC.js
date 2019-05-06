@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import EmptyPage from '../routes/common/EmptyPage';
 import LoadingPage from '../routes/common/LoadingPage';
+import PageLayout from '../pages/common/PageLayout/PageLayout';
+
 
 /**
  * HOC that runs a function on the initial mount of the component using useEffect
@@ -43,3 +45,10 @@ export const withRenderHandler = ({
   if (hasData) return <Component {...componentProps} />;
   return <EmptyComponent {...componentProps} />;
 };
+
+
+export const withPageLayout = layoutProps => WrappedComponent => componentProps => (
+  <PageLayout {...layoutProps} >
+    <WrappedComponent {...componentProps} />
+  </PageLayout>
+);

@@ -4,7 +4,7 @@ import { routes } from './routes';
 
 let currentLocation = null;
 
-const AppSwitcher = () => (
+const AppSwitcher = ({ metadata }) => (
   <Switch>
     {routes.map(({ render, path, ...routeProps }) => (
       <Route
@@ -16,7 +16,7 @@ const AppSwitcher = () => (
           if (railsContainer) railsContainer.remove();
           currentLocation = renderProps.location;
 
-          return render(renderProps);
+          return render({ ...renderProps, metadata });
         }}
       />
     ))}

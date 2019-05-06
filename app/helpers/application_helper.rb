@@ -529,6 +529,11 @@ module ApplicationHelper
   end
 
   def app_metadata
-    { version: SETTINGS[:version].short, docUrl: documentation_url, perPageOptions: per_page_options }
+    {
+      version: SETTINGS[:version].short,
+      docUrl: documentation_url,
+      perPageOptions: per_page_options,
+      entriesPerPage: Setting[:entries_per_page]
+    }
   end
 end
