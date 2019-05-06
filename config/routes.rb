@@ -407,6 +407,12 @@ Foreman::Application.routes.draw do
       end
     end
 
+    resources :react_models, :only => [:index] do
+      collection do
+        get 'auto_complete_search'
+      end
+    end
+
     resources :architectures, :except => [:show] do
       collection do
         get 'auto_complete_search'
