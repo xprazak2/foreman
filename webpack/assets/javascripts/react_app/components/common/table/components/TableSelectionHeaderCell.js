@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'patternfly-react';
+import { Table as PfTable } from 'patternfly-react';
 import { noop } from 'foremanReact/common/helpers';
 
 const TableSelectionHeaderCell = ({
   id, label, checked, onChange, ...props
 }) => (
-  <Table.SelectionHeading aria-label={label}>
-    <Table.Checkbox
+  <PfTable.SelectionHeading aria-label={label}>
+    <PfTable.Checkbox
       id={id}
       label={label}
       checked={checked}
       onChange={onChange}
       {...props}
     />
-  </Table.SelectionHeading>
+  </PfTable.SelectionHeading>
 );
 
 TableSelectionHeaderCell.propTypes = {

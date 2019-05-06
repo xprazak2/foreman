@@ -6,34 +6,34 @@ import TableBody from './TableBody';
 import selectionCellFormatter from '../formatters/selectionCellFormatter';
 import selectionHeaderCellFormatter from '../formatters/selectionHeaderCellFormatter';
 
-const selectionController ={
+const selectionController = {
   allRowsSelected: () => console.log('All rows selected'),
   selectAllRows: () => console.log('select all rows'),
   selectRow: () => {},
   isSelected: () => {}
 };
 
-const headerFormatter = (label, data) => {
+const headerFormatter = selectionController => (label, data) => {
   console.log(data);
   return selectionHeaderCellFormatter(selectionController, label);
 }
 
-const cellFormatter = (value, data) => {
+const cellFormatter = selectionController => (value, data) => {
    data.disabled = data.rowData.available === -1;
    return selectionCellFormatter(selectionController, data);
 }
 
-const processColumns = (selectable, columns, rows) => {
+const processColumns = (selectable, columns, rows, selectionController) => {
   if (selectable) {
     return [
       {
         property: 'select',
         header: {
           label: 'Select all rows',
-          formatters: [headerFormatter]
+          formatters: [headerFormatter(selectionController)]
         },
         cell: {
-          formatters: [cellFormatter]
+          formatters: [cellFormatter(selectionController)]
         }
       }
     ].concat(columns);
@@ -41,34 +41,82 @@ const processColumns = (selectable, columns, rows) => {
   return columns;
 }
 
-const Table = ({ columns, rows, bodyMessage, children, selectable, ...props }) => {
-  const processedColumns = processColumns(selectable, columns, rows);
-  const body = children || [
-    <PfTable.Header key="header" />,
-    <TableBody
-      key="body"
-      columns={processedColumns}
-      rows={rows}
-      message={bodyMessage}
-      rowKey="id"
-    />,
-  ];
+class Table extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedRows: []
+    }
+  }
 
-  return (
-    <div>
-      <PfTable.PfProvider
+  getSelectionController = () => {
+    const rows = this.props.rows;
+
+    const allRowsSelected = () =>
+      rows.length === this.state.selectedRows.length;
+
+    const selectAllRows = () => {
+      if (allRowsSelected()) {
+        this.setState({ selectedRows: [] })
+      } else {
+        this.setState({ selectedRows: rows.map(row => row.id) })
+      }
+    }
+
+    const selectRow = (arg) => {
+      console.log(arg);
+      let { selectedRows } = this.state;
+      if (selectedRows.includes(arg.rowData.id)) {
+        selectedRows = selectedRows.filter(id => id !== arg.rowData.id)
+      } else {
+        selectedRows.push(rowData.id);
+      }
+
+      this.setState({ selectedRows });
+    }
+
+    const isSelected = (arg) => this.state.selectedRows.includes(arg.rowData.id);
+
+    return ({
+      allRowsSelected,
+      selectAllRows,
+      selectRow,
+      isSelected
+    });
+  }
+
+  render() {
+    const { columns, rows, bodyMessage, children, selectable, ...rest } = this.props;
+
+    const processedColumns = processColumns(selectable, columns, rows, this.getSelectionController());
+
+    const body = children || [
+      <PfTable.Header key="header" />,
+      <TableBody
+        key="body"
         columns={processedColumns}
-        className="table-fixed"
-        striped
-        bordered
-        hover
-        {...props}
-      >
-        {body}
-      </PfTable.PfProvider>
-    </div>
-  );
-};
+        rows={rows}
+        message={bodyMessage}
+        rowKey="id"
+      />,
+    ];
+
+    return (
+      <div>
+        <PfTable.PfProvider
+          columns={processedColumns}
+          className="table-fixed"
+          striped
+          bordered
+          hover
+          {...rest}
+        >
+          {body}
+        </PfTable.PfProvider>
+      </div>
+    );
+  }
+}
 
 Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
