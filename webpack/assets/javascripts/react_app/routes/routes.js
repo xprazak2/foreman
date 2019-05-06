@@ -1,1 +1,3 @@
-export const routes = [];
+import Models from './Models';
+
+export const routes = [Models];

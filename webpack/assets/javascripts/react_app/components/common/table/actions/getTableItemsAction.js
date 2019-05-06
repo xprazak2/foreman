@@ -1,5 +1,7 @@
 import URI from 'urijs';
 import { ajaxRequestAction } from '../../../../redux/actions/common';
+import { propsToSnakeCase } from '../../../../common/helpers';
+
 import createTableActionTypes from '../actionsHelpers/actionTypeCreator';
 
 /**
@@ -10,7 +12,7 @@ import createTableActionTypes from '../actionsHelpers/actionTypeCreator';
  */
 const getTableItemsAction = (controller, query) => dispatch => {
   const url = new URI(`/api/${controller}`);
-  url.addSearch({ ...query, include_permissions: true });
+  url.addSearch({ ...propsToSnakeCase(query), include_permissions: true });
 
   const ACTION_TYPES = createTableActionTypes(controller);
 

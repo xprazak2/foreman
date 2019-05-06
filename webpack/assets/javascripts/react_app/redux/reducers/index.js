@@ -15,6 +15,9 @@ import { reducers as modelsReducers } from '../../components/ModelsTable';
 import { reducers as templateGenerationReducers } from '../../components/TemplateGenerator';
 import { reducers as factChartReducers } from '../../components/FactCharts';
 
+// Pages
+import { reducers as modelsPageReducers } from '../../routes/Models/ModelsPage';
+
 export function combineReducersAsync(asyncReducers) {
   return combineReducers({
     bookmarks,
@@ -33,6 +36,8 @@ export function combineReducersAsync(asyncReducers) {
     ...modelsReducers,
     ...templateGenerationReducers,
     ...factChartReducers,
+    // Pages
+    ...modelsPageReducers,
   });
 }
 
