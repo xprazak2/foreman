@@ -401,11 +401,23 @@ Foreman::Application.routes.draw do
       end
     end
 
-    resources :models, :except => [:show] do
+    resources :models, :except => [:show, :index] do
       collection do
         get 'auto_complete_search'
       end
     end
+
+    # match '/react_models' => 'react#index', :via => [:get]
+    # match 'models/*page' => 'react#index', :via => [:get]
+
+    match '/models' => 'react#index', :via => [:get]
+
+
+    # resources :react_models, :only => [:index] do
+    #   collection do
+    #     get 'auto_complete_search'
+    #   end
+    # end
 
     resources :architectures, :except => [:show] do
       collection do

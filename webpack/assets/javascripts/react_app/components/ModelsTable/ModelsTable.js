@@ -1,6 +1,7 @@
 import React from 'react';
-import { Spinner } from 'patternfly-react';
+import { Spinner, LoadingState } from 'patternfly-react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { Table } from '../common/table';
 import { STATUS } from '../../constants';
 import MessageBox from '../common/MessageBox';
@@ -8,9 +9,14 @@ import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
 import { getURIQuery } from '../../common/helpers';
 
+import { propsToSnakeCase } from '../../common/helpers';
+import Pagination from '../Pagination/PaginationWrapper';
+
+// import './ModelsTable.scss';
+
 class ModelsTable extends React.Component {
   componentDidMount() {
-    this.props.getTableItems(getURIQuery(window.location.href));
+    // this.props.getTableItems(getURIQuery(window.location.href));
   }
 
   render() {
@@ -21,27 +27,52 @@ class ModelsTable extends React.Component {
       error,
       status,
       results,
+      pagination,
+      itemCount,
+      location,
+      history,
     } = this.props;
 
-    const renderTable =
-      status === STATUS.ERROR ? (
+    console.log(this.props)
+
+    if (status === STATUS.ERROR) {
+      return (
         <MessageBox
           key="models-table-error"
           icontype="error-circle-o"
           msg={__(`Could not receive data: ${error && error.message}`)}
         />
-      ) : (
+      );
+    }
+
+    const onPageChange = (history) => (paginationArgs) => {
+      const search = { ...queryString.parse(history.location.search), ...propsToSnakeCase(paginationArgs) };
+      console.log(search)
+      history.push({
+        pathname: history.location.pathname,
+        search: `?${queryString.stringify(search)}`
+      })
+      getTableItems(search);
+    }
+
+    return (
+      <React.Fragment>
         <Table
           key="models-table"
           columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-          rows={results}
-        />
-      );
-
-    if (results.length > 0) {
-      return renderTable;
-    }
-    return <Spinner size="lg" loading />;
+          rows={results}/>
+        <div id="pagination">
+          <Pagination
+            className="col-md-12"
+            viewType="table"
+            itemCount={itemCount}
+            pagination={pagination}
+            onChange={onPageChange(history)}
+            dropdownButtonId='hw-models-dropdown'
+          />
+        </div>
+      </React.Fragment>
+    )
   }
 }
 

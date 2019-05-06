@@ -4,9 +4,9 @@ class ModelsController < ApplicationController
 
   before_action :find_resource, :only => [:edit, :update, :destroy]
 
-  def index
-    @models = resource_base_search_and_page
-  end
+  # def index
+  #   @models = resource_base_search_and_page
+  # end
 
   def new
     @model = Model.new
