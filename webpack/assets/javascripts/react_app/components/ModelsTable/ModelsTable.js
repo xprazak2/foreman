@@ -8,6 +8,8 @@ import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
 import { getURIQuery } from '../../common/helpers';
 
+import './ModelsTable.scss';
+
 class ModelsTable extends React.Component {
   componentDidMount() {
     this.props.getTableItems(getURIQuery(window.location.href));
@@ -23,30 +25,24 @@ class ModelsTable extends React.Component {
       results
     } = this.props;
 
-    const messageBox = (
+    if (status === STATUS.ERROR) {
+      return (
         <MessageBox
           key="models-table-error"
           icontype="error-circle-o"
           msg={__(`Could not receive data: ${error && error.message}`)}
         />
-      )
+      );
+    }
 
-    const loader = <Spinner size="lg" loading />
-    const renderTable = (
-      <Table
+    return (
+      <LoadingState loading={status === STATUS.PENDING}>
+        <Table
         key="models-table"
         columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
         rows={results}/>
-      );
-
-    switch(status) {
-      case STATUS.PENDING:
-        return loader;
-      case STATUS.RESOLVED:
-        return renderTable;
-      default:
-        return messageBox;
-    }
+      </LoadingState>
+    )
   }
 }
 
