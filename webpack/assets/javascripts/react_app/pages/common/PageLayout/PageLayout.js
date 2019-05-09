@@ -27,14 +27,16 @@ const PageLayout = ({
         </div>
       )}
       <div id="breadcrumb">
+        <div className="breadcrumb-bar">
         {!breadcrumbOptions && (
-          <div className="row form-group">
-            <h1 className="col-md-8">{header}</h1>
+          <div className="form-group">
+            <h1>{header}</h1>
           </div>
         )}
         {customBreadcrumbs
           ? { customBreadcrumbs }
           : breadcrumbOptions && <BreadcrumbBar data={breadcrumbOptions} />}
+        </div>
       </div>
       <Row>
         <Col className="title_filter" md={searchable ? 6 : 4}>
