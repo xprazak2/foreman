@@ -8,6 +8,8 @@ import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
 import { getURIQuery } from '../../common/helpers';
 
+import Pagination from '../Pagination/PaginationWrapper';
+
 import './ModelsTable.scss';
 
 class ModelsTable extends React.Component {
@@ -38,9 +40,19 @@ class ModelsTable extends React.Component {
     return (
       <LoadingState loading={status === STATUS.PENDING}>
         <Table
-        key="models-table"
-        columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-        rows={results}/>
+          key="models-table"
+          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
+          rows={results}/>
+        <div id="pagination">
+          <Pagination
+            className="col-md-12"
+            viewType="table"
+            itemCount={results.length}
+            pagination={{ page: 1, perPage: 10 }}
+            onChange={() => {}}
+            dropdownButtonId='hw-models-dropdown'
+          />
+        </div>
       </LoadingState>
     )
   }
