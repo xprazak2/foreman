@@ -3,13 +3,15 @@ import { Button } from 'patternfly-react';
 import PageLayout from '../common/PageLayout/PageLayout';
 import ModelsTable from '../../components/ModelsTable';
 
+import searchProps from './consts';
+
 const ModelsPage = props => {
-  const { searchProps, pagination, searchable } = props;
+  console.log(props);
 
   return (
     <PageLayout
       header={__('Hardware Models')}
-      searchable={searchable}
+      searchable={true}
       searchProps={searchProps}
       toolbarButtons={
         <Button>Button!</Button>

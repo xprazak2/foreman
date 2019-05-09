@@ -1,5 +1,6 @@
 <div id="models_page"></div>
 
+<% binding.pry %>
 <%= mount_react_component('ModelsPage', '#models_page', {
     searchProps: get_search_props.merge({ :autocomplete => { :useKeyShortcuts => true, :id => 'models-autocomplete-id' }}),
     searchable: true

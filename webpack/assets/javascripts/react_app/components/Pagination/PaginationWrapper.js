@@ -45,7 +45,7 @@ const PaginationWrapper = props => {
 
   return (
     <Pagination
-      data={{ itemCount, viewType }}
+      data={{ itemCount, viewType, classNames: {} }}
       onPageSet={onPageSetUpdate}
       onPerPageSelect={onPerPageSelectUpdate}
       dropdownButtonId={dropdownButtonId}
