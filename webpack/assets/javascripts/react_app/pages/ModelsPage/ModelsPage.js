@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'patternfly-react';
 import PageLayout from '../common/PageLayout/PageLayout';
 import ModelsTable from '../../components/ModelsTable';
 
@@ -11,7 +12,7 @@ const ModelsPage = props => {
       searchable={searchable}
       searchProps={searchProps}
       toolbarButtons={
-        <div>Button!</div>
+        <Button>Button!</Button>
       }
     >
       <ModelsTable />
