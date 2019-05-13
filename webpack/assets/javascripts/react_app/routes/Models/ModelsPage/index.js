@@ -12,7 +12,9 @@ const mapDispatchToProps = dispatch =>
 
 const mapStateToProps = state => {
   return {
-    pagination: state.modelsPage.pagination
+    pagination: state.modelsPage.pagination,
+    loading: state.modelsPage.loading,
+    loadingError: state.modelsPage.loadingError
   }
 }
 

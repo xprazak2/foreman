@@ -10,7 +10,7 @@ import { getURIQuery } from '../../common/helpers';
 
 import Pagination from '../Pagination/PaginationWrapper';
 
-import './ModelsTable.scss';
+// import './ModelsTable.scss';
 
 class ModelsTable extends React.Component {
   componentDidMount() {
@@ -38,7 +38,7 @@ class ModelsTable extends React.Component {
     }
 
     return (
-      <LoadingState loading={status === STATUS.PENDING}>
+      <React.Fragment>
         <Table
           key="models-table"
           columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
@@ -53,7 +53,7 @@ class ModelsTable extends React.Component {
             dropdownButtonId='hw-models-dropdown'
           />
         </div>
-      </LoadingState>
+      </React.Fragment>
     )
   }
 }

@@ -11,7 +11,7 @@ const initialState = Immutable({
     page: 1,
     perPage: 10
   },
-  loadingInitial: false,
+  loading: false,
   loadingError: ''
 });
 
@@ -21,11 +21,11 @@ const reducer = (state = initialState, action) => {
 
   switch(action.type) {
     case MODELS_PAGE_LOAD_REQUEST:
-      return state.set('loadingInitial', true);
+      return state.set('loading', true);
     case MODELS_PAGE_LOAD_ERROR:
-      state.merge({ loadingError: payload, loadingInitial: false });
+      state.merge({ loadingError: payload, loading: false });
     case MODELS_PAGE_LOAD_SUCCESS:
-      return state.set('loadingInitial', false);
+      return state.set('loading', false);
     default:
       return state;
   }
