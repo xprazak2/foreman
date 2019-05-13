@@ -16,6 +16,7 @@ import { reducers as factChartReducers } from '../../components/FactCharts';
 
 // Pages
 import { reducers as auditsPageReducers } from '../../routes/Audits/AuditsPage';
+import { reducers as modelsPageReducers } from '../../routes/Models/ModelsPage';
 
 export function combineReducersAsync(asyncReducers) {
   return combineReducers({
@@ -37,6 +38,7 @@ export function combineReducersAsync(asyncReducers) {
 
     // Pages
     ...auditsPageReducers,
+    ...modelsPageReducers,
   });
 }
 

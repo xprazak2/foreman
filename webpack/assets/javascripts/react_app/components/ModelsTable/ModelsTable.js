@@ -14,7 +14,7 @@ import './ModelsTable.scss';
 
 class ModelsTable extends React.Component {
   componentDidMount() {
-    this.props.getTableItems(getURIQuery(window.location.href));
+    // this.props.getTableItems(getURIQuery(window.location.href));
   }
 
   render() {
