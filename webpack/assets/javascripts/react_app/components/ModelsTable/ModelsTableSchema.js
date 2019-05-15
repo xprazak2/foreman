@@ -7,6 +7,7 @@ import {
   nameCellFormatter,
   hostsCountCellFormatter,
   deleteActionCellFormatter,
+  asyncDeleteActionCellFormatter,
   cellFormatter,
 } from '../common/table';
 
@@ -20,7 +21,7 @@ import {
  *                            Otherwise, 'ASC' for ascending and 'DESC' for descending
  * @return {Array}
  */
-const createModelsTableSchema = (apiCall, by, order) => {
+const createModelsTableSchema = (apiCall, by, order, tableAction) => {
   const sortController = sortControllerFactory(apiCall, by, order);
   return [
     sortableColumn('name', __('Name'), 4, sortController, [
@@ -40,7 +41,7 @@ const createModelsTableSchema = (apiCall, by, order) => {
       'actions',
       __('Actions'),
       [headerFormatterWithProps],
-      [deleteActionCellFormatter('models'), cellFormatter]
+      [asyncDeleteActionCellFormatter('models', tableAction), cellFormatter]
     ),
   ];
 };

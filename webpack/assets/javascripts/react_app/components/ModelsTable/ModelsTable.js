@@ -23,6 +23,18 @@ class ModelsTable extends React.Component {
       results,
     } = this.props;
 
+    console.log(this.props);
+
+    const tableAction = {
+      title: () => 'You are about to delete something',
+      primaryButtonText: 'Delete',
+      secondaryButtonText: 'Cancel',
+      primaryButtonStyle: 'danger',
+      primaryContent: (name) => `You are about to delete ${name}. Are you sure?`,
+      secondaryContent: (name) => '',
+      fn: (id) => () => this.props.deleteTableItem(id)
+    };
+
     const renderTable =
       status === STATUS.ERROR ? (
         <MessageBox
@@ -33,7 +45,7 @@ class ModelsTable extends React.Component {
       ) : (
         <Table
           key="models-table"
-          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
+          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder, tableAction)}
           rows={results}
         />
       );

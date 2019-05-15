@@ -7,9 +7,10 @@ export const ajaxRequestAction = ({
   failedAction,
   url,
   item = {},
+  requestType = 'get'
 }) => {
   dispatch({ type: requestAction, payload: item });
-  return API.get(url, item.headers || {}, item.params || {})
+  return API[requestType].call(API, url, item.headers || {}, item.params || {})
     .then(({ data }) =>
       dispatch({ type: successAction, payload: { ...item, ...data } })
     )

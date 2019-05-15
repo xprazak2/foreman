@@ -8,11 +8,11 @@ import createTableActionTypes from '../actionsHelpers/actionTypeCreator';
  * @param  {Object} query      the API request query
  * @return {Function}          Redux Thunk function
  */
-const getTableItemsAction = (controller, query) => dispatch => {
+export const getTableItemsAction = (controller, query) => dispatch => {
   const url = new URI(`/api/${controller}`);
   url.addSearch({ ...query, include_permissions: true });
 
-  const ACTION_TYPES = createTableActionTypes(controller);
+  const ACTION_TYPES = createTableActionTypes(controller, 'index');
 
   return ajaxRequestAction({
     dispatch,
@@ -23,5 +23,23 @@ const getTableItemsAction = (controller, query) => dispatch => {
     item: { controller, url: url.toString() },
   });
 };
+
+export const deleteTableItemAction = (controller, { query, id }) => dispatch => {
+  const url = new URI(`/api/${controller}/${id}`);
+  console.log(query)
+  console.log(id)
+
+  const ACTION_TYPES = createTableActionTypes(controller, 'delete');
+
+  return ajaxRequestAction({
+    dispatch,
+    requestAction: ACTION_TYPES.REQUEST,
+    successAction: ACTION_TYPES.SUCCESS,
+    failedAction: ACTION_TYPES.FAILURE,
+    url: url.toString(),
+    item: { controller, url: url.toString() },
+    requestType: 'delete'
+  });
+}
 
 export default getTableItemsAction;
