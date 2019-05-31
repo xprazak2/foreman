@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as form } from 'redux-form';
 import bookmarks from './bookmarks';
 import statistics from './statistics';
 import hosts from './hosts';
@@ -18,7 +17,6 @@ import { reducers as factChartReducers } from '../../components/FactCharts';
 export function combineReducersAsync(asyncReducers) {
   return combineReducers({
     bookmarks,
-    form,
     statistics,
     hosts,
     notifications,
