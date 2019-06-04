@@ -8,6 +8,10 @@ import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
 import { getURIQuery } from '../../common/helpers';
 
+const fetchTableItems = (fetcherFn) => {
+  return fetcherFn(getURIQuery(window.location.href));
+}
+
 class ModelsTable extends React.Component {
   componentDidMount() {
     this.props.getTableItems(getURIQuery(window.location.href));
@@ -25,15 +29,19 @@ class ModelsTable extends React.Component {
 
     console.log(this.props);
 
-    const tableAction = {
+    const tableActions = [{
       title: () => 'You are about to delete something',
       primaryButtonText: 'Delete',
       secondaryButtonText: 'Cancel',
       primaryButtonStyle: 'danger',
       primaryContent: (name) => `You are about to delete ${name}. Are you sure?`,
       secondaryContent: (name) => '',
-      fn: (id) => () => this.props.deleteTableItem(id)
-    };
+      fn: (id) => () => this.props.deleteTableItem(id).then(res => {
+        this.props.getTableItems(getURIQuery(window.location.href));
+      }).then(res => this.props.addToast({ type: 'success', message: 'Deleted!' })),
+      accessibleName: "deleteConfirmationDialog",
+      accessibleDescription: "deleteConfirmationDialogContent",
+    }];
 
     const renderTable =
       status === STATUS.ERROR ? (
@@ -45,7 +53,7 @@ class ModelsTable extends React.Component {
       ) : (
         <Table
           key="models-table"
-          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder, tableAction)}
+          columns={createModelsTableSchema(getTableItems, sortBy, sortOrder, tableActions)}
           rows={results}
         />
       );

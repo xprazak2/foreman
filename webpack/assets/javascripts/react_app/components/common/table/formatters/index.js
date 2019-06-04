@@ -8,4 +8,4 @@ export { default as nameCellFormatter } from './nameCellFormatter';
 export { default as hostsCountCellFormatter } from './hostsCountCellFormatter';
 export { default as sortableHeaderFormatter } from './sortableHeaderFormatter';
 export { deleteActionCellFormatter } from './deleteActionCellFormatter';
-export { asyncDeleteActionCellFormatter } from './asyncDeleteActionCellFormatter';
+export { tableActionsCellFormatter } from './tableActionsCellFormatter';

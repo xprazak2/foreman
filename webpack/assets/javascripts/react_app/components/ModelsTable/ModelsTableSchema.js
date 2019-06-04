@@ -7,7 +7,7 @@ import {
   nameCellFormatter,
   hostsCountCellFormatter,
   deleteActionCellFormatter,
-  asyncDeleteActionCellFormatter,
+  tableActionsCellFormatter,
   cellFormatter,
 } from '../common/table';
 
@@ -41,7 +41,7 @@ const createModelsTableSchema = (apiCall, by, order, tableAction) => {
       'actions',
       __('Actions'),
       [headerFormatterWithProps],
-      [asyncDeleteActionCellFormatter('models', tableAction), cellFormatter]
+      [tableActionsCellFormatter('models', tableAction), cellFormatter]
     ),
   ];
 };

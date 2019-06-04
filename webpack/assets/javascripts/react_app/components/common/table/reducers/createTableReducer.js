@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import { combineReducers } from 'redux';
+import { combineReducers, compose } from 'redux';
 import { STATUS } from '../../../../constants';
 import createTableActionTypes from '../actionsHelpers/actionTypeCreator';
 import { createTableBulkActionTypes } from '../actionsHelpers/actionTypeCreator';
