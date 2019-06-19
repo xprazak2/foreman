@@ -9,7 +9,7 @@ exports[`radio button group should render group of radio buttons 1`] = `
   tooltipHelp={null}
   touched={false}
 >
-  <Field
+  <FormikConnect(FieldInner)
     component={[Function]}
     disabled={false}
     item={
@@ -22,7 +22,7 @@ exports[`radio button group should render group of radio buttons 1`] = `
     key="0"
     name="RadioButtonGroupTest"
   />
-  <Field
+  <FormikConnect(FieldInner)
     component={[Function]}
     disabled={false}
     item={

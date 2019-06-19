@@ -3,9 +3,8 @@ import API from '../../../API';
 import { addToast } from '../toasts';
 import { sprintf, translate as __ } from '../../../../react_app/common/I18n';
 
-class SubmissionError extends Error {
+export class SubmissionError {
   constructor(errors) {
-    super();
     this.errors = errors;
   }
 }

@@ -118,7 +118,8 @@
     "select2": "~3.5.2-browserify",
     "unidiff": "^1.0.0",
     "urijs": "^1.18.10",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint -c .eslintrc webpack/ script/",
