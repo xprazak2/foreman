@@ -6,13 +6,15 @@ let currentLocation = null;
 
 const AppSwitcher = ({ metadata }) => (
   <Switch>
-    {routes.map(({ render, path, ...routeProps }) => (
+    {routes.map(({ render, path, exact, ...routeProps }) => (
       <Route
+        exact={exact}
         path={path}
         key={path}
         {...routeProps}
         render={renderProps => {
           const railsContainer = document.getElementById('rails-app-content');
+          console.log(railsContainer)
           if (railsContainer) railsContainer.remove();
           currentLocation = renderProps.location;
 

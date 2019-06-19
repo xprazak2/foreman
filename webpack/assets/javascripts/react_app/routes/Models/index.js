@@ -3,5 +3,6 @@ import ModelsPage from './ModelsPage';
 
 export default [{
   path: '/models',
-  render: props => <ModelsPage { ...props } />
+  exact: true,
+  render: props => <ModelsPage { ...props } />,
 }];
