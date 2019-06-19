@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import { Field } from 'formik';
 
 import CommonForm from '../CommonForm';
 import RadioButton from './RadioButton';

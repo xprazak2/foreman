@@ -10,7 +10,7 @@ describe('actions', () => {
 
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-  it('buttons could be disabled', () => {
+  it('submit button could be disabled', () => {
     const wrapper = shallow(<Actions disabled />);
 
     expect(toJson(wrapper)).toMatchSnapshot();

@@ -1,27 +1,18 @@
 import toJson from 'enzyme-to-json';
 import { mount } from 'enzyme';
 import React from 'react';
-import { Provider } from 'react-redux';
-import BookmarkForm from './';
-import { generateStore } from '../../../redux';
-import * as FormActions from '../../../redux/actions/common/forms';
-import API from '../../../API';
-
-jest.mock('../../../API');
-API.post = jest.fn(() => Promise.resolve({ id: 1 }));
+import BookmarkForm from './BookmarkForm';
 
 function setup() {
   const props = {
     controller: 'hosts',
     url: '/api/bookmarks',
     onCancel: jest.fn(),
+    submitForm: jest.fn(() => Promise.resolve(true)),
+    initialValues: { publik: true, query: '', name: '' },
   };
 
-  const wrapper = mount(
-    <Provider store={generateStore()}>
-      <BookmarkForm {...props} />
-    </Provider>
-  );
+  const wrapper = mount(<BookmarkForm {...props} />);
 
   return {
     props,
@@ -36,6 +27,7 @@ describe('bookmark form', () => {
     expect(wrapper.find('BookmarkForm').props().initialValues).toEqual({
       publik: true,
       query: '',
+      name: '',
     });
   });
   it('should render the entire form', () => {
@@ -43,99 +35,47 @@ describe('bookmark form', () => {
 
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-  it('should convert params for submittion correctly', () => {
-    const spy = jest.spyOn(FormActions, 'submitForm');
-    const { wrapper } = setup();
-
-    wrapper
-      .find('input[name="name"]')
-      .simulate('change', { target: { value: 'Joe' } });
-    wrapper
-      .find('textarea[name="query"]')
-      .simulate('change', { target: { value: 'search' } });
-    wrapper
-      .find('input[name="publik"]')
-      .simulate('change', { target: { value: true } });
-
-    wrapper.find('form').simulate('submit');
-    expect(wrapper.find('.spinner')).toHaveLength(1);
-    expect(spy).toHaveBeenCalledWith({
-      item: 'Bookmark',
-      url: '/api/bookmarks',
-      values: {
-        controller: 'hosts',
-        name: 'Joe',
-        public: true,
-        query: 'search',
-      },
-    });
-  });
   it('should allow creating a private bookmark', () => {
-    const spy = jest.spyOn(FormActions, 'submitForm');
     const { wrapper } = setup();
 
     wrapper
       .find('input[name="name"]')
-      .simulate('change', { target: { value: 'Joe' } });
+      .simulate('change', { target: { name: 'name', value: 'Joe' } });
     wrapper
       .find('textarea[name="query"]')
-      .simulate('change', { target: { value: 'search' } });
+      .simulate('change', { target: { name: 'query', value: 'search' } });
     wrapper
       .find('input[name="publik"]')
-      .simulate('change', { target: { value: false } });
+      .simulate('change', { target: { name: 'publik', value: false } });
 
     wrapper.find('form').simulate('submit');
+
     expect(wrapper.find('.spinner')).toHaveLength(1);
-    expect(spy).toHaveBeenCalledWith({
-      item: 'Bookmark',
-      url: '/api/bookmarks',
-      values: {
-        controller: 'hosts',
-        name: 'Joe',
-        public: false,
-        query: 'search',
-      },
-    });
-    spy.mockReset();
-    spy.mockRestore();
   });
-  it('should not create an invalid bookmark', () => {
-    const spy = jest.spyOn(FormActions, 'submitForm');
+  it('should not allow to submit an invalid bookmark', () => {
     const { wrapper } = setup();
-
-    wrapper.find('form').simulate('submit');
-    expect(wrapper.find('.spinner')).toHaveLength(0);
-    expect(spy).toHaveBeenCalledTimes(0);
-    spy.mockReset();
-    spy.mockRestore();
+    expect(wrapper.find('button[type="submit"]').props().disabled).toBe(true);
   });
-  it('should allow creating a bookmark with a dot', () => {
-    const spy = jest.spyOn(FormActions, 'submitForm');
+  it('should allow submitting a bookmark with a dot', () => {
     const { wrapper } = setup();
 
     wrapper
       .find('input[name="name"]')
-      .simulate('change', { target: { value: 'Joe.D' } });
+      .simulate('change', { target: { name: 'name', value: 'Joe.D' } });
     wrapper
       .find('textarea[name="query"]')
-      .simulate('change', { target: { value: 'search' } });
+      .simulate('change', { target: { name: 'query', value: 'search' } });
     wrapper
       .find('input[name="publik"]')
-      .simulate('change', { target: { value: false } });
+      .simulate('change', { target: { name: 'publik', value: false } });
 
     wrapper.find('form').simulate('submit');
     expect(wrapper.find('.spinner')).toHaveLength(1);
-    expect(spy).toHaveBeenCalledWith({
-      item: 'Bookmark',
-      url: '/api/bookmarks',
-      values: {
-        controller: 'hosts',
-        name: 'Joe.D',
-        public: false,
-        query: 'search',
-      },
-    });
-    spy.mockReset();
-    spy.mockRestore();
+  });
+  it('should have "Cancel" button always enabled', () => {
+    const { wrapper } = setup();
+    expect(
+      wrapper.find('button[className="btn btn-default"]').props().disabled
+    ).toBe(false);
   });
 });

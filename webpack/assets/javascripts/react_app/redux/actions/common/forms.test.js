@@ -1,9 +1,8 @@
-import { SubmissionError } from 'redux-form';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { requestData, requestDataMsg } from './forms.fixtures';
 import * as types from '../../consts';
-import { submitForm } from './forms';
+import { submitForm, SubmissionError } from './forms';
 import { mockRequest, mockReset } from '../../../mockRequests';
 
 const middlewares = [thunk];
