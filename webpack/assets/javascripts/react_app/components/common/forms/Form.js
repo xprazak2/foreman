@@ -6,6 +6,7 @@ import { noop } from '../../../common/helpers';
 import AlertBody from '../Alert/AlertBody';
 import Actions from './Actions';
 import { translate as __ } from '../../../../react_app/common/I18n';
+import { Form as FormikForm } from 'formik';
 
 const Form = ({
   className,
@@ -18,7 +19,7 @@ const Form = ({
   submitting,
   errorTitle,
 }) => (
-  <form className={className} onSubmit={onSubmit}>
+  <FormikForm className={className}>
     {error && (
       <Alert className="base in fade" type={error.severity || 'danger'}>
         <AlertBody title={errorTitle}>
@@ -32,7 +33,7 @@ const Form = ({
     )}
     {children}
     <Actions onCancel={onCancel} disabled={disabled} submitting={submitting} />
-  </form>
+  </FormikForm>
 );
 
 Form.propTypes = {

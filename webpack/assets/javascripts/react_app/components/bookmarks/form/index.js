@@ -10,21 +10,28 @@ import * as FormActions from '../../../redux/actions/common/forms';
 import { translate as __ } from '../../../../react_app/common/I18n';
 import { required, maxLength, errorsToSentence } from '../../common/forms/validators';
 
+const prepareErrors = errors =>
+  Object.keys(errors).reduce((memo, key) => {
+    const errorMessages = errors[key]
+    memo[key] = errorMessages ? errorMessages.join(', ') : errorMessages;
+    return memo;
+  },
+  {}
+)
+
 const BookmarkForm = ({ url, submitForm, controller, onCancel, initialValues }) => (
   <Formik
     onSubmit={(values, actions) => {
-      submitForm({ url, values: { ...values, controller }, item: 'Bookmark' }).catch(exception => {
+      try {
+        submitForm({ url, values: { ...values, controller }, item: 'Bookmark' })
+      } catch(exception) {
         actions.setSubmitting(false);
-        actions.setErrors(Object.keys(exception.errors).reduce((memo, key) => {
-          const errorMessages = exception.errors[key]
-          memo[key] = errorMessages ? errorMessages.join(', ') : errorMessages;
-          return memo;
-        }, {}));
-      });
+        actions.setErrors(prepareErrors(exception.errors));
+      };
     }}
     initialValues={initialValues}
   >
-    {({ handleSubmit, isSubmitting, isValid }) => (
+    {({ handleSubmit, isSubmitting }) => (
         <Form
           onSubmit={handleSubmit}
           onCancel={onCancel}

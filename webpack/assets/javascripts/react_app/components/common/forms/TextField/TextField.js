@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field as FormikField } from 'formik';
+import { Field } from 'formik';
 import TextFieldInner from './TextFieldInner';
-import '../../../../common/reduxFormI18n';
 
 const TextField = ({
   name,
@@ -13,21 +12,21 @@ const TextField = ({
   required,
   validate,
 }) => (
-  <FormikField
+  <Field
     name={name}
     validate={validate}
-    render={({ field, form }) => {
-      return <TextFieldInner
-               input={field}
-               meta={{ touched: form.touched[name], error: form.errors[name] }}
-               name={name}
-               type={type}
-               required={required}
-               className={className}
-               inputClassName={inputClassName}
-               label={label}
-               />
-    }}
+    render={({ field, form: { touched, errors } }) => (
+      <TextFieldInner
+        input={field}
+        meta={{ touched: touched[name], error: errors[name] }}
+        name={name}
+        type={type}
+        required={required}
+        className={className}
+        inputClassName={inputClassName}
+        label={label}
+      />
+    )}
   />
 );
 
