@@ -6,6 +6,7 @@ import { getParams } from '../../../common/urlHelpers';
 import PageLayout from '../../../pages/common/PageLayout/PageLayout';
 import ModelsTable from '../../../components/ModelsTable';
 import { withRenderHandler, withPageLayout } from '../../../common/HOC';
+import EmptyModelsPage from './EmptyModelsPage';
 
 import searchProps from '../consts';
 
@@ -17,7 +18,8 @@ const layoutProps = {
 
 const reorder = WrappedComponent => componentProps =>
   withRenderHandler({
-    Component: WrappedComponent
+    Component: WrappedComponent,
+    EmptyComponent: EmptyModelsPage
   })(componentProps);
 
 export default compose(

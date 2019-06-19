@@ -26,7 +26,7 @@ export const loadInitialModels = (query = {}) => async dispatch => {
     dispatch({
       type: MODELS_PAGE_DATA_RESOLVED,
       payload: {
-        hasData: true
+        hasData: response.data.total !== 0
       }
     });
     return dispatch({
