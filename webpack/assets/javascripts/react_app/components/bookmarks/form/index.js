@@ -10,16 +10,7 @@ import ForemanForm from '../../common/forms/ForemanForm';
 import TextField from '../../common/forms/TextField';
 import * as FormActions from '../../../redux/actions/common/forms';
 import { translate as __ } from '../../../../react_app/common/I18n';
-import { errorsToSentence, maxLengthMsg, requiredMsg } from '../../common/forms/validators';
-
-const prepareErrors = errors =>
-  Object.keys(errors).reduce((memo, key) => {
-    const errorMessages = errors[key]
-    memo[key] = errorMessages ? errorMessages.join(', ') : errorMessages;
-    return memo;
-  },
-  {}
-)
+import { maxLengthMsg, requiredMsg } from '../../common/forms/validators';
 
 const bookmarksFormSchema = Yup.object().shape({
   name: Yup.string().max(...maxLengthMsg(254)).required(requiredMsg()),
@@ -28,8 +19,9 @@ const bookmarksFormSchema = Yup.object().shape({
 
 const BookmarkForm = ({ url, submitForm, controller, onCancel, initialValues }) => (
   <ForemanForm
-    submitValues={(values) => ({url, values: { ...values, controller }, item: 'Bookmark' })}
-    submitForm={submitForm}
+    onSubmit={(values, actions) => {
+      return submitForm(({url, values: { ...values, controller }, item: 'Bookmark' }));
+    }}
     initialValues={initialValues}
     validationSchema={bookmarksFormSchema}
     onCancel={onCancel}
