@@ -12,7 +12,7 @@ import {
   modelsAreLoading,
   modelsMessage,
   modelsHaveError,
-  modelsHaveData
+  modelsHaveData,
 } from './ModelsPageSelectors';
 
 export const reducers = { modelsPage: withDataReducer('MODELS_PAGE') };
@@ -20,17 +20,19 @@ export const reducers = { modelsPage: withDataReducer('MODELS_PAGE') };
 const mapDispatchToProps = dispatch =>
   bindActionCreators(ModelsPageActions, dispatch);
 
-const mapStateToProps = state => {
-  return {
-    isLoading: modelsAreLoading(state),
-    modelsMessage: modelsMessage(state),
-    hasError: modelsHaveError(state),
-    hasData: modelsHaveData(state),
-  }
-}
+const mapStateToProps = state => ({
+  isLoading: modelsAreLoading(state),
+  modelsMessage: modelsMessage(state),
+  hasError: modelsHaveError(state),
+  hasData: modelsHaveData(state),
+});
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   callOnMount(({ loadInitialModels, metadata }) =>
-    loadInitialModels(getParams({ defaultPerPage: metadata.entriesPerPage }))),
-  )(ModelsPage);
+    loadInitialModels(getParams({ defaultPerPage: metadata.entriesPerPage }))
+  )
+)(ModelsPage);

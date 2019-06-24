@@ -28,7 +28,8 @@ export const getURIpage = () => Number(getURI().query(true).page) || 1;
 /**
  * Get updated perPage param
  */
-export const getURIperPage = (defaultPerPage = 20) => Number(getURI().query(true).per_page) || defaultPerPage;
+export const getURIperPage = (defaultPerPage = 20) =>
+  Number(getURI().query(true).per_page) || defaultPerPage;
 /**
  * Get updated searchQuery param
  */

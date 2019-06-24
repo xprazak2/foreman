@@ -9,7 +9,6 @@ import createModelsTableSchema from './ModelsTableSchema';
 import { getURIsearch, stringifyParams } from '../../common/urlHelpers';
 import { getURIQuery } from '../../common/helpers';
 
-import { propsToSnakeCase } from '../../common/helpers';
 import Pagination from '../Pagination/PaginationWrapper';
 
 const ModelsTable = ({
@@ -42,21 +41,22 @@ const ModelsTable = ({
     );
   }
 
-  const onPageChange = (history) => (paginationArgs) => {
+  const onPageChange = historyObj => paginationArgs => {
     const search = { searchQuery: getURIsearch(), ...paginationArgs };
-    history.push({
-      pathname: history.location.pathname,
-      search: stringifyParams(search)
-    })
+    historyObj.push({
+      pathname: historyObj.location.pathname,
+      search: stringifyParams(search),
+    });
     getTableItems(search);
-  }
+  };
 
   return (
     <React.Fragment>
       <Table
         key="models-table"
         columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-        rows={results}/>
+        rows={results}
+      />
       <div id="pagination">
         <Pagination
           className="col-md-12"
@@ -64,11 +64,11 @@ const ModelsTable = ({
           itemCount={itemCount}
           pagination={pagination}
           onChange={onPageChange(history)}
-          dropdownButtonId='hw-models-dropdown'
+          dropdownButtonId="hw-models-dropdown"
         />
       </div>
     </React.Fragment>
-  )
+  );
 };
 
 ModelsTable.propTypes = {
@@ -78,6 +78,10 @@ ModelsTable.propTypes = {
   sortBy: PropTypes.string,
   sortOrder: PropTypes.string,
   error: PropTypes.object,
+  pagination: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  itemCount: PropTypes.number.isRequired,
 };
 
 ModelsTable.defaultProps = {

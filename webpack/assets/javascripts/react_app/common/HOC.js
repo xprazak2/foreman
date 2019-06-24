@@ -3,7 +3,6 @@ import EmptyPage from '../routes/common/EmptyPage';
 import LoadingPage from '../routes/common/LoadingPage';
 import PageLayout from '../pages/common/PageLayout/PageLayout';
 
-
 /**
  * HOC that runs a function on the initial mount of the component using useEffect
  * @param {Function} callback - function to run
@@ -46,9 +45,8 @@ export const withRenderHandler = ({
   return <EmptyComponent {...componentProps} />;
 };
 
-
 export const withPageLayout = layoutProps => WrappedComponent => componentProps => (
-  <PageLayout {...layoutProps} >
+  <PageLayout {...layoutProps}>
     <WrappedComponent {...componentProps} />
   </PageLayout>
 );

@@ -1,4 +1,5 @@
-export const modelsPageSearchString = state => state.autocomplete.searchBar.searchQuery;
+export const modelsPageSearchString = state =>
+  state.autocomplete.searchBar.searchQuery;
 
 const modelsPageState = state => state.modelsPage;
 

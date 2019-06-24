@@ -2,9 +2,13 @@ import Immutable from 'seamless-immutable';
 import { STATUS } from '../../../../constants';
 import createTableActionTypes from '../actionsHelpers/actionTypeCreator';
 
-const moreSuccState = (action) => ({})
+const moreSuccState = action => ({});
 
-const createTableReducer = (controller, additionalSuccState = moreSuccState, additionalInitialState = {}) => {
+const createTableReducer = (
+  controller,
+  additionalSuccState = moreSuccState,
+  additionalInitialState = {}
+) => {
   const initState = Immutable({
     error: null,
     sortBy: '',
@@ -38,7 +42,7 @@ const createTableReducer = (controller, additionalSuccState = moreSuccState, add
       default:
         return state;
     }
-  }
-}
+  };
+};
 
 export default createTableReducer;
