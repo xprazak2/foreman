@@ -37,9 +37,9 @@ export const getURIsearch = () => getURI().query(true).search || '';
 /**
  * Get updated URI params
  */
-export const getParams = ({ defaultPerPage = 20 }) => ({
+export const getParams = (defaults = { defaultPerPage: 20 }) => ({
   page: getURIpage(),
-  perPage: getURIperPage(defaultPerPage),
+  perPage: getURIperPage(defaults.defaultPerPage),
   searchQuery: getURIsearch(),
 });
 

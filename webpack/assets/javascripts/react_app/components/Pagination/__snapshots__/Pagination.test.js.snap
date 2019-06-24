@@ -41,6 +41,7 @@ exports[`Pagination rendering from js renders correctly 1`] = `
   className=""
   data={
     Object {
+      "classNames": Object {},
       "itemCount": 52,
       "viewType": "list",
     }

@@ -23,7 +23,7 @@ describe('ModelsTable', () => {
   it('render table on sucess', () => {
     const getModelItems = jest.fn().mockReturnValue([]);
     const view = mount(
-      <ModelsTable results={results} getTableItems={getModelItems} />
+      <ModelsTable results={results} getTableItems={getModelItems} itemCount={0}/>
     );
     expect(getModelItems.mock.calls).toHaveLength(1);
     expect(view.find(Table)).toHaveLength(1);

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelsPageSelectors should return loading state 1`] = `true`;
+
+exports[`ModelsPageSelectors should return message 1`] = `
+Object {
+  "text": "msg",
+  "type": "text",
+}
+`;
+
+exports[`ModelsPageSelectors should return whether page has data 1`] = `true`;
+
+exports[`ModelsPageSelectors should return whether page has error 1`] = `true`;

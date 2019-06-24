@@ -7,7 +7,7 @@ import MessageBox from '../common/MessageBox';
 import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
 import { getURIsearch, stringifyParams } from '../../common/urlHelpers';
-
+import { getURIQuery } from '../../common/helpers';
 
 import { propsToSnakeCase } from '../../common/helpers';
 import Pagination from '../Pagination/PaginationWrapper';

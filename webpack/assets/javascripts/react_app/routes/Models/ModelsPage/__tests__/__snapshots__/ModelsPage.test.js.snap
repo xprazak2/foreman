@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelsPage should render 1`] = `
+<PageLayout
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": null,
+        "url": "/models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={null}
+>
+  <Component
+    hasData={true}
+    isLoading={false}
+    modelsMessage={
+      Object {
+        "text": "",
+        "type": "empty",
+      }
+    }
+  />
+</PageLayout>
+`;
+
+exports[`ModelsPage should render with message 1`] = `
+<PageLayout
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": null,
+        "url": "/models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={null}
+>
+  <Component
+    hasData={false}
+    isLoading={false}
+    modelsMessage={
+      Object {
+        "text": "This is Error!!",
+        "type": "error",
+      }
+    }
+  />
+</PageLayout>
+`;
+
+exports[`ModelsPage should render without data 1`] = `
+<PageLayout
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": null,
+        "url": "/models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={null}
+>
+  <Component
+    hasData={false}
+    isLoading={false}
+    modelsMessage={
+      Object {
+        "text": "",
+        "type": "empty",
+      }
+    }
+  />
+</PageLayout>
+`;
