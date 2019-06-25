@@ -1,11 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { routes } from './routes';
 
 let currentLocation = null;
 
-const AppSwitcher = ({ metadata }) => (
+const AppSwitcher = () => (
   <Switch>
     {routes.map(({ render, path, exact, ...routeProps }) => (
       <Route
@@ -18,7 +17,7 @@ const AppSwitcher = ({ metadata }) => (
           if (railsContainer) railsContainer.remove();
           currentLocation = renderProps.location;
 
-          return render({ ...renderProps, metadata });
+          return render(renderProps);
         }}
       />
     ))}
@@ -41,9 +40,5 @@ const AppSwitcher = ({ metadata }) => (
     />
   </Switch>
 );
-
-AppSwitcher.propTypes = {
-  metadata: PropTypes.object.isRequired,
-};
 
 export default AppSwitcher;

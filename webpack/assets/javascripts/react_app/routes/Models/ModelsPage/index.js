@@ -15,6 +15,8 @@ import {
   modelsHaveData,
 } from './ModelsPageSelectors';
 
+import { selectReactAppMetadata } from '../../../ReactApp/ReactAppSelectors';
+
 export const reducers = { modelsPage: withDataReducer('MODELS_PAGE') };
 
 const mapDispatchToProps = dispatch =>
@@ -25,6 +27,7 @@ const mapStateToProps = state => ({
   modelsMessage: modelsMessage(state),
   hasError: modelsHaveError(state),
   hasData: modelsHaveData(state),
+  metadata: selectReactAppMetadata(state),
 });
 
 export default compose(

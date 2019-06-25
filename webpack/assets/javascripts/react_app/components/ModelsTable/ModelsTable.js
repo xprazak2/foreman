@@ -6,9 +6,8 @@ import { STATUS } from '../../constants';
 import MessageBox from '../common/MessageBox';
 import { translate as __ } from '../../common/I18n';
 import createModelsTableSchema from './ModelsTableSchema';
-import { getURIsearch, stringifyParams } from '../../common/urlHelpers';
 import { getURIQuery } from '../../common/helpers';
-
+import { onPageChange } from './ModelsTableActions';
 import Pagination from '../Pagination/PaginationWrapper';
 
 const ModelsTable = ({
@@ -41,15 +40,6 @@ const ModelsTable = ({
     );
   }
 
-  const onPageChange = historyObj => paginationArgs => {
-    const search = { searchQuery: getURIsearch(), ...paginationArgs };
-    historyObj.push({
-      pathname: historyObj.location.pathname,
-      search: stringifyParams(search),
-    });
-    getTableItems(search);
-  };
-
   return (
     <React.Fragment>
       <Table
@@ -63,7 +53,7 @@ const ModelsTable = ({
           viewType="table"
           itemCount={itemCount}
           pagination={pagination}
-          onChange={onPageChange(history)}
+          onChange={onPageChange(getTableItems, history)}
           dropdownButtonId="hw-models-dropdown"
         />
       </div>
