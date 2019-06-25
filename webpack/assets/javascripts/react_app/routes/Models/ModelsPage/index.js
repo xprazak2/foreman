@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { bindActionCreators, compose, combineReducers } from 'redux';
 
 import ModelsPage from './ModelsPage';
 import * as ModelsPageActions from './ModelsPageActions';
@@ -7,17 +7,30 @@ import * as ModelsPageActions from './ModelsPageActions';
 import { getParams } from '../../../common/urlHelpers';
 import { callOnMount } from '../../../common/HOC';
 import withDataReducer from '../../common/reducerHOC/withDataReducer';
+import withQueryReducer from '../../common/reducerHOC/withQueryReducer';
 
 import {
   modelsAreLoading,
   modelsMessage,
   modelsHaveError,
   modelsHaveData,
+  modelsPageNum,
+  modelsItemCount,
+  modelsSearchQuery,
 } from './ModelsPageSelectors';
+
+// import {
+//   modelsTable
+// }
 
 import { selectReactAppMetadata } from '../../../ReactApp/ReactAppSelectors';
 
-export const reducers = { modelsPage: withDataReducer('MODELS_PAGE') };
+export const reducers = {
+  modelsPage: combineReducers({
+    data: withDataReducer('MODELS_PAGE'),
+    query: withQueryReducer('MODELS_PAGE'),
+  })
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(ModelsPageActions, dispatch);

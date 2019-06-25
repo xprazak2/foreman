@@ -4,6 +4,17 @@ import { foremanUrl } from '../../../../foreman_tools';
 import API from '../../../API';
 import createTableActionTypes from '../../../components/common/table/actionsHelpers/actionTypeCreator';
 
+import { stringifyParams, getParams } from '../../../common/urlHelpers';
+
+import {
+  modelsTablePagination,
+  modelsTableItemCount,
+} from '../../../components/ModelsTable/ModelsTableSelectors';
+
+import {
+  modelsPageSearchQuery,
+} from './ModelsPageSelectors';
+
 import {
   MODELS_PAGE_DATA_RESOLVED,
   MODELS_PAGE_DATA_FAILED,
@@ -13,6 +24,10 @@ import {
 const controller = 'models';
 
 const tableActionTypes = createTableActionTypes(controller);
+
+export const initializeModels = () => dispatch => {
+
+}
 
 export const loadInitialModels = (query = {}) => async dispatch => {
   const url = foremanUrl(
@@ -60,3 +75,16 @@ export const loadInitialModels = (query = {}) => async dispatch => {
     return onError(error);
   }
 };
+
+const buildQuery = (query, state) => ({
+  page: query.page || modelsTablePagination(state).page,
+  perPage: query.perPage || modelsTablePagination(state).perPage,
+  searchQuery: query.search === undefined ? modelsPageSearchQuery(state) : query.searchQuery
+});
+
+export const fetchAndPush = params => (dispatch, getState) => {
+  const query = buildQuery(params, getState());
+
+  dispatch()
+}
+
