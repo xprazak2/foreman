@@ -68,6 +68,8 @@ module Hostext
       scoped_search :relation => :search_parameters, :on => :name, :complete_value => true, :rename => :params_name, :only_explicit => true
       scoped_search :relation => :search_parameters, :on => :searchable_value, :in_key => :search_parameters, :on_key => :name, :complete_value => true, :rename => :params, :ext_method => :search_by_params, :only_explicit => true, :operators => ['= ', '~ ']
 
+      scoped_search :relation => :reported_data, :on => :boot_time, :rename => 'boot_time'
+
       if SETTINGS[:locations_enabled]
         scoped_search :relation => :location, :on => :title, :rename => :location, :complete_value => true, :only_explicit => true
         scoped_search :on => :location_id, :complete_enabled => false, :only_explicit => true, :validator => ScopedSearch::Validators::INTEGER
