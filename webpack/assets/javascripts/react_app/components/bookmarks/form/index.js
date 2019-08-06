@@ -6,7 +6,7 @@ import { submitForm } from '../../../redux/actions/common/forms';
 export default connect(
   ({ bookmarks }) => ({
     initialValues: {
-      publik: true,
+      public: true,
       query: bookmarks.currentQuery || '',
       name: '',
     },

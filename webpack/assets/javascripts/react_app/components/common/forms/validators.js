@@ -6,12 +6,3 @@ export const maxLengthMsg = number => [
 ];
 
 export const requiredMsg = () => __("can't be blank");
-
-export const errorsToSentence = (...validators) => value => {
-  const msgs = validators.reduce((memo, validator) => {
-    const res = validator(value);
-    return res ? [res, ...memo] : memo;
-  }, []);
-  const [last, ...rest] = msgs;
-  return rest.length === 0 ? last : `${rest.reverse().join(', ')} and ${last}`;
-};

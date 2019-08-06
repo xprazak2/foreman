@@ -6,7 +6,7 @@ exports[`bookmark form should render the entire form 1`] = `
   initialValues={
     Object {
       "name": "",
-      "publik": true,
+      "public": true,
       "query": "",
     }
   }
@@ -19,7 +19,7 @@ exports[`bookmark form should render the entire form 1`] = `
     initialValues={
       Object {
         "name": "",
-        "publik": true,
+        "public": true,
         "query": "",
       }
     }
@@ -125,7 +125,7 @@ exports[`bookmark form should render the entire form 1`] = `
       initialValues={
         Object {
           "name": "",
-          "publik": true,
+          "public": true,
           "query": "",
         }
       }
@@ -255,7 +255,7 @@ exports[`bookmark form should render the entire form 1`] = `
                 "handleSubmit": [Function],
                 "initialValues": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
                 "isSubmitting": false,
@@ -284,7 +284,7 @@ exports[`bookmark form should render the entire form 1`] = `
                 "validateOnChange": true,
                 "values": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
               }
@@ -310,7 +310,7 @@ exports[`bookmark form should render the entire form 1`] = `
                     "handleSubmit": [Function],
                     "initialValues": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                     "isSubmitting": false,
@@ -432,7 +432,7 @@ exports[`bookmark form should render the entire form 1`] = `
                     },
                     "values": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                   }
@@ -509,7 +509,7 @@ exports[`bookmark form should render the entire form 1`] = `
                 "handleSubmit": [Function],
                 "initialValues": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
                 "isSubmitting": false,
@@ -538,7 +538,7 @@ exports[`bookmark form should render the entire form 1`] = `
                 "validateOnChange": true,
                 "values": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
               }
@@ -565,7 +565,7 @@ exports[`bookmark form should render the entire form 1`] = `
                     "handleSubmit": [Function],
                     "initialValues": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                     "isSubmitting": false,
@@ -687,7 +687,7 @@ exports[`bookmark form should render the entire form 1`] = `
                     },
                     "values": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                   }
@@ -764,7 +764,7 @@ exports[`bookmark form should render the entire form 1`] = `
                 "handleSubmit": [Function],
                 "initialValues": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
                 "isSubmitting": false,
@@ -793,19 +793,19 @@ exports[`bookmark form should render the entire form 1`] = `
                 "validateOnChange": true,
                 "values": Object {
                   "name": "",
-                  "publik": true,
+                  "public": true,
                   "query": "",
                 },
               }
             }
             key="2"
             label="Public"
-            name="publik"
+            name="public"
             required={false}
             type="checkbox"
           >
             <FormikConnect(FieldInner)
-              name="publik"
+              name="public"
               render={[Function]}
             >
               <FieldInner
@@ -819,7 +819,7 @@ exports[`bookmark form should render the entire form 1`] = `
                     "handleSubmit": [Function],
                     "initialValues": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                     "isSubmitting": false,
@@ -941,19 +941,19 @@ exports[`bookmark form should render the entire form 1`] = `
                     },
                     "values": Object {
                       "name": "",
-                      "publik": true,
+                      "public": true,
                       "query": "",
                     },
                   }
                 }
-                name="publik"
+                name="public"
                 render={[Function]}
               >
                 <TextFieldInner
                   className=""
                   input={
                     Object {
-                      "name": "publik",
+                      "name": "public",
                       "onBlur": [Function],
                       "onChange": [Function],
                       "value": true,
@@ -966,7 +966,7 @@ exports[`bookmark form should render the entire form 1`] = `
                       "touched": undefined,
                     }
                   }
-                  name="publik"
+                  name="public"
                   required={false}
                   type="checkbox"
                 >
@@ -992,7 +992,7 @@ exports[`bookmark form should render the entire form 1`] = `
                         <input
                           checked={true}
                           className=""
-                          name="publik"
+                          name="public"
                           onBlur={[Function]}
                           onChange={[Function]}
                           type="checkbox"

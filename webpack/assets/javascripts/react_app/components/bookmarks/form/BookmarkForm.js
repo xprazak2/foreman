@@ -40,7 +40,7 @@ const BookmarkForm = ({
       label={__('Query')}
       inputClassName="col-md-8"
     />
-    <TextField name="publik" type="checkbox" label={__('Public')} />
+    <TextField name="public" type="checkbox" label={__('Public')} />
   </ForemanForm>
 );
 
