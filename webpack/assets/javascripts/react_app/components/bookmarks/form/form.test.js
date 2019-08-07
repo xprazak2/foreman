@@ -2,8 +2,7 @@ import toJson from 'enzyme-to-json';
 import { mount } from 'enzyme';
 import React from 'react';
 import BookmarkForm from './BookmarkForm';
-
-import { wait } from '@testing-library/react';
+import { IntegrationTestHelper } from 'react-redux-test-utils';
 
 function setup() {
   const props = {
@@ -53,7 +52,7 @@ describe('bookmark form', () => {
     wrapper.find('form').simulate('submit');
 
     expect(wrapper.find('.spinner')).toHaveLength(1);
-    await wait(() => {
+    await IntegrationTestHelper.flushAllPromises();
       expect(props.submitForm).toHaveBeenCalledWith({
         item: 'Bookmark',
         url: '/api/bookmarks',
@@ -64,7 +63,6 @@ describe('bookmark form', () => {
           query: 'search',
         },
       });
-    });
     props.submitForm.mockReset();
     props.submitForm.mockRestore();
   });
@@ -88,17 +86,17 @@ describe('bookmark form', () => {
     wrapper.find('form').simulate('submit');
     expect(wrapper.find('.spinner')).toHaveLength(1);
 
-    await wait(() => {
-      expect(props.submitForm).toHaveBeenCalledWith({
-        item: 'Bookmark',
-        url: '/api/bookmarks',
-        values: {
-          controller: 'hosts',
-          name: 'Joe.D',
-          public: false,
-          query: 'search',
-        },
-      });
+    await IntegrationTestHelper.flushAllPromises();
+
+    expect(props.submitForm).toHaveBeenCalledWith({
+      item: 'Bookmark',
+      url: '/api/bookmarks',
+      values: {
+        controller: 'hosts',
+        name: 'Joe.D',
+        public: false,
+        query: 'search',
+      },
     });
     props.submitForm.mockReset();
     props.submitForm.mockRestore();
@@ -124,17 +122,18 @@ describe('bookmark form', () => {
 
     wrapper.find('form').simulate('submit');
     expect(wrapper.find('.spinner')).toHaveLength(1);
-    await wait(() => {
-      expect(props.submitForm).toHaveBeenCalledWith({
-        item: 'Bookmark',
-        url: '/api/bookmarks',
-        values: {
-          controller: 'hosts',
-          name: 'Joe',
-          public: true,
-          query: 'search',
-        },
-      });
+
+    await IntegrationTestHelper.flushAllPromises();
+
+    expect(props.submitForm).toHaveBeenCalledWith({
+      item: 'Bookmark',
+      url: '/api/bookmarks',
+      values: {
+        controller: 'hosts',
+        name: 'Joe',
+        public: true,
+        query: 'search',
+      },
     });
     props.submitForm.mockReset();
     props.submitForm.mockRestore();
