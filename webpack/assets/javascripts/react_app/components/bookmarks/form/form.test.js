@@ -1,8 +1,8 @@
 import toJson from 'enzyme-to-json';
 import { mount } from 'enzyme';
 import React from 'react';
-import BookmarkForm from './BookmarkForm';
 import { IntegrationTestHelper } from 'react-redux-test-utils';
+import BookmarkForm from './BookmarkForm';
 
 function setup() {
   const props = {
@@ -53,16 +53,16 @@ describe('bookmark form', () => {
 
     expect(wrapper.find('.spinner')).toHaveLength(1);
     await IntegrationTestHelper.flushAllPromises();
-      expect(props.submitForm).toHaveBeenCalledWith({
-        item: 'Bookmark',
-        url: '/api/bookmarks',
-        values: {
-          controller: 'hosts',
-          name: 'Joe',
-          public: false,
-          query: 'search',
-        },
-      });
+    expect(props.submitForm).toHaveBeenCalledWith({
+      item: 'Bookmark',
+      url: '/api/bookmarks',
+      values: {
+        controller: 'hosts',
+        name: 'Joe',
+        public: false,
+        query: 'search',
+      },
+    });
     props.submitForm.mockReset();
     props.submitForm.mockRestore();
   });

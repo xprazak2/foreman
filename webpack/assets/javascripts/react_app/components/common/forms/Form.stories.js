@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
-import { reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import { Grid, Row } from 'patternfly-react';
-
+import { Formik } from 'formik';
 import RadioButtonGroup from './RadioButtonGroup';
 import FormField, { registerInputComponent, ControlContext } from './FormField';
 import Form from './Form';
@@ -16,8 +14,6 @@ import {
   dateTimeWithErrorProps,
   ownComponentFieldProps,
 } from './FormField.fixtures';
-
-const formName = 'storybookForm';
 
 const StoryForm = () => {
   const radios = [
@@ -36,13 +32,20 @@ const StoryForm = () => {
   ];
 
   return (
-    <Form>
-      <RadioButtonGroup
-        name="hamburger"
-        controlLabel="Would you like a hamburger?"
-        radios={radios}
-      />
-    </Form>
+    <Formik
+      onSubmit={(values, actions) => {}}
+      initialValues={{ hamburger: 'yes' }}
+    >
+      {formikProps => (
+        <Form>
+          <RadioButtonGroup
+            name="hamburger"
+            controlLabel="Would you like a hamburger?"
+            radios={radios}
+          />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
@@ -71,17 +74,11 @@ CustomSelectWithContext.propTypes = {
   firstOption: PropTypes.string.isRequired,
 };
 
-const storyForm = reduxForm({ form: formName })(StoryForm);
-const ConnectedForm = connect(
-  null,
-  () => {}
-)(storyForm);
-
 storiesOf('Components/Form', module)
   .addDecorator(storeDecorator)
   .add('Radio Button Group', () => (
     <Story>
-      <ConnectedForm />
+      <StoryForm />
     </Story>
   ))
   .add('FormField', () => (
