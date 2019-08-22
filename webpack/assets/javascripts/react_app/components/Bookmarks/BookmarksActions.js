@@ -5,8 +5,8 @@ import {
   BOOKMARKS_FAILURE,
   BOOKMARKS_MODAL_OPENED,
   BOOKMARKS_MODAL_CLOSED,
-} from '../../consts';
-import { ajaxRequestAction } from '../common';
+} from './BookmarksConstants';
+import { ajaxRequestAction } from '../../redux/actions/common';
 
 const _getBookmarks = (url, controller) => dispatch =>
   ajaxRequestAction({

@@ -6,11 +6,12 @@ import {
   BOOKMARKS_MODAL_OPENED,
   BOOKMARKS_MODAL_CLOSED,
   BOOKMARK_FORM_SUBMITTED,
-} from '../../consts';
-import { STATUS } from '../../../constants';
+} from './BookmarksConstants';
+import { STATUS } from '../../constants';
 
-const initialState = Immutable({
+export const initialState = Immutable({
   showModal: false,
+  currentQuery: '',
 });
 
 const sortByName = (a, b) => {

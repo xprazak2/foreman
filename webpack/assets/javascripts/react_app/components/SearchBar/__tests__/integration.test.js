@@ -5,7 +5,7 @@ import IntegrationTestHelper from '../../../common/IntegrationTestHelper';
 import { SearchBarProps } from '../SearchBar.fixtures';
 import SearchBar from '../index';
 import { reducers } from '../../AutoComplete';
-import bookmarksReducer from '../../../redux/reducers/bookmarks';
+import bookmarksReducer from '../../Bookmarks/BookmarksReducer';
 
 jest.mock('../../../API');
 jest.mock('lodash', () => ({

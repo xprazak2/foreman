@@ -20,7 +20,7 @@
     "create-react-component": "yo react-domain"
   },
   "dependencies": {
-    "@theforeman/vendor": "^1.0.0-formik.0",
+    "@theforeman/vendor": "1.0.0-formik.0",
     "intl": "~1.2.5",
     "jed": "^1.1.1",
     "react-intl": "^2.8.0"

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import bookmarks from './bookmarks';
+// import bookmarks from './bookmarks';
 import statistics from './statistics';
 import hosts from './hosts';
 import notifications from './notifications';
@@ -16,10 +16,11 @@ import { reducers as templateGenerationReducers } from '../../components/Templat
 import { reducers as factChartReducers } from '../../components/FactCharts';
 import { reducers as statisticsPageReducers } from '../../routes/Statistics/StatisticsPage';
 import { reducers as fillReducers } from '../../components/common/Fill';
+import { reducers as bookmarksReducers } from '../../components/Bookmarks';
 
 export function combineReducersAsync(asyncReducers) {
   return combineReducers({
-    bookmarks,
+    ...bookmarksReducers,
     statistics,
     hosts,
     notifications,
