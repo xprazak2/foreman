@@ -108,6 +108,26 @@ class FactParser
     nil
   end
 
+  # is host virtual?
+  def virtual
+    facts.fetch('virt', {}).fetch('is_guest', nil)
+  end
+
+  # host memory in GB
+  def ram
+    facts.fetch('memory', {}).fetch('memtotal', nil)
+  end
+
+  # number of CPU sockets
+  def sockets
+    facts.fetch('cpu', {}).fetch('cpu_socket(s)', nil)
+  end
+
+  # cores per socket
+  def cores
+    facts.fetch('cpu', {}).fetch('core(s)_per_socket', nil)
+  end
+
   private
 
   def find_interface_by_name(host_name)
