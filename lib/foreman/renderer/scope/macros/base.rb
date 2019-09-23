@@ -132,7 +132,17 @@ module Foreman
             host&.uptime_seconds
           end
 
+          def host_memory(host)
+            host.facts["memory::memtotal"] ? format_host_memory(host.facts["memory::memtotal"]) : '';
+          end
+
           private
+
+          def format_host_memory(memory)
+            return (memory / 1048576).round(2) unless memory.is_a? String
+            value = memory.downcase
+            value.sub('gb', '').strip.to_i if value.match(/gb/)
+          end
 
           def validate_subnet(subnet)
             raise WrongSubnetError.new(object_name: subnet.to_s, object_class: subnet.class.to_s) unless subnet.is_a?(Subnet)
