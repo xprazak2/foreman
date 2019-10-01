@@ -1,0 +1,8 @@
+<div id='pagination'></div>
+  <%= mount_react_component('Pagination', '#pagination', {
+      :viewType => 'table',
+      :perPage => Setting[:entries_per_page],
+      :perPageOptions => per_page_options,
+      :classNames => options,
+      :itemCount => collection.total_entries
+      }.to_json) %>

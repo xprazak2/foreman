@@ -1,0 +1,8 @@
+<div class='row'>
+  <%= render "compute_resources_vms/show/#{@compute_resource.provider.downcase}" %>
+</div>
+
+<%
+  all_actions = available_actions(@vm)
+  title_actions *all_actions
+%>
