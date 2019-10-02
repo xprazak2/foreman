@@ -3,11 +3,11 @@ module Hostext
     extend ActiveSupport::Concern
 
     def set_reported_data(parser)
-      set_data(:boot_timestamp, parser, ->(value) { Time.at value })
-      set_data(:virtual, parser)
-      set_data(:ram, parser, ->(value) { format_host_memory value })
-      set_data(:sockets, parser)
-      set_data(:cores, parser)
+      set_data(:boot_time, :boot_timestamp,  parser, ->(value) { Time.at value })
+      set_data(:virtual, :virtual, parser)
+      set_data(:ram, :ram, parser, ->(value) { format_host_memory value })
+      set_data(:sockets, :sockets, parser)
+      set_data(:cores, :cores, parser)
     end
 
     def cores
@@ -37,8 +37,8 @@ module Hostext
       format_lambda.call(value)
     end
 
-    def set_data(attr_name, parser, format_lambda = ->(value) { value })
-      value = parser.public_send(attr_name)
+    def set_data(attr_name, method_name, parser, format_lambda = ->(value) { value })
+      value = parser.public_send(method_name)
       return unless value
 
       reported_data_facet.update(attr_name => format_lambda.call(value)) if self.persisted?
@@ -47,7 +47,8 @@ module Hostext
     def format_host_memory(memory)
       return (memory / 1048576).round(2) unless memory.is_a? String
       value = memory.downcase
-      value.sub('gb', '').strip.to_i if value.match(/gb/)
+      return value.sub!('gb', '').strip.to_i if value.match(/gb/)
+      value.strip.to_i
     end
 
     def reported_data_facet

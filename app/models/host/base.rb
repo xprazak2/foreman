@@ -160,10 +160,9 @@ module Host
 
       # taxonomy must be set before populate_fields_from_facts call
       set_taxonomies(facts)
-
+      Rails.logger.debug('bbbbbb')
       unless build?
         parser = FactParser.parser_for(type).new(facts)
-
         telemetry_duration_histogram(:importer_facts_import_duration, 1000, type: type) do
           populate_fields_from_facts(parser, type, source_proxy)
         end

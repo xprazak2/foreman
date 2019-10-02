@@ -110,22 +110,22 @@ class FactParser
 
   # is host virtual?
   def virtual
-    facts.fetch('virt', {}).fetch('is_guest', nil)
+    facts['virt.is_guest']
   end
 
   # host memory in GB
   def ram
-    facts.fetch('memory', {}).fetch('memtotal', nil)
+    facts['memory.memtotal']
   end
 
   # number of CPU sockets
   def sockets
-    facts.fetch('cpu', {}).fetch('cpu_socket(s)', nil)
+    facts['cpu.core(s)_per_socket']
   end
 
   # cores per socket
   def cores
-    facts.fetch('cpu', {}).fetch('core(s)_per_socket', nil)
+    facts['cpu.core(s)_per_socket']
   end
 
   private
