@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelsPage actions should fetch and fail 1`] = `
+Array [
+  Array [
+    Object {
+      "type": "MODELS_PAGE_SHOW_LOADING",
+    },
+  ],
+]
+`;
+
+exports[`ModelsPage actions should fetch and push 1`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`ModelsPage actions should fetch models 1`] = `
+Array [
+  Array [
+    Object {
+      "type": "MODELS_PAGE_SHOW_LOADING",
+    },
+  ],
+  Array [
+    Object {
+      "payload": Object {
+        "canCreate": false,
+        "hasData": true,
+        "hasError": false,
+        "isLoading": true,
+        "message": Object {
+          "text": "",
+          "type": "empty",
+        },
+        "page": 1,
+        "perPage": 20,
+        "results": Array [
+          Object {
+            "canDelete": true,
+            "canEdit": true,
+            "hostsCount": 5,
+            "id": 1,
+            "name": "my-hw-model",
+            "vendorClass": "custom",
+          },
+          Object {
+            "canDelete": false,
+            "canEdit": false,
+            "hostsCount": 4,
+            "id": 2,
+            "name": "your-hw-model",
+            "vendorClass": "B+",
+          },
+        ],
+        "search": "",
+        "sort": Object {
+          "by": "",
+          "order": "",
+        },
+        "subtotal": 2,
+        "total": 2,
+      },
+      "type": "MODELS_PAGE_DATA_RESOLVED",
+    },
+  ],
+  Array [
+    Object {
+      "type": "MODELS_PAGE_HIDE_LOADING",
+    },
+  ],
+]
+`;
+
+exports[`ModelsPage actions should initialize models 1`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;

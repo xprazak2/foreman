@@ -11,6 +11,10 @@ Object {
   "page": 1,
   "perPage": 25,
   "searchQuery": "some-search",
+  "sort": Object {
+    "by": "name",
+    "order": "ASC",
+  },
 }
 `;
 
