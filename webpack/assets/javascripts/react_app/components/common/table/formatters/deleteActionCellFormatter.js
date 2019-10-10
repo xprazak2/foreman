@@ -3,7 +3,7 @@ import DeleteButton from '../components/DeleteButton';
 
 export const deleteActionCellFormatter = controllerPluralize => (
   _,
-  { rowData: { can_delete: canDelete, name, id } }
+  { rowData: { canDelete, name, id } }
 ) => (
   <DeleteButton
     active={canDelete}
