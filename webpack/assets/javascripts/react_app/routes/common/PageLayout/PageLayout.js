@@ -58,6 +58,7 @@ const PageLayout = ({
                 />
               </div>
             )}
+            &nbsp;
           </Col>
           <Col id="title_action" md={searchable ? 6 : 8}>
             <div className="btn-toolbar pull-right">

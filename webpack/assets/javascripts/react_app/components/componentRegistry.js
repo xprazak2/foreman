@@ -35,6 +35,7 @@ import Editor from './Editor';
 import LoginPage from './LoginPage';
 import ExternalLogout from './ExternalLogout';
 import Slot from './common/Slot';
+import RedirectCancelButton from './common/RedirectCancelButton';
 
 const componentRegistry = {
   registry: {},
@@ -127,6 +128,7 @@ const coreComponets = [
   { name: 'TemplateInput', type: TemplateInput },
   { name: 'ExternalLogout', type: ExternalLogout },
   { name: 'Slot', type: Slot },
+  { name: 'RedirectCancelButton', type: RedirectCancelButton },
 
   {
     name: 'RelativeDateTime',

@@ -1,0 +1,361 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelsPage redering should render when loading 1`] = `
+<PageLayout
+  beforeToolbarComponent={null}
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  isLoading={false}
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": "",
+        "url": "models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
+>
+  <Component
+    fetchAndPush={[Function]}
+    hasData={false}
+    hasError={false}
+    isLoading={true}
+    itemCount={2}
+    message={
+      Object {
+        "text": "",
+        "type": "empty",
+      }
+    }
+    models={
+      Array [
+        Object {
+          "canDelete": true,
+          "canEdit": true,
+          "hostsCount": 5,
+          "id": 1,
+          "name": "my-hw-model",
+          "vendorClass": "custom",
+        },
+        Object {
+          "canDelete": false,
+          "canEdit": false,
+          "hostsCount": 4,
+          "id": 2,
+          "name": "your-hw-model",
+          "vendorClass": "B+",
+        },
+      ]
+    }
+    page={null}
+    perPage={null}
+    search=""
+    sort={
+      Object {
+        "by": "",
+        "order": "",
+      }
+    }
+  />
+</PageLayout>
+`;
+
+exports[`ModelsPage redering should render with error 1`] = `
+<PageLayout
+  beforeToolbarComponent={null}
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  isLoading={false}
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": "",
+        "url": "models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
+>
+  <Component
+    fetchAndPush={[Function]}
+    hasData={false}
+    hasError={true}
+    isLoading={false}
+    itemCount={2}
+    message={
+      Object {
+        "text": "this is error",
+        "type": "error",
+      }
+    }
+    models={
+      Array [
+        Object {
+          "canDelete": true,
+          "canEdit": true,
+          "hostsCount": 5,
+          "id": 1,
+          "name": "my-hw-model",
+          "vendorClass": "custom",
+        },
+        Object {
+          "canDelete": false,
+          "canEdit": false,
+          "hostsCount": 4,
+          "id": 2,
+          "name": "your-hw-model",
+          "vendorClass": "B+",
+        },
+      ]
+    }
+    page={null}
+    perPage={null}
+    search=""
+    sort={
+      Object {
+        "by": "",
+        "order": "",
+      }
+    }
+  />
+</PageLayout>
+`;
+
+exports[`ModelsPage redering should render with models 1`] = `
+<PageLayout
+  beforeToolbarComponent={null}
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  isLoading={false}
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": "",
+        "url": "models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
+>
+  <Component
+    fetchAndPush={[Function]}
+    hasData={false}
+    hasError={false}
+    isLoading={false}
+    itemCount={2}
+    message={
+      Object {
+        "text": "",
+        "type": "empty",
+      }
+    }
+    models={
+      Array [
+        Object {
+          "canDelete": true,
+          "canEdit": true,
+          "hostsCount": 5,
+          "id": 1,
+          "name": "my-hw-model",
+          "vendorClass": "custom",
+        },
+        Object {
+          "canDelete": false,
+          "canEdit": false,
+          "hostsCount": 4,
+          "id": 2,
+          "name": "your-hw-model",
+          "vendorClass": "B+",
+        },
+      ]
+    }
+    page={null}
+    perPage={null}
+    search=""
+    sort={
+      Object {
+        "by": "",
+        "order": "",
+      }
+    }
+  />
+</PageLayout>
+`;
+
+exports[`ModelsPage redering should render with no data 1`] = `
+<PageLayout
+  beforeToolbarComponent={null}
+  breadcrumbOptions={null}
+  customBreadcrumbs={null}
+  header="Hardware Models"
+  isLoading={false}
+  onBookmarkClick={[Function]}
+  onSearch={[Function]}
+  searchProps={
+    Object {
+      "autocomplete": Object {
+        "id": "searchBar",
+        "searchQuery": "",
+        "url": "models/auto_complete_search",
+        "useKeyShortcuts": true,
+      },
+      "bookmarks": Object {
+        "canCreate": true,
+        "documentationUrl": "4.1.5Searching",
+        "url": "/api/bookmarks",
+      },
+      "controller": "models",
+    }
+  }
+  searchQuery=""
+  searchable={true}
+  toastNotifications={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
+>
+  <Component
+    fetchAndPush={[Function]}
+    hasData={false}
+    hasError={false}
+    isLoading={false}
+    itemCount={2}
+    message={
+      Object {
+        "text": "",
+        "type": "empty",
+      }
+    }
+    models={
+      Array [
+        Object {
+          "canDelete": true,
+          "canEdit": true,
+          "hostsCount": 5,
+          "id": 1,
+          "name": "my-hw-model",
+          "vendorClass": "custom",
+        },
+        Object {
+          "canDelete": false,
+          "canEdit": false,
+          "hostsCount": 4,
+          "id": 2,
+          "name": "your-hw-model",
+          "vendorClass": "B+",
+        },
+      ]
+    }
+    page={null}
+    perPage={null}
+    search=""
+    sort={
+      Object {
+        "by": "",
+        "order": "",
+      }
+    }
+  />
+</PageLayout>
+`;

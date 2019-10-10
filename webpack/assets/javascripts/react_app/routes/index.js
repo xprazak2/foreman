@@ -5,7 +5,7 @@ import { routes } from './routes';
 
 let currentPath = null;
 
-const AppSwitcher = () => {
+const AppSwitcher = (props) => {
   const updateCurrentPath = () => {
     currentPath = getURIPath();
   };
@@ -49,7 +49,7 @@ const AppSwitcher = () => {
       updateCurrentPath();
       handleTurbolinksVisit(location, nextPath);
     }
-    return null;
+    return props.children ? props.children : null
   };
 
   return (
@@ -65,6 +65,14 @@ const AppSwitcher = () => {
       <Route render={handleFallbackRoute} />
     </Switch>
   );
+};
+
+AppSwitcher.propTypes = {
+  children: PropTypes.object,
+};
+
+AppSwitcher.defaultProps = {
+  children: undefined,
 };
 
 export default AppSwitcher;
