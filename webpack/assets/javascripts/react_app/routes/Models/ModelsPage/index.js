@@ -1,11 +1,20 @@
 import { connect } from 'react-redux';
-import { compose, combineReducers } from 'redux';
+import { compose, combineReducers, bindActionCreators } from 'redux';
 
 import ModelsPage from './ModelsPage';
 import * as actions from './ModelsPageActions';
 
-const mapStateToProps = state => ({
+import { callOnMount, callOnPopState } from '../../../common/HOC';
 
+import withQueryReducer from '../../common/reducerHOC/withQueryReducer';
+import withDataReducer from '../../common/reducerHOC/withDataReducer';
+
+import {
+  selectModels
+} from './ModelsPageSelectors';
+
+const mapStateToProps = state => ({
+  models: selectModels(state),
 });
 
 export const reducers = {
@@ -17,4 +26,13 @@ export const reducers = {
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModelsPage);
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  callOnMount((props) => {
+    props.initializeModels();
+  })
+
+)(ModelsPage);

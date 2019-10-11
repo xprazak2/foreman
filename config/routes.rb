@@ -1,3 +1,4 @@
+
 Foreman::Application.routes.draw do
   resources :mail_notifications, :only => [] do
     collection do
@@ -509,6 +510,8 @@ Foreman::Application.routes.draw do
 
   resources :statistics, :only => [:index, :show], constraints: ->(req) { req.format == :json }
   match 'statistics' => 'react#index', :via => :get
+
+  match 'hw_models' => 'react#index', :via => :get
 
   root :to => 'dashboard#index'
   get 'dashboard', :to => 'dashboard#index', :as => "dashboard"

@@ -16,23 +16,23 @@ const ModelsTable = ({
   status,
   results,
 }) => {
-  useEffect(() => {
-    getTableItems(getURIQuery(window.location.href));
-  }, []);
+  // useEffect(() => {
+  //   getTableItems(getURIQuery(window.location.href));
+  // }, []);
 
-  if (results.length === 0) {
-    return <Spinner size="lg" loading />;
-  }
+  // if (results.length === 0) {
+  //   return <Spinner size="lg" loading />;
+  // }
 
-  if (status === STATUS.ERROR) {
-    return (
-      <MessageBox
-        key="models-table-error"
-        icontype="error-circle-o"
-        msg={__(`Could not receive data: ${error && error.message}`)}
-      />
-    );
-  }
+  // if (status === STATUS.ERROR) {
+  //   return (
+  //     <MessageBox
+  //       key="models-table-error"
+  //       icontype="error-circle-o"
+  //       msg={__(`Could not receive data: ${error && error.message}`)}
+  //     />
+  //   );
+  // }
 
   return (
     <Table

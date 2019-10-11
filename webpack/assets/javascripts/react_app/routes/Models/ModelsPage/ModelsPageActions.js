@@ -1,6 +1,8 @@
 import history from '../../../history';
 import API from '../../../API';
 
+import { deepPropsToCamelCase } from '../../../common/helpers';
+
 import {
   MODELS_PAGE_DATA_RESOLVED,
   MODELS_PAGE_DATA_FAILED,
@@ -9,6 +11,11 @@ import {
   MODELS_PAGE_CLEAR_ERROR,
   MODELS_PAGE_SHOW_LOADING,
 } from '../constants';
+
+import {
+  selectModelsLoading,
+  selectModelsError,
+} from './ModelsPageSelectors';
 
 import { stringifyParams, getParams } from '../../../common/urlHelpers';
 
@@ -23,20 +30,26 @@ export const initializeModels = () => dispatch => {
   }
 }
 
-export const fetchModels = ({ page, perPage, searchQuery }, url = '/api/models?include_permissions=true') => async (dispatch, getState) => {
+export const fetchModels = (
+  { page, perPage, searchQuery },
+  url = '/api/models?include_permissions=true'
+) => async (dispatch, getState) => {
   dispatch({ type: MODELS_PAGE_SHOW_LOADING });
-  if (selectModelsHaveError(getState())) {
+  if (selectModelsError(getState())) {
     dispatch({ type: MODELS_PAGE_CLEAR_ERROR });
   }
 
-  const onSuccess = ({ data: { models, itemCount } }) => {
-    if (selectModelsAreLoading(getState())) {
+  const onSuccess = ({ data }) => {
+    if (selectModelsLoading(getState())) {
       dispatch({ type: MODELS_PAGE_HIDE_LOADING });
     }
 
+    const transformedResponse = deepPropsToCamelCase(data)
+    const itemCount = transformedResponse.subtotal
+
     dispatch({
       type: MODELS_PAGE_DATA_RESOLVED,
-      payload: { models, hasData: itemCount > 0 }
+      payload: { ...transformedResponse, hasData: itemCount > 0 }
     });
     dispatch({
       type: MODELS_PAGE_UPDATE_QUERY,
@@ -50,9 +63,10 @@ export const fetchModels = ({ page, perPage, searchQuery }, url = '/api/models?i
   }
 
   const onError = error => {
-    if (selectModelsAreLoading(getState())) {
+    if (selectModelsLoading(getState())) {
       dispatch({ type: MODELS_PAGE_HIDE_LOADING });
     }
+    console.log(error);
 
     dispatch({
       type: MODELS_PAGE_DATA_FAILED,
@@ -62,21 +76,21 @@ export const fetchModels = ({ page, perPage, searchQuery }, url = '/api/models?i
            text: `${error.response.status} ${__(error.response.statusText)}`,
         }
       }
-    });
+    })
+  }
 
-    try {
-      const response = await API.get(
-        url,
-        {},
-        {
-          page,
-          per_page: perPage,
-          search: searchQuery,
-        }
-      );
-      return onSuccess(response);
-    } catch(error) {
-      return onError(error);
-    }
+  try {
+    const response = await API.get(
+      url,
+      {},
+      {
+        page,
+        per_page: perPage,
+        search: searchQuery,
+      }
+    );
+    return onSuccess(response);
+  } catch(error) {
+    return onError(error);
   }
 }
