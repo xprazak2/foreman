@@ -1,6 +1,6 @@
 import { translate as __ } from '../../common/I18n';
 import {
-  sortControllerFactory,
+  // sortControllerFactory,
   column,
   sortableColumn,
   headerFormatterWithProps,
@@ -21,16 +21,25 @@ import {
  *                            Otherwise, 'ASC' for ascending and 'DESC' for descending
  * @return {Array}
  */
+const sortControllerFactory = (apiCall, by, order) => ({
+  apply: (by, order) => {
+    console.log('applying sort')
+  },
+  property: by,
+  order: order,
+});
+
 const createModelsTableSchema = (apiCall, by, order) => {
   const sortController = sortControllerFactory(apiCall, by, order);
+
   return [
     sortableColumn('name', __('Name'), 4, sortController, [
       nameCellFormatter('models'),
     ]),
-    sortableColumn('vendor_class', __('Vendor Class'), 3, sortController),
-    sortableColumn('hardware_model', __('Hardware Model'), 3, sortController),
+    sortableColumn('vendorClass', __('Vendor Class'), 3, sortController),
+    sortableColumn('hardwareModel', __('Hardware Model'), 3, sortController),
     column(
-      'hosts_count',
+      'hostsCount',
       __('Hosts'),
       [headerFormatterWithProps],
       [hostsCountCellFormatter('model'), cellFormatterWithProps],

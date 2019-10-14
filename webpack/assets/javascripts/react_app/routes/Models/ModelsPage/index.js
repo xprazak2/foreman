@@ -10,11 +10,27 @@ import withQueryReducer from '../../common/reducerHOC/withQueryReducer';
 import withDataReducer from '../../common/reducerHOC/withDataReducer';
 
 import {
-  selectModels
+  selectModels,
+  selectPage,
+  selectPerPage,
+  selectSearch,
+  selectSort,
+  selectHasData,
+  selectHasError,
+  selectIsLoading,
+  selectSubtotal,
 } from './ModelsPageSelectors';
 
 const mapStateToProps = state => ({
   models: selectModels(state),
+  page: selectPage(state),
+  perPage: selectPerPage(state),
+  search: selectSearch(state),
+  sort: selectSort(state),
+  isLoading: selectIsLoading(state),
+  hasData: selectHasData(state),
+  hasError: selectHasError(state),
+  itemCount: selectSubtotal(state),
 });
 
 export const reducers = {

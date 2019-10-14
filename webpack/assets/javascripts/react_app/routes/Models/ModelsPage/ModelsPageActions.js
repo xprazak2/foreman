@@ -13,9 +13,14 @@ import {
 } from '../constants';
 
 import {
-  selectModelsLoading,
-  selectModelsError,
+  selectIsLoading,
+  selectHasError,
+  selectSearch,
+  selectPage,
+  selectPerPage
 } from './ModelsPageSelectors';
+
+const pathname = '/hw_models';
 
 import { stringifyParams, getParams } from '../../../common/urlHelpers';
 
@@ -24,7 +29,7 @@ export const initializeModels = () => dispatch => {
   dispatch(fetchModels(params));
   if (!history.action === 'POP') {
     history.replace({
-      pathname: '/hw_models',
+      pathname: pathname,
       search: stringifyParams(params),
     });
   }
@@ -35,12 +40,12 @@ export const fetchModels = (
   url = '/api/models?include_permissions=true'
 ) => async (dispatch, getState) => {
   dispatch({ type: MODELS_PAGE_SHOW_LOADING });
-  if (selectModelsError(getState())) {
+  if (selectHasError(getState())) {
     dispatch({ type: MODELS_PAGE_CLEAR_ERROR });
   }
 
   const onSuccess = ({ data }) => {
-    if (selectModelsLoading(getState())) {
+     if (selectIsLoading(getState())) {
       dispatch({ type: MODELS_PAGE_HIDE_LOADING });
     }
 
@@ -63,7 +68,7 @@ export const fetchModels = (
   }
 
   const onError = error => {
-    if (selectModelsLoading(getState())) {
+    if (selectIsLoading(getState())) {
       dispatch({ type: MODELS_PAGE_HIDE_LOADING });
     }
     console.log(error);
@@ -94,3 +99,20 @@ export const fetchModels = (
     return onError(error);
   }
 }
+
+export const fetchAndPush = params => (dispatch, getState) => {
+  const query = buildQuery(params, getState());
+  dispatch(fetchModels(query));
+  history.push({
+    pathname: pathname,
+    search: stringifyParams(query)
+  });
+}
+
+const buildQuery = (query, state) => ({
+  page: query.page || selectPage(state),
+  perPage: query.perPage || selectPerPage(state),
+  searchQuery: query.searchQuery
+    ? query.searchQuery
+    : selectSearch(state)
+});

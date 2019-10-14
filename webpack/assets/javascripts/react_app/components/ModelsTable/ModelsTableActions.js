@@ -6,3 +6,4 @@ import {
 
 export const getTableItems = query =>
   getTableItemsAction(MODELS_TABLE_ID, query, `api/${MODELS_TABLE_CONTROLLER}`);
+

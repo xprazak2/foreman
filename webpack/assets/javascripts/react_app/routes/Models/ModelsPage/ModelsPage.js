@@ -16,7 +16,18 @@ const ModelsPage = props => {
       onSearch={() => {}}
       onBookmarkClick={() => {}}
     >
-      <ModelsPageContent models={props.models} />
+      <ModelsPageContent
+        models={props.models}
+        page={props.page}
+        perPage={props.perPage}
+        search={props.search}
+        sort={props.sort}
+        hasData={props.hasData}
+        hasError={props.hasError}
+        isLoading={props.isLoading}
+        itemCount={props.itemCount}
+        fetchAndPush={props.fetchAndPush}
+      />
     </PageLayout>
   );
 }
