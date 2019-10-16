@@ -440,11 +440,12 @@ Foreman::Application.routes.draw do
       end
     end
 
-    resources :models, :except => [:show] do
+    resources :models, :except => [:show, :index] do
       collection do
         get 'auto_complete_search'
       end
     end
+    match 'models' => 'react#index', :via => :get
 
     resources :architectures, :except => [:show] do
       collection do
@@ -510,8 +511,6 @@ Foreman::Application.routes.draw do
 
   resources :statistics, :only => [:index, :show], constraints: ->(req) { req.format == :json }
   match 'statistics' => 'react#index', :via => :get
-
-  match 'hw_models' => 'react#index', :via => :get
 
   root :to => 'dashboard#index'
   get 'dashboard', :to => 'dashboard#index', :as => "dashboard"

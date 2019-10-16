@@ -36,18 +36,20 @@ const mapStateToProps = state => ({
   message: selectMessage(state),
 });
 
+export const initialState = Immutable({
+  total: 0,
+  subtotal: 0,
+  page: null,
+  perPage: null,
+  search: '',
+  canCreate: false,
+  sort: { by: '', order: '' },
+  results: []
+});
+
 export const reducers = {
-  modelsPage: withDataReducer('MODELS_PAGE', Immutable({
-    total: 0,
-    subtotal: 0,
-    page: null,
-    perPage: null,
-    search: '',
-    canCreate: false,
-    sort: { by: '', order: '' },
-    results: []
-  })),
-}
+  modelsPage: withDataReducer('MODELS_PAGE', initialState),
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

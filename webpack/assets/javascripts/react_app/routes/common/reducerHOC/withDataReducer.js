@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-const initialState = Immutable({
+export const initialState = Immutable({
   isLoading: true,
   hasError: false,
   hasData: false,

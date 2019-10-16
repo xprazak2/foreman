@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Table } from '../common/table';
 import createModelsTableSchema from './ModelsTableSchema';
 
-
 const ModelsTable = props => {
 
   console.log(props);
@@ -21,20 +20,16 @@ const ModelsTable = props => {
   );
 };
 
-// ModelsTable.propTypes = {
-//   results: PropTypes.array.isRequired,
-//   getTableItems: PropTypes.func.isRequired,
-//   status: PropTypes.oneOf(Object.keys(STATUS)),
-//   sortBy: PropTypes.string,
-//   sortOrder: PropTypes.string,
-//   error: PropTypes.object,
-// };
+ModelsTable.propTypes = {
+  results: PropTypes.array.isRequired,
+  getTableItems: PropTypes.func.isRequired,
+  sortBy: PropTypes.string,
+  sortOrder: PropTypes.string,
+};
 
-// ModelsTable.defaultProps = {
-//   status: STATUS.PENDING,
-//   sortBy: '',
-//   sortOrder: '',
-//   error: null,
-// };
+ModelsTable.defaultProps = {
+  sortBy: '',
+  sortOrder: '',
+};
 
 export default ModelsTable;

@@ -6,25 +6,30 @@ import Pagination from '../../../../components/Pagination/PaginationWrapper';
 import LoadingPage from '../../../common/LoadingPage';
 import { withRenderHandler } from '../../../../common/HOC';
 
-
-const ModelsPageContent = props => {
-  console.log(props)
-  const models = props.models || [];
+const ModelsPageContent = ({
+  models,
+  search,
+  sort,
+  fetchAndPush,
+  itemCount,
+  page,
+  perPage
+}) => {
   return (
     <React.Fragment>
       <div>&nbsp;</div>
       <ModelsTable
         results={models}
-        search={props.search}
-        sortBy={props.sort.by}
-        sortOrder={props.sort.order}
-        getTableItems={props.fetchAndPush}
+        search={search}
+        sortBy={sort.by}
+        sortOrder={sort.order}
+        getTableItems={fetchAndPush}
       />
       <Pagination
         viewType="list"
-        itemCount={props.itemCount}
-        pagination={{ page: props.page, perPage: props.perPage }}
-        onChange={props.fetchAndPush}
+        itemCount={itemCount}
+        pagination={{ page: page, perPage: perPage }}
+        onChange={fetchAndPush}
         dropdownButtonId="models-page-pagination-dropdown"
       />
     </React.Fragment>
