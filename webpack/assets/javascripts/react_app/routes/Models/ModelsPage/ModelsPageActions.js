@@ -56,15 +56,6 @@ export const fetchModels = (
       type: MODELS_PAGE_DATA_RESOLVED,
       payload: { ...transformedResponse, hasData: itemCount > 0 }
     });
-    dispatch({
-      type: MODELS_PAGE_UPDATE_QUERY,
-      payload: {
-        page,
-        perPage,
-        searchQuery,
-        itemCount,
-      }
-    });
   }
 
   const onError = error => {

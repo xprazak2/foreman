@@ -34,10 +34,7 @@ const mapStateToProps = state => ({
 });
 
 export const reducers = {
-  modelsPage: combineReducers({
-    data: withDataReducer('MODELS_PAGE'),
-    query: withQueryReducer('MODELS_PAGE'),
-  })
+  modelsPage: withDataReducer('MODELS_PAGE'),
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

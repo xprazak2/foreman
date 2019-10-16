@@ -1,5 +1,4 @@
-export const selectModelsPageData = state => state.modelsPage.data;
-export const selectModelsPageQuery = state => state.modelsPage.query;
+export const selectModelsPageData = state => state.modelsPage;
 
 export const selectIsLoading = state => selectModelsPageData(state).isLoading;
 export const selectHasError = state => selectModelsPageData(state).hasError;
