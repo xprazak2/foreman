@@ -101,6 +101,7 @@ export const fetchModels = (
 }
 
 export const fetchAndPush = params => (dispatch, getState) => {
+  console.log(params)
   const query = buildQuery(params, getState());
   dispatch(fetchModels(query));
   history.push({
@@ -112,7 +113,7 @@ export const fetchAndPush = params => (dispatch, getState) => {
 const buildQuery = (query, state) => ({
   page: query.page || selectPage(state),
   perPage: query.perPage || selectPerPage(state),
-  searchQuery: query.searchQuery
-    ? query.searchQuery
-    : selectSearch(state)
+  searchQuery: query.searchQuery === undefined
+    ? selectSearch(state)
+    : query.searchQuery
 });

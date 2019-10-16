@@ -8,7 +8,4 @@ export const MODELS_PAGE_SHOW_LOADING = 'MODELS_PAGE_SHOW_LOADING';
 export const MODELS_PAGE_UPDATE_QUERY = 'MODELS_PAGE_UPDATE_QUERY';
 export const MODELS_PAGE_CLEAR_ERROR = 'MODELS_PAGE_CLEAR_ERROR';
 
-// export const MODELS_PATH = '/models';
-export const MODELS_SEARCH_PROPS = getControllerSearchProps('modelss');
-// export const MODELS_MANUAL_URL = version =>
-//   `${getManualURL(version)}#4.1.4Auditing`;
+export const MODELS_SEARCH_PROPS = getControllerSearchProps('models');
