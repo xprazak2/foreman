@@ -45,10 +45,6 @@ export const fetchModels = (
   }
 
   const onSuccess = ({ data }) => {
-     if (selectIsLoading(getState())) {
-      dispatch({ type: MODELS_PAGE_HIDE_LOADING });
-    }
-
     const transformedResponse = deepPropsToCamelCase(data)
     const itemCount = transformedResponse.subtotal
 
@@ -56,12 +52,13 @@ export const fetchModels = (
       type: MODELS_PAGE_DATA_RESOLVED,
       payload: { ...transformedResponse, hasData: itemCount > 0 }
     });
-  }
 
-  const onError = error => {
     if (selectIsLoading(getState())) {
       dispatch({ type: MODELS_PAGE_HIDE_LOADING });
     }
+  }
+
+  const onError = error => {
     console.log(error);
 
     dispatch({
@@ -72,7 +69,11 @@ export const fetchModels = (
            text: `${error.response.status} ${__(error.response.statusText)}`,
         }
       }
-    })
+    });
+
+    if (selectIsLoading(getState())) {
+      dispatch({ type: MODELS_PAGE_HIDE_LOADING });
+    }
   }
 
   try {

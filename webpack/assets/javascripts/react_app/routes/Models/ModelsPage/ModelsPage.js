@@ -29,6 +29,7 @@ const ModelsPage = props => {
         isLoading={props.isLoading}
         itemCount={props.itemCount}
         fetchAndPush={props.fetchAndPush}
+        message={props.message}
       />
     </PageLayout>
   );

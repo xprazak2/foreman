@@ -10,3 +10,4 @@ export const selectPerPage = state => selectModelsPageData(state).perPage;
 export const selectSearch = state => selectModelsPageData(state).search;
 export const selectSort = state => selectModelsPageData(state).sort;
 export const selectSubtotal = state => selectModelsPageData(state).subtotal;
+export const selectMessage = state => selectModelsPageData(state).message;

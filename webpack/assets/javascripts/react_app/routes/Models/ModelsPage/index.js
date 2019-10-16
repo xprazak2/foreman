@@ -19,6 +19,7 @@ import {
   selectHasError,
   selectIsLoading,
   selectSubtotal,
+  selectMessage,
 } from './ModelsPageSelectors';
 
 const mapStateToProps = state => ({
@@ -31,6 +32,7 @@ const mapStateToProps = state => ({
   hasData: selectHasData(state),
   hasError: selectHasError(state),
   itemCount: selectSubtotal(state),
+  message: selectMessage(state),
 });
 
 export const reducers = {
@@ -44,8 +46,6 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  callOnMount((props) => {
-    props.initializeModels();
-  })
-
+  callOnMount(({ initializeModels }) => initializeModels()),
+  callOnPopState(({ initializeModels }) => initializeModels())
 )(ModelsPage);
