@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { compose, combineReducers, bindActionCreators } from 'redux';
+import Immutable from 'seamless-immutable';
 
 import ModelsPage from './ModelsPage';
 import * as actions from './ModelsPageActions';
@@ -36,7 +37,16 @@ const mapStateToProps = state => ({
 });
 
 export const reducers = {
-  modelsPage: withDataReducer('MODELS_PAGE'),
+  modelsPage: withDataReducer('MODELS_PAGE', Immutable({
+    total: 0,
+    subtotal: 0,
+    page: null,
+    perPage: null,
+    search: '',
+    canCreate: false,
+    sort: { by: '', order: '' },
+    results: []
+  })),
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

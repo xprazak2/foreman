@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ModelsTable from '../../../../components/ModelsTable/ModelsTable';
+import ModelsTable from '../../../../components/ModelsTable';
 import Pagination from '../../../../components/Pagination/PaginationWrapper';
 
 import LoadingPage from '../../../common/LoadingPage';
@@ -16,7 +16,9 @@ const ModelsPageContent = props => {
       <ModelsTable
         results={models}
         search={props.search}
-        sort={props.sort}
+        sortBy={props.sort.by}
+        sortOrder={props.sort.order}
+        getTableItems={props.fetchAndPush}
       />
       <Pagination
         viewType="list"

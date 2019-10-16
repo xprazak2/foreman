@@ -7,8 +7,8 @@ const initialState = Immutable({
   message: { type: 'empty', text: '' },
 });
 
-const withDataReducer = controller => (
-  state = initialState,
+const withDataReducer = (controller, additionalState = Immutable({})) => (
+  state = initialState.merge(additionalState),
   { type, payload }
 ) => {
   switch (type) {

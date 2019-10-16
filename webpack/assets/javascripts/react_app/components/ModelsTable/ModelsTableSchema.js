@@ -24,6 +24,9 @@ import {
 const sortControllerFactory = (apiCall, by, order) => ({
   apply: (by, order) => {
     console.log('applying sort')
+    console.log(by)
+    console.log(order)
+    apiCall({ sort: { by, order } });
   },
   property: by,
   order: order,

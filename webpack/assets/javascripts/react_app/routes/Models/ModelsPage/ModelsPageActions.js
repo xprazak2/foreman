@@ -1,3 +1,5 @@
+import { snakeCase } from 'lodash';
+
 import history from '../../../history';
 import API from '../../../API';
 
@@ -17,7 +19,8 @@ import {
   selectHasError,
   selectSearch,
   selectPage,
-  selectPerPage
+  selectPerPage,
+  selectSort,
 } from './ModelsPageSelectors';
 
 const pathname = '/hw_models';
@@ -36,7 +39,7 @@ export const initializeModels = () => dispatch => {
 }
 
 export const fetchModels = (
-  { page, perPage, searchQuery },
+  { page, perPage, searchQuery, sort },
   url = '/api/models?include_permissions=true'
 ) => async (dispatch, getState) => {
   dispatch({ type: MODELS_PAGE_SHOW_LOADING });
@@ -77,6 +80,8 @@ export const fetchModels = (
   }
 
   try {
+    const sortString = sort && Object.keys(sort).length > 0 ? `${sort.by} ${sort.order}` : '';
+
     const response = await API.get(
       url,
       {},
@@ -84,6 +89,7 @@ export const fetchModels = (
         page,
         per_page: perPage,
         search: searchQuery,
+        order: sortString,
       }
     );
     return onSuccess(response);
@@ -93,6 +99,7 @@ export const fetchModels = (
 }
 
 export const fetchAndPush = params => (dispatch, getState) => {
+  console.log('params')
   console.log(params)
   const query = buildQuery(params, getState());
   dispatch(fetchModels(query));
@@ -102,10 +109,18 @@ export const fetchAndPush = params => (dispatch, getState) => {
   });
 }
 
-const buildQuery = (query, state) => ({
+const buildQuery = (query, state) => {
+  return ({
   page: query.page || selectPage(state),
   perPage: query.perPage || selectPerPage(state),
   searchQuery: query.searchQuery === undefined
     ? selectSearch(state)
-    : query.searchQuery
-});
+    : query.searchQuery,
+  sort: Object.keys(query.sort).length > 0
+    ? transformSort(query.sort)
+    : addSort(selectSort(state))
+})};
+
+const addSort = sort => Object.keys(sort).length > 0 ? sort : undefined;
+
+const transformSort = sort => ({ ...sort, by: snakeCase(sort.by) })
