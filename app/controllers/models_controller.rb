@@ -11,7 +11,7 @@ class ModelsController < ApplicationController
   def create
     @model = Model.new(model_params)
     if @model.save
-      process_success
+      process_success :success_redirect => '/models'
     else
       process_error
     end

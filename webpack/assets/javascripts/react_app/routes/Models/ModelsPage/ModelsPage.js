@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'patternfly-react';
+import { Link } from 'react-router-dom';
 
 import { translate as __ } from '../../../common/I18n';
 import PageLayout from '../../common/PageLayout/PageLayout';
@@ -30,6 +32,11 @@ const ModelsPage = ({
       isLoading={isLoading && hasData}
       onSearch={handleSearch}
       onBookmarkClick={handleSearch}
+      toolbarButtons={
+        <Link to="/models/new">
+          <Button bsStyle="primary">{__('Create Model')}</Button>
+        </Link>
+      }
     >
       <ModelsPageContent
         models={models}

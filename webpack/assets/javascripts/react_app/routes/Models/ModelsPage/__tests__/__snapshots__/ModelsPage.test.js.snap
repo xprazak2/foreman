@@ -28,7 +28,22 @@ exports[`ModelsPage redering should render when loading 1`] = `
   searchQuery=""
   searchable={true}
   toastNotifications={null}
-  toolbarButtons={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
 >
   <Component
     fetchAndPush={[Function]}
@@ -103,7 +118,22 @@ exports[`ModelsPage redering should render with error 1`] = `
   searchQuery=""
   searchable={true}
   toastNotifications={null}
-  toolbarButtons={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
 >
   <Component
     fetchAndPush={[Function]}
@@ -178,7 +208,22 @@ exports[`ModelsPage redering should render with models 1`] = `
   searchQuery=""
   searchable={true}
   toastNotifications={null}
-  toolbarButtons={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
 >
   <Component
     fetchAndPush={[Function]}
@@ -253,7 +298,22 @@ exports[`ModelsPage redering should render with no data 1`] = `
   searchQuery=""
   searchable={true}
   toastNotifications={null}
-  toolbarButtons={null}
+  toolbarButtons={
+    <Link
+      replace={false}
+      to="/models/new"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+      >
+        Create Model
+      </Button>
+    </Link>
+  }
 >
   <Component
     fetchAndPush={[Function]}
