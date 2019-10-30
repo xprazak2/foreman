@@ -12,6 +12,7 @@ const AppSwitcher = () => (
         key={path}
         {...routeProps}
         render={renderProps => {
+          console.log(renderProps)
           const railsContainer = document.getElementById('rails-app-content');
           if (railsContainer) railsContainer.remove();
           currentLocation = renderProps.location;
