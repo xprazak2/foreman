@@ -73,7 +73,7 @@ export const stringifyParams = ({
     uri.search({ page, per_page: perPage, search: searchQuery });
   else uri.search({ page, per_page: perPage });
 
-  if (Object.keys(sort).length > 0) {
+  if (sort.by && sort.order) {
     uri.setSearch('order', `${sort.by} ${sort.order}`);
   }
 

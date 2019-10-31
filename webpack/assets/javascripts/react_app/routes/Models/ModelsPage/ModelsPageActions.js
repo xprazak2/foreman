@@ -108,17 +108,23 @@ export const fetchAndPush = params => (dispatch, getState) => {
   });
 };
 
-const buildQuery = (query, state) => ({
-  page: query.page || selectPage(state),
-  perPage: query.perPage || selectPerPage(state),
-  searchQuery:
-    query.searchQuery === undefined ? selectSearch(state) : query.searchQuery,
-  sort:
-    Object.keys(query.sort).length > 0
-      ? transformSort(query.sort)
-      : addSort(selectSort(state)),
-});
+const buildQuery = (query, state) => {
+  const querySort = pickSort(query, state);
 
-const addSort = sort => (Object.keys(sort).length > 0 ? sort : undefined);
+  return {
+    page: query.page || selectPage(state),
+    perPage: query.perPage || selectPerPage(state),
+    searchQuery:
+      query.searchQuery === undefined ? selectSearch(state) : query.searchQuery,
+    ...(querySort && { sort: querySort }),
+  };
+};
+
+const pickSort = (query, state) =>
+  checkSort(query.sort)
+    ? transformSort(query.sort)
+    : checkSort(selectSort(state));
+
+const checkSort = sort => (sort && sort.by && sort.order ? sort : undefined);
 
 const transformSort = sort => ({ ...sort, by: snakeCase(sort.by) });

@@ -239,14 +239,21 @@ module FormHelper
     end
   end
 
-  def submit_or_cancel(f, overwrite = false, args = { })
+  def submit_or_cancel(f, overwrite = false, args = { }, &block)
     args[:cancel_path] ||= send("#{controller_name}_path")
+    cancel_btn = block_given? ? yield(args) : link_to(_("Cancel"), args[:cancel_path], :class => "btn btn-default")
     content_tag(:div, :class => "clearfix") do
       content_tag(:div, :class => "form-actions") do
         text    = overwrite ? _("Overwrite") : _("Submit")
         options = options_for_submit_or_cancel(f, overwrite, args)
-        f.submit(text, options) + " " + link_to(_("Cancel"), args[:cancel_path], :class => "btn btn-default")
+        f.submit(text, options) + " " + cancel_btn
       end
+    end
+  end
+
+  def react_cancel_button(args)
+    content_tag(:span, :id => 'form-cancel-btn') do
+      mount_react_component('RedirectCancelButton', '#form-cancel-btn', { :cancelPath => args[:cancel_path] }.to_json, :flatten_data => true)
     end
   end
 

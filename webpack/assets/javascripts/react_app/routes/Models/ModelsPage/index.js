@@ -42,7 +42,10 @@ export const initialState = Immutable({
   perPage: null,
   search: '',
   canCreate: false,
-  sort: { by: '', order: '' },
+  sort: {
+    by: null,
+    order: null,
+  },
   results: [],
 });
 

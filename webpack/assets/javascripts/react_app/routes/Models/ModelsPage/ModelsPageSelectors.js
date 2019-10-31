@@ -12,7 +12,10 @@ export const selectPerPage = state => selectModelsPageData(state).perPage;
 export const selectSearch = state => selectModelsPageData(state).search;
 export const selectSort = state => {
   const { sort } = selectModelsPageData(state);
-  return { ...sort, by: camelCase(sort.by) };
+  if (sort.by && sort.order) {
+    return { ...sort, by: camelCase(sort.by) };
+  }
+  return sort;
 };
 
 export const selectSubtotal = state => selectModelsPageData(state).subtotal;
