@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ModelsTable from '../../../../components/ModelsTable';
 import Pagination from '../../../../components/Pagination/PaginationWrapper';
 
+// import ModelDeleteModal from './ModelDeleteModal';
 import LoadingPage from '../../../common/LoadingPage';
 import { withRenderHandler } from '../../../../common/HOC';
 
