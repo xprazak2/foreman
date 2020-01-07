@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ModelsTable from '../../../../components/ModelsTable';
 import Pagination from '../../../../components/Pagination/PaginationWrapper';
 
-// import ModelDeleteModal from './ModelDeleteModal';
+import ModelDeleteModal from './ModelDeleteModal';
 import LoadingPage from '../../../common/LoadingPage';
 import { withRenderHandler } from '../../../../common/HOC';
 
@@ -16,24 +16,31 @@ const ModelsPageContent = ({
   itemCount,
   page,
   perPage,
-}) => (
-  <React.Fragment>
-    <ModelsTable
-      results={models}
-      search={search}
-      sortBy={sort.by}
-      sortOrder={sort.order}
-      getTableItems={fetchAndPush}
-    />
-    <Pagination
-      viewType="list"
-      itemCount={itemCount}
-      pagination={{ page, perPage }}
-      onChange={fetchAndPush}
-      dropdownButtonId="models-page-pagination-dropdown"
-    />
-  </React.Fragment>
-);
+}) => {
+  const [toDelete, setToDelete] = useState();
+
+  return (
+    <React.Fragment>
+      <ModelDeleteModal toDelete={toDelete} />
+      <ModelsTable
+        results={models}
+        search={search}
+        sortBy={sort.by}
+        sortOrder={sort.order}
+        getTableItems={fetchAndPush}
+        toDelete={toDelete}
+        setToDelete={setToDelete}
+      />
+      <Pagination
+        viewType="list"
+        itemCount={itemCount}
+        pagination={{ page, perPage }}
+        onChange={fetchAndPush}
+        dropdownButtonId="models-page-pagination-dropdown"
+      />
+    </React.Fragment>
+  )
+};
 
 ModelsPageContent.propTypes = {
   models: PropTypes.array.isRequired,

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from '../common/table';
 import createModelsTableSchema from './ModelsTableSchema';
 
-const ModelsTable = ({ getTableItems, sortBy, sortOrder, results }) => (
-  <Table
-    key="models-table"
-    columns={createModelsTableSchema(getTableItems, sortBy, sortOrder)}
-    rows={results}
-  />
-);
+const ModelsTable = ({ getTableItems, sortBy, sortOrder, results, toDelete, setToDelete }) => {
+
+  return (
+    <Table
+      key="models-table"
+      columns={createModelsTableSchema(getTableItems, sortBy, sortOrder, toDelete, setToDelete)}
+      rows={results}
+    />
+  )
+};
 
 ModelsTable.propTypes = {
   results: PropTypes.array.isRequired,
