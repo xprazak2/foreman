@@ -27,14 +27,12 @@ const PageLayout = ({
   return (
     <div id="main">
       <div id="react-content">
-        {toastNotifications && (
-          <div
-            id="toast-notifications-container"
-            data-notifications={toastNotifications}
-          >
-            <ToastsList />
-          </div>
-        )}
+        <div
+          id="toast-notifications-container"
+          data-notifications={toastNotifications}
+        >
+          <ToastsList />
+        </div>
         <div id="breadcrumb">
           {!breadcrumbOptions && (
             <div className="row form-group">

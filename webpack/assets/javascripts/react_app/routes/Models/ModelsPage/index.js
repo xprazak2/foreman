@@ -58,10 +58,7 @@ export const reducers = {
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   callOnMount(({ initializeModels }) => initializeModels()),
   callOnPopState(({ initializeModels }) => initializeModels())
 )(ModelsPage);

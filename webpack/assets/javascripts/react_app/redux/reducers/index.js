@@ -10,7 +10,6 @@ import { reducers as autoCompleteReducers } from '../../components/AutoComplete'
 import { reducers as layoutReducers } from '../../components/Layout';
 import { reducers as diffModalReducers } from '../../components/ConfigReports/DiffModal';
 import { reducers as editorReducers } from '../../components/Editor';
-import { reducers as modelsReducers } from '../../components/ModelsTable';
 import { reducers as templateGenerationReducers } from '../../components/TemplateGenerator';
 import { reducers as factChartReducers } from '../../components/FactCharts';
 import { reducers as statisticsPageReducers } from '../../routes/Statistics/StatisticsPage';
@@ -37,7 +36,6 @@ export function combineReducersAsync(asyncReducers) {
     ...autoCompleteReducers,
     ...diffModalReducers,
     ...editorReducers,
-    ...modelsReducers,
     ...templateGenerationReducers,
     ...factChartReducers,
 

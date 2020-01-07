@@ -10,6 +10,9 @@ import {
   cellFormatter,
 } from '../common/table';
 
+import { useForemanModal } from '../ForemanModal/ForemanModalHooks';
+import { MODEL_DELETE_MODAL_ID } from '../../routes/Models/constants';
+
 const sortControllerFactory = (apiCall, sortBy, sortOrder) => ({
   apply: (by, order) => {
     apiCall({ sort: { by, order } });
@@ -28,8 +31,14 @@ const sortControllerFactory = (apiCall, sortBy, sortOrder) => ({
  *                            Otherwise, 'ASC' for ascending and 'DESC' for descending
  * @return {Array}
  */
-const createModelsTableSchema = (apiCall, by, order) => {
+const createModelsTableSchema = (apiCall, by, order, setToDelete) => {
   const sortController = sortControllerFactory(apiCall, by, order);
+
+  const { setModalOpen } = useForemanModal({ id: MODEL_DELETE_MODAL_ID });
+  const onDeleteClick = rowData => {
+    setToDelete(rowData);
+    setModalOpen();
+  };
 
   return [
     sortableColumn('name', __('Name'), 4, sortController, [
@@ -49,7 +58,7 @@ const createModelsTableSchema = (apiCall, by, order) => {
       'actions',
       __('Actions'),
       [headerFormatterWithProps],
-      [deleteActionCellFormatter('models'), cellFormatter]
+      [deleteActionCellFormatter(onDeleteClick), cellFormatter]
     ),
   ];
 };

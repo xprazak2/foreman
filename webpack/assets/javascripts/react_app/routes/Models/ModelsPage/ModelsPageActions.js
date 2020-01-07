@@ -85,7 +85,7 @@ export const fetchModels = (
   }
 };
 
-export const fetchAndPush = params => (dispatch, getState) => {
+export const fetchAndPush = (params = {}) => (dispatch, getState) => {
   const query = buildQuery(params, getState());
   dispatch(fetchModels(query));
   history.push({

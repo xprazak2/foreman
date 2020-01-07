@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import URI from 'urijs';
 import { routes } from './routes';
 
 let currentPath = null;
 
-const AppSwitcher = (props) => {
+const AppSwitcher = props => {
   const updateCurrentPath = () => {
     currentPath = getURIPath();
   };
@@ -49,7 +50,7 @@ const AppSwitcher = (props) => {
       updateCurrentPath();
       handleTurbolinksVisit(location, nextPath);
     }
-    return props.children ? props.children : null
+    return props.children ? props.children : null;
   };
 
   return (
