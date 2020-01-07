@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ForemanModal from '../../../../components/ForemanModal';
+import ModelModalDeleteForm from './ModelModalDeleteForm';
 
 const ModelDeleteModal = props => {
   return (
@@ -10,7 +11,7 @@ const ModelDeleteModal = props => {
       enforceFocus
       onEnter={() => {}}
     >
-      <div>{ props.toDelete && props.toDelete.name }</div>
+      <ModelModalDeleteForm toDelete={props.toDelete} />
     </ForemanModal>
   )
 }
