@@ -13,7 +13,6 @@ const SearchBar = ({
   initialQuery,
   onBookmarkClick,
 }) => {
-  console.log(bookmarks);
   const bookmarksComponent = !isEmpty(bookmarks) ? (
     <Bookmarks
       onBookmarkClick={onBookmarkClick}

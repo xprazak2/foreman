@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsModalOpen } from './ForemanModalSelectors';
-import { setModalOpen, setModalClosed } from './ForemanModalActions';
+import { setModalOpen, setModalClosed, setModalStartSubmitting, setModalStopSubmitting } from './ForemanModalActions';
 import ModalContext from './ForemanModalContext';
 
 // Because enzyme doesn't support useContext yet

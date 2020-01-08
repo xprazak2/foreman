@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'patternfly-react';
-import SubmitBtn from './SubmitBtn';
-import CancelBtn from './CancelBtn';
 
 import { noop } from '../../../common/helpers';
 import { simpleLoader } from '../Loader';
@@ -11,9 +9,15 @@ import { translate as __ } from '../../../../react_app/common/I18n';
 const FormActions = ({ onCancel, disabled, submitting }) => (
   <div className="clearfix">
     <div className="form-actions">
-      <SubmitBtn disabled={disabled} submitting={submitting} />
+      <Button bsStyle="primary" type="submit" disabled={disabled || submitting}>
+        &nbsp;
+        {__('Submit')}
+        {submitting && <span className="fr">{simpleLoader('sm')}</span>}
+      </Button>
       {' ' /* adds whitespace between the buttons */}
-      <CancelBtn onCancel={onCancel} disabled={submitting} />
+      <Button bsStyle="default" onClick={onCancel} disabled={submitting}>
+        {__('Cancel')}
+      </Button>
     </div>
   </div>
 );

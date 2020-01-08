@@ -5,3 +5,7 @@ export const selectIsModalOpen = (state, id) => {
   const openState = selectModalStateById(state, id);
   return openState && openState.open;
 };
+export const selectIsModalSubmitting = (state, id) => {
+  const openState = selectModalStateById(state, id);
+  return openState && openState.submitting;
+}

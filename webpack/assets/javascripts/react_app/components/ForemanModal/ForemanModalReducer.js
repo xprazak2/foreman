@@ -3,6 +3,8 @@ import {
   SET_MODAL_OPEN,
   SET_MODAL_CLOSED,
   ADD_MODAL,
+  SET_MODAL_START_SUBMITTING,
+  SET_MODAL_STOP_SUBMITTING,
 } from './ForemanModalConstants';
 
 const initialState = Immutable({});
@@ -20,9 +22,15 @@ export default (state = initialState, action) => {
     case ADD_MODAL:
       if (state[action.payload.id]) return state; // if it already exists, don't change its state
       return state.setIn(
-        [action.payload.id, 'open'],
-        action.payload.open || false
+        [action.payload.id], {
+          open: action.payload.open || false,
+          submitting: action.payload.submitting || false,
+        }
       );
+    case SET_MODAL_START_SUBMITTING:
+      return state.setIn([action.payload.id, 'submitting'], true);
+    case SET_MODAL_STOP_SUBMITTING:
+      return state.setIn([action.payload.id, 'submitting'], false);
     default:
       return state;
   }

@@ -9,7 +9,9 @@ import SubmitOrCancel from '../../common/forms/SubmitOrCancel';
 
 const ForemanModalFooter = props => {
   const childCount = React.Children.count(props.children);
-  const { onClose } = useModalContext();
+  console.log(useModalContext())
+  const { onClose, isSubmitting, onSubmitStart, onSubmitStop, submitProps } = useModalContext();
+
   // Render the provided children, or default markup if none given
   const closeButton = childCount === 0 && (
     <Button bsStyle="default" onClick={onClose}>
@@ -17,15 +19,19 @@ const ForemanModalFooter = props => {
     </Button>
   );
 
-  const submitOrCancel = childCount === 0 && props.question && (
-    <SubmitOrCancel submitting={submitting} disabled={disabled} onCancel={onClose} />
+  const submitOrCancel = childCount === 0 && submitProps && (
+    <SubmitOrCancel
+      submitting={isSubmitting}
+      disabled={props.disabled}
+      onCancel={onClose}
+      submitProps={submitProps}
+      />
   )
-
 
   return (
     <Modal.Footer {...props}>
       {props.children}
-      {closeButton || submitOrCancel}
+      {submitOrCancel || closeButton}
     </Modal.Footer>
   );
 };

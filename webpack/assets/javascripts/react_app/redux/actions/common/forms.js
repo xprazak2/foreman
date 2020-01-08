@@ -68,3 +68,28 @@ export const submitForm = ({ item, url, values, message, method = 'post' }) => {
     }
   };
 };
+
+export const submitModal = ({ modalId, url, message, method = 'delete', closeFn, onErr = (error) => error, onSubmitStop, onSubmitStart }) => {
+  return async dispatch => {
+    try {
+      onSubmitStart();
+      const { data } = await API[method](url, {});
+      dispatch(
+        addToast({
+          type: 'success',
+          message
+        })
+      );
+      onSubmitStop();
+      closeFn();
+    } catch (error) {
+      stopSubmitting();
+      dispatch(
+        addToast({
+          type: 'error',
+          message: onErr(error)
+        })
+      )
+    }
+  }
+}
