@@ -56,9 +56,9 @@ const ForemanForm = props => (
 
 const cloneChildren = (children, childProps) => (
   <React.Fragment>
-    {children.map((child, idx) =>
+    {children.map ? children.map((child, idx) =>
       React.cloneElement(child, { ...childProps, key: idx })
-    )}
+    ) : React.cloneElement(children, { ...childProps })}
   </React.Fragment>
 );
 
@@ -67,12 +67,11 @@ ForemanForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
   initialValues: PropTypes.object.isRequired,
   validationSchema: PropTypes.object,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
 };
 
 ForemanForm.defaultProps = {
   validationSchema: undefined,
-  children: [],
 };
 
 export default ForemanForm;
