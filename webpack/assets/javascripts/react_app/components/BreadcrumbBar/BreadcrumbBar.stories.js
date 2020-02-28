@@ -23,7 +23,7 @@ export const withOpenSwitcher = () => (
         { name: 'item 2', id: 2 },
         {
           name:
-            'item 3 with a very very  very very very very very very long name',
+            'item 3 with a very very  very very very very very very very long name',
           id: 3,
         },
       ]}
