@@ -4,6 +4,9 @@ import { boolean, number, withKnobs, action } from '@theforeman/stories';
 import BreadcrumbBar from './BreadcrumbBar';
 import Story from '../../../../../stories/components/Story';
 
+
+const foo = 'far';
+
 export default {
   title: 'Components|BreadcrumbBar',
   decorators: [withKnobs],
