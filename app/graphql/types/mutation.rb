@@ -14,6 +14,10 @@ module Types
     field :update_medium, mutation: Mutations::Media::Update
     field :delete_medium, mutation: Mutations::Media::Delete
 
+    field :create_domain, mutation: Mutations::Domains::Create
+    field :update_domain, mutation: Mutations::Domains::Update
+    field :delete_domain, mutation: Mutations::Domains::Delete
+
     include ::Foreman::Plugin::GraphqlPluginFields
     realize_plugin_mutation_extensions
   end
