@@ -10,6 +10,7 @@ export default {
   decorators: [storeDecorator],
 };
 
+
 export const withDefaultHeaderFooter = () =>
   // using createElement here so that hooks work in stories
   React.createElement(() => {
@@ -19,7 +20,7 @@ export const withDefaultHeaderFooter = () =>
         <Button bsStyle="primary" onClick={setModalOpen}>
           Show Modal
         </Button>
-        <ForemanModal id="default" title="I'm a modal!">
+        <ForemanModal id="default" title="Gatorade me!">
           <ForemanModal.Header />
           If you supply a title prop, it will be used as the modal title.
           <ForemanModal.Footer />
