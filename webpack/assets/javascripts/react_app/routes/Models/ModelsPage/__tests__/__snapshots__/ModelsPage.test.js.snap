@@ -27,7 +27,7 @@ exports[`ModelsPage redering should render when loading 1`] = `
   }
   searchQuery=""
   searchable={true}
-  toastNotifications={null}
+  toastNotifications="[]"
   toolbarButtons={
     <ForwardRef
       to="/models/new"
@@ -116,7 +116,7 @@ exports[`ModelsPage redering should render with error 1`] = `
   }
   searchQuery=""
   searchable={true}
-  toastNotifications={null}
+  toastNotifications="[]"
   toolbarButtons={
     <ForwardRef
       to="/models/new"
@@ -205,7 +205,7 @@ exports[`ModelsPage redering should render with models 1`] = `
   }
   searchQuery=""
   searchable={true}
-  toastNotifications={null}
+  toastNotifications="[]"
   toolbarButtons={
     <ForwardRef
       to="/models/new"
@@ -294,7 +294,7 @@ exports[`ModelsPage redering should render with no data 1`] = `
   }
   searchQuery=""
   searchable={true}
-  toastNotifications={null}
+  toastNotifications="[]"
   toolbarButtons={
     <ForwardRef
       to="/models/new"

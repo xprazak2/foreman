@@ -31,6 +31,8 @@ const AppSwitcher = props => {
     return props.children;
   };
 
+  const { children, ...rest } = props;
+
   return (
     <Switch>
       {routes.map(({ render: Component, path, ...routeProps }) => (
@@ -38,7 +40,9 @@ const AppSwitcher = props => {
           path={path}
           key={path}
           {...routeProps}
-          render={componentProps => handleRoute(Component, componentProps)}
+          render={componentProps =>
+            handleRoute(Component, { ...componentProps, ...rest })
+          }
         />
       ))}
       <Route render={handleFallbackRoute} />

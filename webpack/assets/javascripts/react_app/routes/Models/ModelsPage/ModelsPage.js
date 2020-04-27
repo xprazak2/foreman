@@ -8,6 +8,8 @@ import PageLayout from '../../common/PageLayout/PageLayout';
 import ModelsPageContent from './components/ModelsPageContent';
 import { MODELS_SEARCH_PROPS } from '../constants';
 
+import './ModelsPage.scss';
+
 const ModelsPage = ({
   fetchAndPush,
   search,
@@ -21,6 +23,7 @@ const ModelsPage = ({
   itemCount,
   message,
   canCreate,
+  toasts,
 }) => {
   const handleSearch = query => fetchAndPush({ searchQuery: query, page: 1 });
 
@@ -40,6 +43,7 @@ const ModelsPage = ({
       onSearch={handleSearch}
       onBookmarkClick={handleSearch}
       toolbarButtons={canCreate && createBtn}
+      toastNotifications={JSON.stringify(toasts)}
     >
       <ModelsPageContent
         models={models}
@@ -71,11 +75,13 @@ ModelsPage.propTypes = {
   itemCount: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
   canCreate: PropTypes.bool.isRequired,
+  toasts: PropTypes.array,
 };
 
 ModelsPage.defaultProps = {
   page: null,
   perPage: null,
+  toasts: [],
 };
 
 export default ModelsPage;
