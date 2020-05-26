@@ -29,6 +29,7 @@ const ModelsPageContent = ({
         sortOrder={sort.order}
         getTableItems={fetchAndPush}
         setToDelete={setToDelete}
+        id="models-table"
       />
       <Pagination
         viewType="list"

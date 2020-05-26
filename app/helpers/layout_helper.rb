@@ -4,7 +4,7 @@ module LayoutHelper
       layout: layout_data,
       metadata: app_metadata,
       toasts: toast_notifiations_data,
-    }.to_json, :flatten_data => true)
+    }.to_json)
   end
 
   def fetch_menus

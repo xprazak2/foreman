@@ -44,11 +44,8 @@ export const getURIsort = () => {
   if (!sortString) {
     return {};
   }
-  const split = sortString.split(' ');
-  return {
-    by: split[0],
-    order: split[1],
-  };
+  const [by, order] = sortString.split(' ');
+  return { by, order };
 };
 
 /**

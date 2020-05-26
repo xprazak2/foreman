@@ -59,8 +59,7 @@ module Menu
             menu.item :models,
               :caption => N_('Hardware Models'),
               :url => '/models',
-              :url_hash => { :controller => 'api/v2/models', :action => 'index' },
-              :turbolinks => false
+              :url_hash => { :controller => 'api/v2/models', :action => 'index' }
             menu.item :media, :caption => N_('Installation Media')
             menu.item :operatingsystems, :caption => N_('Operating Systems')
             menu.divider :caption => N_('Templates')

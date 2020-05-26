@@ -9,6 +9,7 @@ const ModelsTable = ({
   sortOrder,
   results,
   onDeleteClick,
+  id,
 }) => (
   <Table
     key="models-table"
@@ -19,6 +20,7 @@ const ModelsTable = ({
       onDeleteClick
     )}
     rows={results}
+    id={id}
   />
 );
 
@@ -28,11 +30,13 @@ ModelsTable.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
   sortBy: PropTypes.string,
   sortOrder: PropTypes.string,
+  id: PropTypes.string,
 };
 
 ModelsTable.defaultProps = {
   sortBy: '',
   sortOrder: '',
+  id: undefined,
 };
 
 export default ModelsTable;
