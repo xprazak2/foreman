@@ -8,8 +8,6 @@
 //= require hidden_values
 //= require select_on_click
 //= require lookup_keys
-//= require editable/bootstrap-editable
-//= require editable/rails
 
 $(function() {
   $(document).trigger('ContentLoad');

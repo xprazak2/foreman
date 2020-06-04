@@ -40,4 +40,31 @@ module SettingsHelper
     fullname = setting.full_name.nil? ? setting.name : _(setting.full_name)
     trunc_with_tooltip(fullname, 32, setting.name, false)
   end
+
+  def grouped_settings(settings)
+    settings.reduce({}) do |memo, setting|
+      hash = setting_to_hash(setting)
+      if memo[setting.category]
+        memo[setting.category] << hash
+      else
+        memo[setting.category] = [hash]
+      end
+      memo
+    end
+  end
+
+  def setting_to_hash(setting)
+    {
+      :id => setting.id,
+      :name => setting.name,
+      :category => setting.category,
+      :settings_type => setting.settings_type,
+      :default => setting.default,
+      :readonly => setting.readonly?,
+      :full_name => setting.full_name,
+      :config_file => setting.class.config_file,
+      :select_values => setting.select_collection,
+      :value => setting.value,
+    }
+  end
 end

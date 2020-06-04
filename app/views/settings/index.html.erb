@@ -4,6 +4,9 @@
 ordered_settings = @settings.stick_general_first
 first_category = ordered_settings.values.flatten.first.try(:category)
 %>
+
+<%= react_component('SettingRecords', { :settings => grouped_settings(@settings) }) %>
+
 <ul class="nav nav-tabs" data-tabs="tabs">
   <% ordered_settings.each do |category, _setting| %>
     <li class='<%= category == first_category ? "active" : ""%>'>
@@ -27,11 +30,9 @@ first_category = ordered_settings.values.flatten.first.try(:category)
           <% setting.each do |item| %>
             <tr>
               <td ><%= translate_full_name(item) %></td>
-              <% if ((item.value != item.default) && (item.has_default?)) %>
-                  <td class="setting_value"><strong><%= value(item) %></strong></td>
-              <% else %>
-                  <td class="setting_value"><%= value(item) %></td>
-              <% end %>
+
+              <td class="setting_value"><%= react_component('SettingCell', { :settingId => item.id, :category => category }) %></td>
+
               <td><%= _(item.description) %></td>
             </tr>
           <% end %>

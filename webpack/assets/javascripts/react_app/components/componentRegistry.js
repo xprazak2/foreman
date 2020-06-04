@@ -38,6 +38,8 @@ import ExternalLogout from './ExternalLogout';
 import Slot from './common/Slot';
 import TypeAheadSelect from './common/TypeAheadSelect';
 import DatePicker from './common/DateTimePicker/DatePicker';
+import SettingCell from './SettingCell';
+import SettingRecords from './SettingRecords';
 
 const componentRegistry = {
   registry: forceSingleton('component_registry', () => ({})),
@@ -162,6 +164,8 @@ const coreComponets = [
   { name: 'InputFactory', type: InputFactory },
   { name: 'ModelsTable', type: ModelsTable },
   { name: 'Editor', type: Editor },
+  { name: 'SettingCell', type: SettingCell },
+  { name: 'SettingRecords', type: SettingRecords },
 
   // Report templates
   { name: 'TemplateGenerator', type: TemplateGenerator },
