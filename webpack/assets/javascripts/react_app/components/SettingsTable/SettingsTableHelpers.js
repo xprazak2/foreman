@@ -23,6 +23,17 @@ export const withTooltip = Component => props => {
   );
 };
 
+const formatEncryptedDefault = setting => {
+  if (setting.encrypted && setting.default) {
+    return setting.default
+      .split('')
+      .map(item => '\u2219')
+      .join('');
+  }
+
+  return null;
+};
+
 export const arraySelection = setting => {
   const { selectValues } = setting;
 
@@ -115,6 +126,7 @@ export const valueToString = reduceFormats([
 ]);
 
 export const defaultToString = reduceFormats([
+  formatEncryptedDefault,
   formatBooleanDefault,
   formatArrayDefault,
   formatArraySelectionDefault,

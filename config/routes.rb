@@ -165,11 +165,14 @@ Foreman::Application.routes.draw do
     get 'unattended/template/:id/*hostgroup', :to => "unattended#hostgroup_template", hostgroup: /.+/, :format => 'text'
   end
 
-  resources :settings, :only => [:index, :update] do
+  resources :settings, :only => [:index] do
     collection do
       get 'auto_complete_search'
     end
   end
+
+  resources :ui_settings, :only => [:update]
+
   resources :common_parameters, :except => [:show] do
     collection do
       get 'auto_complete_search'
