@@ -68,6 +68,8 @@
       <h2><%= _("Specify Matchers") %>  <%= documentation_button('4.2.6SmartMatchers') %></h2>
       <div class="children_fields lookup_values">
         <%= render 'lookup_keys/values', :f => f, :is_param => true %>
+        <%# binding.pry %>
+        <%= react_component('MatchersTable', { :isParam => true, :lookupValues => f.object.sorted_values, :lookupKey => f.object }) %>
       </div>
     </fieldset>
   </div>
