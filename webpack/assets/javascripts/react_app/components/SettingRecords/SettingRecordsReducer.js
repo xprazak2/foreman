@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import {
   LOAD_SETTING_RECORDS,
   SET_EDITING_SETTING,
-  SETTINGS_FORM_SUBMITTED,
+  SETTINGS_FORM_SUBMITTED_SUCCESS
 } from './SettingRecordsConstants';
 
 export const initialState = Immutable({
@@ -11,18 +11,17 @@ export const initialState = Immutable({
   editing: null,
 });
 
-const reducer = (state = initialState, { type, payload }) => {
+const reducer = (state = initialState, { type, payload, response }) => {
   switch (type) {
     case LOAD_SETTING_RECORDS:
       return state.set('settings', payload);
-    case SETTINGS_FORM_SUBMITTED: {
-      const updatedSetting = payload.data;
-      const categorized = state.settings[updatedSetting.category];
+    case SETTINGS_FORM_SUBMITTED_SUCCESS: {
+      const categorized = state.settings[response.category];
       const updatedCategory = categorized.map(item =>
-        item.id === updatedSetting.id ? updatedSetting : item
+        item.name === response.id ? response : item
       );
       return state.setIn(
-        ['settings', updatedSetting.category],
+        ['settings', response.category],
         updatedCategory
       );
     }

@@ -23,7 +23,9 @@ const WrappedSettingsTable = props => {
     setModalOpen();
   };
 
-  return <SettingsTable settings={settings} onEditClick={onEditClick} />;
+  return (
+    <SettingsTable settings={settings} onEditClick={onEditClick} />
+  );
 };
 
 WrappedSettingsTable.propTypes = {
