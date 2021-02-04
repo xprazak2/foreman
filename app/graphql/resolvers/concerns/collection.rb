@@ -39,9 +39,15 @@ module Resolvers
 
       def authorized_scope
         return model_class unless model_class.respond_to?(:authorized)
-
         permission = model_class.find_permission_name(:view)
-        model_class.authorized_as(user, permission, model_class)
+        authorizer = Authorizer.new(user)
+        if authorizer.can? permission
+          authorizer.find_collection(model_class, :permission => permission)
+        else
+          raise GraphQL::ExecutionError.new(
+            _('Unauthorized. You do not have the required permission %s.') % permission
+          )
+        end
       end
 
       def search_options(search:, sort_by:, sort_direction:)

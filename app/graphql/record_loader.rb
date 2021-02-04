@@ -19,6 +19,14 @@ class RecordLoader < GraphQL::Batch::Loader
     return @model unless @model.respond_to?(:authorized)
 
     permission_name = @model.find_permission_name(:view)
-    @model.authorized_as(User.current, permission_name)
+
+    authorizer = Authorizer.new(User.current)
+    if authorizer.can? permission
+      authorizer.find_collection(@model, :permission => permission)
+    else
+      raise GraphQL::ExecutionError.new(
+        _('Unauthorized. You do not have the required permission %s.') % permission_name
+      )
+    end
   end
 end
